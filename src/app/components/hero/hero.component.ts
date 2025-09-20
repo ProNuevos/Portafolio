@@ -2,6 +2,9 @@ import { Component, AfterViewInit, ElementRef, QueryList, ViewChildren } from '@
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { LeadService } from '../../services/lead.service'; // Importa el nuevo servicio
+import { WhatsAppService } from '../../services/whats-app.service';
+import { FormDataService } from '../../services/form-data.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-hero',
@@ -40,7 +43,7 @@ export class HeroComponent implements AfterViewInit {
     'Grande': 2.4
   };
 
-  constructor(private fb: FormBuilder, private leadService: LeadService) {
+  constructor(private fb: FormBuilder, private leadService: LeadService, private whatsAppService: WhatsAppService, private formDataService: FormDataService) {
     this.estimateForm.get('contacto')?.valueChanges.subscribe(value => {
       if (value && value.startsWith('+')) {
         // Normalizar: Mantener '+' y eliminar espacios, guiones, etc.
@@ -49,6 +52,23 @@ export class HeroComponent implements AfterViewInit {
       }
     });
   } // Inyecta LeadService en lugar de StorageService
+
+  ngOnInit() {
+  this.formDataService.resetHeroForm$.subscribe(reset => {
+    if (reset) {
+      this.estimateForm.reset({
+        tipo: '',
+        alcance: 'Mediano',
+        mensaje: '',
+        contacto: ''
+      });
+      this.estimateResult = '';
+      console.log('Formulario de Hero reseteado'); // Depuración
+    }
+  });
+
+
+}
 
   ngAfterViewInit() {
     const observer = new IntersectionObserver(
@@ -66,8 +86,16 @@ export class HeroComponent implements AfterViewInit {
   }
 
 
+scrollToSection(sectionId: string) {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
 
-onSubmit() {
+
+
+onSubmit0() {
     if (this.estimateForm.valid) {
       const { tipo, alcance, contacto, mensaje } = this.estimateForm.value as { tipo: string; alcance: string; contacto: string; mensaje: string };
       const baseUSD = 600;
@@ -76,11 +104,9 @@ onSubmit() {
 
       this.estimateResult = `✅ Estimación referencial: ~USD ${estimado.toLocaleString()} en ${hits} hitos.\nTe escribimos a: ${contacto}.`;
 
-      // Formatear la fecha a dd/MM/yyyy
       const now = new Date();
       const fecha = `${now.getDate().toString().padStart(2, '0')}/${(now.getMonth() + 1).toString().padStart(2, '0')}/${now.getFullYear()}`;
 
-      // Preparar el lead para enviar al backend
       const lead = {
         fecha,
         tipo,
@@ -96,8 +122,7 @@ onSubmit() {
       this.leadService.saveLead(lead).subscribe({
         next: (response) => {
           console.log('Lead guardado en el backend:', response);
-          this.estimateResult += '\n✅ Lead enviado exitosamente al servidor.';
-         // this.estimateForm.reset({ alcance: 'Mediano'})
+          this.estimateResult += '\n✅ Lead enviado exitosamente al servidor.\n📲 Haz clic en el ícono de WhatsApp para contactarnos.';
         },
         error: (error) => {
           console.error('Error al enviar lead:', error);
@@ -111,27 +136,117 @@ onSubmit() {
         whatsapp: contacto,
         mensaje: `[Estimación] Tipo: ${tipo} | Alcance: ${alcance} | Hits: ${hits} | Estimación ~USD ${estimado}`
       });
+      console.log('waLink generado en HeroComponent:', this.waLink); // Depuración
+      this.whatsAppService.updateWaLink(this.waLink);
     } else {
-      // Marcar todos los campos como tocados para mostrar errores nativos y personalizados
       this.estimateForm.markAllAsTouched();
       this.estimateResult = '❌ Por favor, completa los campos obligatorios correctamente.';
     }
   }
 
+onSubmit() {
+  console.log('onSubmit ejecutado'); // Depuración
+  if (this.estimateForm.valid) {
+    console.log('Formulario válido, valores:', this.estimateForm.value); // Depuración
+    const { tipo, alcance, contacto, mensaje } = this.estimateForm.value as { tipo: string; alcance: string; contacto: string; mensaje: string };
+    const baseUSD = 600;
+    const hits = Math.ceil((this.weights[tipo] || 1) * (this.alcanceMul[alcance] || 1.6));
+    const estimado = baseUSD * hits;
 
+    this.estimateResult = `✅ Estimación referencial: ~USD ${estimado.toLocaleString()} en ${hits} hitos.\nTe escribimos a: ${contacto}.`;
 
-buildWhatsMsg({ nombre = '', email = '', whatsapp = '', mensaje = '' }: { nombre?: string; email?: string; whatsapp?: string; mensaje?: string }) {
-    const phone = '+5491126911817'; // TODO: Reemplazar con el número real de WhatsApp de Órbita Software (formato internacional sin '+')
-    const txt = encodeURIComponent(
-      `🚀 Quiero comunicarme con los administradores de Órbita, me interesa sus servicios 🌟\n` +
-      `👤 Nombre: ${nombre || '—'}\n` +
-      `📩 Email: ${email || '—'}\n` +
-      `📱 WhatsApp: ${whatsapp || '—'}\n` +
-      `💬 Mensaje: ${mensaje || '—'}`
-    );
-    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-    return isMobile ? `whatsapp://send?phone=${phone}&text=${txt}` : `https://wa.me/${phone}?text=${txt}`;
+    const now = new Date();
+    const fecha = `${now.getDate().toString().padStart(2, '0')}/${(now.getMonth() + 1).toString().padStart(2, '0')}/${now.getFullYear()}`;
+
+    const lead = {
+      fecha,
+      tipo,
+      alcance,
+      contacto,
+      mensaje,
+      hits,
+      estimado,
+      nombre: 'Nuevo lead' // Nombre por defecto, se actualizará en Contact
+    };
+
+    // Guardar datos en FormDataService
+    this.formDataService.updateHeroData(lead);
+
+    // Mostrar modal de SweetAlert
+    Swal.fire({
+      title: '¡Datos del proyecto registrados!',
+      text: 'Ya llenó los datos del proyecto, ahora llene los datos de su contacto.',
+      icon: 'info',
+      confirmButtonText: 'Ir a Contacto'
+    }).then(() => {
+      const contactSection = document.getElementById('contacto');
+      if (contactSection) {
+        console.log('Desplazando a #contacto'); // Depuración
+        const offset = contactSection.getBoundingClientRect().top + window.pageYOffset - 80; // Ajuste por navbar (80px estimado)
+        window.scrollTo({ top: offset, behavior: 'smooth' });
+      } else {
+        console.error('Elemento #contacto no encontrado'); // Depuración
+      }
+    });
+  } else {
+    console.log('Formulario inválido, errores:', this.estimateForm.errors); // Depuración
+    this.estimateForm.markAllAsTouched();
+    this.estimateResult = '❌ Por favor, completa los campos obligatorios correctamente.';
   }
+}
+
+
+
+
+
+  buildWhatsMsg0({ nombre = '', email = '', whatsapp = '', mensaje = '' }: { nombre?: string; email?: string; whatsapp?: string; mensaje?: string }) {
+    const phone = '5491128634744'; // TODO: Reemplazar con el número real de WhatsApp de Órbita Software (sin '+')
+
+    // Determinar si el contacto es un número de teléfono o un email
+    const isPhone = /^\+\d{8,15}$/.test(email); // Usa el mismo patrón que el formulario
+
+    // Construir el mensaje condicionalmente
+    let message = `🚀 Quiero comunicarme con los administradores de Órbita, me interesa sus servicios 🌟\n` +
+                  `👤 Nombre: ${nombre || '—'}\n`;
+
+    if (isPhone) {
+      message += `📱 WhatsApp: ${whatsapp || '—'}\n`;
+    } else {
+      message += `📩 Email: ${email || '—'}\n`;
+    }
+
+    message += `💬 Mensaje: ${mensaje || '—'}`;
+
+    const txt = encodeURIComponent(message);
+    const waLink = `whatsapp://send?phone=${phone}&text=${txt}`;
+    console.log('Mensaje codificado:', txt); // Depuración
+    console.log('URL generada en buildWhatsMsg:', waLink); // Depuración
+    return waLink;
+  }
+
+  buildWhatsMsg({ nombre = '', email = '', whatsapp = '', mensaje = '' }: { nombre?: string; email?: string; whatsapp?: string; mensaje?: string }) {
+  const phone = '5491128634744'; // TODO: Reemplazar con el número real
+  if (!nombre) {
+    console.log('Error: Nombre es obligatorio para el mensaje de WhatsApp');
+    return ''; // No generar enlace si falta el nombre
+  }
+  const isPhone = /^\+\d{8,15}$/.test(whatsapp || email);
+  let message = `🚀 ¡Hola Órbita Software! 🌟\n` +
+                `👤 Nombre: ${nombre}\n`;
+  if (isPhone) {
+    message += `📱 WhatsApp: ${whatsapp || email || '—'}\n`;
+  } else {
+    message += `📩 Email: ${email || '—'}\n`;
+  }
+  message += `💬 Mensaje: ${mensaje || '—'}`;
+  const txt = encodeURIComponent(message);
+  const waLink = `whatsapp://send?phone=${phone}&text=${txt}`;
+  console.log('Mensaje codificado:', txt); // Depuración
+  console.log('URL generada en buildWhatsMsg:', waLink); // Depuración
+  return waLink;
+}
+
+
 
 getTipoError(): string {
     const tipoControl = this.estimateForm.get('tipo');
