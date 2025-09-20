@@ -1,0 +1,21 @@
+<section id="servicios" class="section">
+  <div class="container">
+    <div class="text-center mb-5" #appearElement data-appear>
+      <h2 class="fw-bold">Servicios</h2>
+      <p class="text-secondary">Soluciones de punta a punta, listas para producción.</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4" *ngFor="let service of services" #appearElement data-appear>
+        <div class="orb-card rounded-4 p-4 h-100">
+          <div class="feature d-flex align-items-start gap-3">
+            <i class="bi {{ service.icon }}"></i>
+            <div>
+              <h5>{{ service.title }}</h5>
+              <p class="text-secondary">{{ service.description }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,66 @@
+<header id="inicio" class="orb-hero section pb-0">
+  <div class="container">
+    <div class="row align-items-center gy-4">
+      <div class="col-lg-7" #appearElement data-appear>
+        <span class="badge orb-badge rounded-pill mb-3"><i class="bi bi-rocket-takeoff me-2"></i> Desarrollo a medida • Entrega integral</span>
+        <h1 class="display-4 fw-bold">Construimos <span class="glow">software real</span> que impulsa tu negocio</h1>
+        <p class="lead text-secondary mt-3">Web apps modernas, APIs, dashboards, automatizaciones y soporte post-entrega. Desde la idea hasta producción, con foco en resultados.</p>
+        <div class="d-flex gap-2 mt-3">
+          <a href="#contacto" class="btn btn-orb btn-lg"><i class="bi bi-chat-dots me-2"></i> Hablemos</a>
+          <a href="#casos" class="btn btn-outline-orb btn-lg"><i class="bi bi-play-circle me-2"></i> Ver casos</a>
+        </div>
+        <div class="d-flex align-items-center gap-4 mt-4 text-secondary small">
+          <div><i class="bi bi-shield-check me-1"></i> Contratos claros</div>
+          <div><i class="bi bi-lightning-charge me-1"></i> Entregas por hitos</div>
+          <div><i class="bi bi-headset me-1"></i> Soporte cercano</div>
+        </div>
+      </div>
+      <div class="col-lg-5" #appearElement data-appear>
+        <div class="orb-card rounded-4 p-4">
+          <h5 class="mb-3"><i class="bi bi-cpu me-2"></i> Estimá tu proyecto</h5>
+          <form [formGroup]="estimateForm" (ngSubmit)="onSubmit()" class="row g-3">
+          <div class="col-12">
+  <label class="form-label required">Tipo de proyecto</label>
+  <select formControlName="tipo" class="form-select" required [ngClass]="{'is-invalid': estimateForm.get('tipo')?.invalid && estimateForm.get('tipo')?.touched}">
+    <option value="" selected disabled>Elegí una opción…</option>
+    <option>Landing / Sitio institucional</option>
+    <option>Web App (SPA/MPA)</option>
+    <option>E-commerce</option>
+    <option>API / Backend</option>
+    <option>Integraciones (Mercado Pago / AFIP / etc.)</option>
+    <option>Automatizaciones / Scripts</option>
+  </select>
+  <div class="invalid-feedback" *ngIf="estimateForm.get('tipo')?.touched && estimateForm.get('tipo')?.invalid">
+    {{ getTipoError() }}
+  </div>
+</div>
+            <div class="col-12">
+              <label class="form-label">Alcance aproximado</label>
+              <select formControlName="alcance" class="form-select">
+                <option>Pequeño</option>
+                <option>Mediano</option>
+                <option>Grande</option>
+              </select>
+            </div>
+            <div class="col-12">
+              <label class="form-label">Mensaje</label>
+              <textarea formControlName="mensaje" class="form-control" rows="3" placeholder="Contanos en 2-3 líneas qué necesitás"></textarea>
+            </div>
+            <div class="col-12">
+              <label class="form-label required">Email o WhatsApp</label>
+              <input formControlName="contacto" type="text" class="form-control" placeholder="tu@email.com o +5491123456789" required [ngClass]="{'is-invalid': estimateForm.get('contacto')?.invalid && estimateForm.get('contacto')?.touched}">
+              <div class="invalid-feedback">{{ getContactoError() }}</div>
+              <div class="form-hint mt-1">No compartimos tus datos. Solo para conversar sobre tu proyecto.</div>
+            </div>
+            <div class="col-12 d-grid">
+              <button class="btn btn-orb" type="submit"><i class="bi bi-calculator me-2"></i> Obtener estimación & contacto</button>
+            </div>
+            <div id="estimateResult" class="small" [ngClass]="{'text-secondary': estimateResult.indexOf('❌') === -1, 'text-danger': estimateResult.indexOf('❌') !== -1}">
+              {{ estimateResult }}
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

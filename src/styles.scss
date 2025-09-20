@@ -1,0 +1,134 @@
+/* You can add global styles to this file, and also import other style files */
+:root {
+  --orb-primary: #7cf7c6;
+  --orb-accent: #7bb7ff;
+  --orb-bg: #0b0f14;
+  --orb-card: #121923;
+  --orb-gradient: radial-gradient(1200px 600px at 10% -10%, rgba(124, 247, 198, 0.15), transparent 70%),
+                  radial-gradient(1000px 500px at 90% 10%, rgba(123, 183, 255, 0.12), transparent 70%),
+                  linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0));
+}
+
+body {
+  background: var(--orb-bg);
+  background-image: var(--orb-gradient);
+}
+
+.navbar {
+  backdrop-filter: blur(6px);
+  background: rgba(9, 12, 16, 0.6) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.orb-hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.orb-hero .display-4 {
+  letter-spacing: 0.5px;
+}
+
+.glow {
+  color: var(--orb-primary);
+  text-shadow: 0 0 22px rgba(124, 247, 198, 0.35);
+}
+
+.orb-card {
+  background: var(--orb-card);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.orb-badge {
+  background: rgba(124, 247, 198, 0.12);
+  color: var(--orb-primary);
+  border: 1px solid rgba(124, 247, 198, 0.35);
+}
+
+.orb-accent {
+  color: var(--orb-accent);
+}
+
+.btn-orb {
+  --bs-btn-color: #07120d;
+  --bs-btn-bg: var(--orb-primary);
+  --bs-btn-border-color: rgba(124, 247, 198, 0.7);
+  --bs-btn-hover-bg: #a9ffd9;
+  --bs-btn-hover-border-color: #a9ffd9;
+}
+
+.btn-outline-orb {
+  --bs-btn-color: var(--orb-primary);
+  --bs-btn-border-color: var(--orb-primary);
+  --bs-btn-hover-bg: rgba(124, 247, 198, 0.15);
+  --bs-btn-hover-border-color: var(--orb-primary);
+}
+
+.section {
+  padding: 5rem 0;
+}
+
+.feature i {
+  font-size: 1.6rem;
+}
+
+.stack-badge {
+  border: 1px dashed rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.orb-step {
+  border-left: 2px solid rgba(255, 255, 255, 0.12);
+}
+
+.orb-cta {
+  background: linear-gradient(145deg, rgba(124, 247, 198, 0.15), rgba(123, 183, 255, 0.12));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.floating-wa {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 1040;
+}
+
+.floating-wa .btn {
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.35);
+}
+
+.form-hint {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.required:after {
+  content: " *";
+  color: var(--orb-primary);
+}
+
+.logo-dot {
+  width: 10px;
+  height: 10px;
+  background: var(--orb-primary);
+  display: inline-block;
+  border-radius: 50%;
+  box-shadow: 0 0 12px rgba(124, 247, 198, 0.8);
+  margin-left: 0.25rem;
+}
+
+footer a {
+  color: #b8ccff;
+}
+
+/* Animaciones */
+[data-appear] {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: all 0.6s ease;
+}
+
+[data-appear].is-visible {
+  opacity: 1;
+  transform: none;
+}
