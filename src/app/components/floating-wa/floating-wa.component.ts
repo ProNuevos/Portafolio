@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { WhatsAppService } from '../../services/whats-app.service';
 import Swal from 'sweetalert2';
+import { FormDataService } from '../../services/form-data.service';
 
 @Component({
   selector: 'app-floating-wa',
@@ -13,7 +14,12 @@ import Swal from 'sweetalert2';
 export class FloatingWaComponent implements OnInit {
 
 waLink = 'whatsapp://send?phone=5491128634744&text=';
-constructor(private whatsAppService: WhatsAppService) {}
+
+constructor(
+  private whatsAppService: WhatsAppService,
+   private formDataService: FormDataService
+
+) {}
 
   ngOnInit(): void {
    this.whatsAppService.waLink$.subscribe(waLink => {
@@ -41,7 +47,7 @@ constructor(private whatsAppService: WhatsAppService) {}
     if (!decodedMessage.includes('Nombre:') || decodedMessage.includes('Nombre: —') || !decodedMessage.includes('Mensaje:') || decodedMessage.includes('Mensaje: —')) {
       Swal.fire({
         title: 'Datos incompletos',
-        text: 'Por favor, complete todos los datos, incluyendo el Nombre, en el formulario de contacto.',
+        text: 'Por favor, complete todos los datos, en el formulario de contacto.',
         icon: 'warning',
         confirmButtonText: 'Ir a Contacto'
       }).then(() => {
@@ -52,6 +58,8 @@ constructor(private whatsAppService: WhatsAppService) {}
     window.location.href = this.waLink;
 
   }
+
+
 
 
 }

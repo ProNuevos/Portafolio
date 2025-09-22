@@ -1,0 +1,42 @@
+<main class="container py-4 py-md-5">
+  <section class="hero-stack">
+    <div *ngFor="let b of banners" class="hero-banner">
+      <div class="hero-bg" [style.background-image]="'url(' + b.bg + ')'"></div>
+      <div class="hero-content mx-auto">
+        <h1 class="hero-title display-5">{{ b.title }}</h1>
+        <p class="hero-sub lead mb-0">{{ b.sub }}</p>
+      </div>
+      <button type="button" class="banner-cta" data-bs-toggle="modal" [attr.data-bs-target]="'#' + b.modalId">Conocer más</button>
+    </div>
+  </section>
+</main>
+
+<div *ngFor="let b of banners" class="modal fade" [id]="b.modalId" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header" *ngIf="b.modalTitle">
+        <h5 class="modal-title">{{ b.modalTitle }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <h6 *ngIf="b.modalDesc">{{ b.modalDesc }}</h6>
+        <div class="container">
+          <div class="row g-4">
+            <div class="col-12" *ngFor="let item of b.gallery">
+              <figure class="gallery-item">
+                <img [src]="item.src" [alt]="item.alt" />
+                <figcaption class="caption">
+                  <h5>{{ item.capTitle }}</h5>
+                  <p class="mb-0 text-secondary">{{ item.capSub }}</p>
+                </figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>

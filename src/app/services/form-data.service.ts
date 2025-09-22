@@ -12,6 +12,12 @@ export class FormDataService {
   private resetHeroFormSource = new BehaviorSubject<boolean>(false);
   resetHeroForm$ = this.resetHeroFormSource.asObservable();
 
+    private estimateFormValidSource = new BehaviorSubject<boolean>(false);
+  estimateFormValid$ = this.estimateFormValidSource.asObservable();
+
+   private formFieldsSource = new BehaviorSubject<{ tipo: string; contacto: string }>({ tipo: '', contacto: '' });
+  formFields$ = this.formFieldsSource.asObservable();
+
   updateHeroData(data: any) {
     this.heroDataSource.next(data);
   }
@@ -22,5 +28,13 @@ export class FormDataService {
 
     triggerHeroFormReset() {
     this.resetHeroFormSource.next(true);
+  }
+
+   updateEstimateFormValid(isValid: boolean) {
+    this.estimateFormValidSource.next(isValid);
+  }
+
+  updateFormFields(tipo: string, contacto: string) {
+    this.formFieldsSource.next({ tipo, contacto });
   }
 }

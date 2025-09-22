@@ -14,15 +14,16 @@ export class TechnologiesComponent implements AfterViewInit {
   stackTools = [
     'Bootstrap 5',
     'Angular',
-    'React',
-    'Node.js',
+    'PrimeNG',
+    'java',
     'Spring Boot',
-    'PostgreSQL',
-    'MongoDB',
+    'MySQL',
     'Docker',
-    'NGINX',
-    'Mercado Pago',
-    'AFIP'
+    //'NGINX',
+    'Firebase',
+    'Railway',
+    'Jason Server'
+
   ];
 
   qualityChecklist = [

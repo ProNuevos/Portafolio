@@ -43,15 +43,20 @@ export class HeroComponent implements AfterViewInit {
     'Grande': 2.4
   };
 
-  constructor(private fb: FormBuilder, private leadService: LeadService, private whatsAppService: WhatsAppService, private formDataService: FormDataService) {
+  constructor(
+    private fb: FormBuilder,
+    private leadService: LeadService,
+    private whatsAppService: WhatsAppService,
+    private formDataService: FormDataService) {
+
     this.estimateForm.get('contacto')?.valueChanges.subscribe(value => {
       if (value && value.startsWith('+')) {
-        // Normalizar: Mantener '+' y eliminar espacios, guiones, etc.
         const normalized = '+' + value.replace(/[^0-9]/g, '');
-        this.estimateForm.get('contacto')?.setValue(normalized, { emitEvent: false }); // Actualizar valor sin disparar loop
+        this.estimateForm.get('contacto')?.setValue(normalized, { emitEvent: false });
       }
     });
-  } // Inyecta LeadService en lugar de StorageService
+
+  }
 
   ngOnInit() {
   this.formDataService.resetHeroForm$.subscribe(reset => {
@@ -63,7 +68,9 @@ export class HeroComponent implements AfterViewInit {
         contacto: ''
       });
       this.estimateResult = '';
-      console.log('Formulario de Hero reseteado'); // Depuración
+     // this.formDataService.updateEstimateFormValid(this.estimateForm.valid);
+       // console.log('Formulario de Hero reseteado');
+
     }
   });
 
@@ -95,7 +102,7 @@ scrollToSection(sectionId: string) {
 
 
 
-onSubmit0() {
+onSubmit() {
     if (this.estimateForm.valid) {
       const { tipo, alcance, contacto, mensaje } = this.estimateForm.value as { tipo: string; alcance: string; contacto: string; mensaje: string };
       const baseUSD = 600;
@@ -138,68 +145,18 @@ onSubmit0() {
       });
       console.log('waLink generado en HeroComponent:', this.waLink); // Depuración
       this.whatsAppService.updateWaLink(this.waLink);
+      // this.formDataService.updateEstimateFormValid(true);
     } else {
       this.estimateForm.markAllAsTouched();
       this.estimateResult = '❌ Por favor, completa los campos obligatorios correctamente.';
+      //this.formDataService.updateEstimateFormValid(false);
     }
   }
 
-onSubmit() {
-  console.log('onSubmit ejecutado'); // Depuración
-  if (this.estimateForm.valid) {
-    console.log('Formulario válido, valores:', this.estimateForm.value); // Depuración
-    const { tipo, alcance, contacto, mensaje } = this.estimateForm.value as { tipo: string; alcance: string; contacto: string; mensaje: string };
-    const baseUSD = 600;
-    const hits = Math.ceil((this.weights[tipo] || 1) * (this.alcanceMul[alcance] || 1.6));
-    const estimado = baseUSD * hits;
-
-    this.estimateResult = `✅ Estimación referencial: ~USD ${estimado.toLocaleString()} en ${hits} hitos.\nTe escribimos a: ${contacto}.`;
-
-    const now = new Date();
-    const fecha = `${now.getDate().toString().padStart(2, '0')}/${(now.getMonth() + 1).toString().padStart(2, '0')}/${now.getFullYear()}`;
-
-    const lead = {
-      fecha,
-      tipo,
-      alcance,
-      contacto,
-      mensaje,
-      hits,
-      estimado,
-      nombre: 'Nuevo lead' // Nombre por defecto, se actualizará en Contact
-    };
-
-    // Guardar datos en FormDataService
-    this.formDataService.updateHeroData(lead);
-
-    // Mostrar modal de SweetAlert
-    Swal.fire({
-      title: '¡Datos del proyecto registrados!',
-      text: 'Ya llenó los datos del proyecto, ahora llene los datos de su contacto.',
-      icon: 'info',
-      confirmButtonText: 'Ir a Contacto'
-    }).then(() => {
-      const contactSection = document.getElementById('contacto');
-      if (contactSection) {
-        console.log('Desplazando a #contacto'); // Depuración
-        const offset = contactSection.getBoundingClientRect().top + window.pageYOffset - 80; // Ajuste por navbar (80px estimado)
-        window.scrollTo({ top: offset, behavior: 'smooth' });
-      } else {
-        console.error('Elemento #contacto no encontrado'); // Depuración
-      }
-    });
-  } else {
-    console.log('Formulario inválido, errores:', this.estimateForm.errors); // Depuración
-    this.estimateForm.markAllAsTouched();
-    this.estimateResult = '❌ Por favor, completa los campos obligatorios correctamente.';
-  }
-}
 
 
 
-
-
-  buildWhatsMsg0({ nombre = '', email = '', whatsapp = '', mensaje = '' }: { nombre?: string; email?: string; whatsapp?: string; mensaje?: string }) {
+  buildWhatsMsg({ nombre = '', email = '', whatsapp = '', mensaje = '' }: { nombre?: string; email?: string; whatsapp?: string; mensaje?: string }) {
     const phone = '5491128634744'; // TODO: Reemplazar con el número real de WhatsApp de Órbita Software (sin '+')
 
     // Determinar si el contacto es un número de teléfono o un email
@@ -224,27 +181,7 @@ onSubmit() {
     return waLink;
   }
 
-  buildWhatsMsg({ nombre = '', email = '', whatsapp = '', mensaje = '' }: { nombre?: string; email?: string; whatsapp?: string; mensaje?: string }) {
-  const phone = '5491128634744'; // TODO: Reemplazar con el número real
-  if (!nombre) {
-    console.log('Error: Nombre es obligatorio para el mensaje de WhatsApp');
-    return ''; // No generar enlace si falta el nombre
-  }
-  const isPhone = /^\+\d{8,15}$/.test(whatsapp || email);
-  let message = `🚀 ¡Hola Órbita Software! 🌟\n` +
-                `👤 Nombre: ${nombre}\n`;
-  if (isPhone) {
-    message += `📱 WhatsApp: ${whatsapp || email || '—'}\n`;
-  } else {
-    message += `📩 Email: ${email || '—'}\n`;
-  }
-  message += `💬 Mensaje: ${mensaje || '—'}`;
-  const txt = encodeURIComponent(message);
-  const waLink = `whatsapp://send?phone=${phone}&text=${txt}`;
-  console.log('Mensaje codificado:', txt); // Depuración
-  console.log('URL generada en buildWhatsMsg:', waLink); // Depuración
-  return waLink;
-}
+
 
 
 

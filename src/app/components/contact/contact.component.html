@@ -1,4 +1,4 @@
-<section id="contacto" class="section pt-0">
+<!--section-- id="contacto" class="section pt-0">
   <div class="container">
     <div class="row g-4">
       <div class="col-lg-6" #appearElement data-appear>
@@ -26,7 +26,7 @@
           </div>
           <div class="col-12 d-flex gap-2">
             <button class="btn btn-orb" type="submit"><i class="bi bi-send me-2"></i> Enviar</button>
-            <!--button class="btn btn-outline-orb" type="button" (click)="onWhatsAppClick()"><i class="bi bi-whatsapp me-2"></i> WhatsApp</!--button-->
+
           </div>
           <div id="contactStatus" class="small text-secondary">{{ contactStatus }}</div>
         </form>
@@ -37,7 +37,69 @@
           <h5 class="mb-3">Datos</h5>
           <ul class="list-unstyled text-secondary">
             <li class="mb-2"><i class="bi bi-geo-alt me-2"></i> Buenos Aires, Argentina</li>
-            <li class="mb-2"><i class="bi bi-envelope me-2"></i> contacto&#64;orbita.software <!-- TODO: reemplazar --></li>
+            <li class="mb-2"><i class="bi bi-envelope me-2"></i> contacto&#64;orbita.software </li>
+            <li class="mb-2"><i class="bi bi-whatsapp me-2"></i> +54 9 11 2863-4744</li>
+          </ul>
+          <div class="ratio ratio-16x9 rounded-3 overflow-hidden">
+            <iframe title="Mapa" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.openstreetmap.org/export/embed.html?bbox=-58.5%2C-34.9%2C-58.2%2C-34.6&amp;layer=mapnik"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</!--section-->
+
+
+
+<section id="contacto" class="section pt-0">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-6" #appearElement data-appear>
+        <h2 class="fw-bold mb-3">Contacto</h2>
+        <p class="text-secondary">Completá el formulario y te escribimos. También podés escribirnos por WhatsApp.</p>
+        <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="row g-3 orb-card rounded-4 p-4">
+          <div class="col-md-6">
+            <label class="form-label required">Nombre</label>
+            <input formControlName="nombre" type="text" class="form-control" required [ngClass]="{'is-invalid': contactForm.get('nombre')?.invalid && contactForm.get('nombre')?.touched}">
+            <div class="invalid-feedback" *ngIf="contactForm.get('nombre')?.touched && contactForm.get('nombre')?.invalid">
+              {{ getNombreError() }}
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label required">Email</label>
+            <input formControlName="email" type="email" class="form-control" required [ngClass]="{'is-invalid': contactForm.get('email')?.invalid && contactForm.get('email')?.touched}">
+            <div class="invalid-feedback" *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.invalid">
+              {{ getEmailError() }}
+            </div>
+          </div>
+          <div class="col-12">
+            <label class="form-label required">WhatsApp</label>
+            <input formControlName="whatsapp" type="tel" class="form-control" placeholder="+54 9 …" required [ngClass]="{'is-invalid': contactForm.get('whatsapp')?.invalid && contactForm.get('whatsapp')?.touched}">
+            <div class="invalid-feedback" *ngIf="contactForm.get('whatsapp')?.touched && contactForm.get('whatsapp')?.invalid">
+              {{ getWhatsAppError() }}
+            </div>
+          </div>
+          <div class="col-12">
+            <label class="form-label required">Mensaje</label>
+            <textarea formControlName="mensaje" class="form-control" rows="4" required [ngClass]="{'is-invalid': contactForm.get('mensaje')?.invalid && contactForm.get('mensaje')?.touched}"></textarea>
+            <div class="invalid-feedback" *ngIf="contactForm.get('mensaje')?.touched && contactForm.get('mensaje')?.invalid">
+              {{ getMensajeError() }}
+            </div>
+          </div>
+          <div class="col-12 d-flex gap-2">
+            <button class="btn btn-orb" type="submit"><i class="bi bi-send me-2"></i> Enviar</button>
+            <button class="btn btn-outline-orb" type="button" (click)="onWhatsAppClick()"><i class="bi bi-whatsapp me-2"></i> WhatsApp</button>
+          </div>
+          <div id="contactStatus" class="small text-secondary">{{ contactStatus }}</div>
+        </form>
+        <p class="small text-secondary mt-2"><i class="bi bi-lock me-1"></i> Usamos tus datos solo para responderte.</p>
+      </div>
+      <div class="col-lg-6" #appearElement data-appear>
+        <div class="orb-card rounded-4 p-4 h-100">
+          <h5 class="mb-3">Datos</h5>
+          <ul class="list-unstyled text-secondary">
+            <li class="mb-2"><i class="bi bi-geo-alt me-2"></i> Buenos Aires, Argentina</li>
+            <li class="mb-2"><i class="bi bi-envelope me-2"></i> contacto&#64;orbita.software</li>
             <li class="mb-2"><i class="bi bi-whatsapp me-2"></i> +54 9 11 2863-4744</li>
           </ul>
           <div class="ratio ratio-16x9 rounded-3 overflow-hidden">

@@ -1,0 +1,42 @@
+:root{
+  --radius: 18px;
+  --glass-bg: rgba(255,255,255,.08);
+  --glass-brd: rgba(255,255,255,.25);
+  --shadow-lg: 0 20px 50px rgba(0,0,0,.25);
+}
+section.hero-stack{ gap: 2.5rem; display:flex; flex-direction:column; }
+.hero-banner{
+  position: relative; width:100%; min-height: clamp(44vh, 60vh, 72vh);
+  display:grid; place-items:center; overflow:hidden; border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  isolation:isolate;
+}
+.hero-banner::before{
+  content:""; position:absolute; inset:0; z-index:0;
+  background: radial-gradient(120% 80% at 80% 10%, rgba(0,0,0,.35) 0%, rgba(0,0,0,.55) 45%, rgba(0,0,0,.72) 100%);
+}
+.hero-bg{ position:absolute; inset:0; z-index:-1; background-size:cover; background-position:center; transform: scale(1.02); }
+.hero-content{
+  position:relative; z-index:1; text-align:center; padding: 2rem;
+  background: var(--glass-bg); color:#fff; border: 1px solid var(--glass-brd);
+  border-radius: calc(var(--radius) - 6px);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  max-width:min(92%, 900px);
+}
+.hero-title{ font-weight:800; line-height:1.1; margin:.35rem 0 0.5rem; }
+.hero-sub{ opacity:.9; margin:0; }
+.banner-cta{
+  position:absolute; right:1rem; bottom:1rem; z-index:2;
+  border-radius:999px; padding:.85rem 1.15rem; font-weight:600;
+  box-shadow: 0 10px 24px rgba(0,0,0,.25);
+  background:#ffffff; color:#111; border:0;
+}
+.modal-content{ border-radius: calc(var(--radius) - 8px); overflow:hidden; }
+.modal-header{ background: linear-gradient(135deg, rgba(217,225,236,0.388) 0%, #6dddff 100%); color:#fff; }
+.modal-header .btn-close{ filter: invert(1) grayscale(1); opacity:.8; }
+.modal-body{ max-height:min(72vh, 760px); overflow-y:auto;  background: #ffffff23; }
+.gallery-item{ border: 1px solid rgba(0,0,0,.06); border-radius: 16px; overflow:hidden; background:#fff; box-shadow:0 10px 30px rgba(0,0,0,.06); }
+.gallery-item img{ width:100%; height:auto; display:block; opacity:0; transform: scale(1.05); transition: opacity .8s ease, transform .8s ease; }
+.gallery-item img.visible{ opacity:1; transform: scale(1); }
+.caption{ padding:1rem 1.25rem; opacity:0; transform: translateY(10px); transition: opacity .6s ease, transform .6s ease; }
+.caption.visible{ opacity:1; transform: none; }

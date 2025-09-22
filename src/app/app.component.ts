@@ -11,6 +11,7 @@ import { CtaComponent } from './components/cta/cta.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { FloatingWaComponent } from './components/floating-wa/floating-wa.component';
+import { HeroStackComponent } from "./components/hero-stack/hero-stack.component";
 
 @Component({
   selector: 'app-root',
@@ -25,7 +26,7 @@ import { FloatingWaComponent } from './components/floating-wa/floating-wa.compon
     CtaComponent,
     ContactComponent,
     FooterComponent,
-    FloatingWaComponent],
+    FloatingWaComponent, HeroStackComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

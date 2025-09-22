@@ -1,12 +1,10 @@
 import { Component, AfterViewInit, ElementRef, QueryList, ViewChildren } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
-import { StorageService } from '../../services/storage.service';
-import { WhatsAppService } from '../../services/whats-app.service';
-import { FormDataService } from '../../services/form-data.service';
 import { LeadService } from '../../services/lead.service';
+import { WhatsAppService } from '../../services/whats-app.service';
 import Swal from 'sweetalert2';
-
+import { ContactService } from '../../services/contact.service';
 
 @Component({
   selector: 'app-contact',
@@ -20,29 +18,20 @@ export class ContactComponent implements AfterViewInit {
 
   contactForm = this.fb.group({
     nombre: ['', Validators.required],
-    email: ['', [Validators.email]],
-    //whatsapp: [''],
-    whatsapp: ['', [Validators.pattern(/^\+\d{8,15}$/)]],
-    mensaje: ['']
+    email: ['', [Validators.required, Validators.email]],
+    whatsapp: ['', [Validators.required, Validators.pattern(/^\+\d{8,15}$/)]],
+    mensaje: ['', Validators.required]
   });
 
   contactStatus: string = '';
   waLink: string = '';
 
-  constructor(private fb: FormBuilder, private storageService: StorageService, private leadService: LeadService,private whatsAppService: WhatsAppService, private formDataService: FormDataService) {}
-
-ngOnInit() {
-this.formDataService.heroData$.subscribe(data => {
-    if (data) {
-      const isPhone = /^\+\d{8,15}$/.test(data.contacto);
-      this.contactForm.patchValue({
-        mensaje: data.mensaje, // Mensaje ingresado en Hero
-        email: isPhone ? '' : data.contacto,
-        whatsapp: isPhone ? data.contacto : ''
-      });
-    }
-  });
-}
+  constructor(
+    private fb: FormBuilder,
+    private leadService: LeadService,
+    private contactService: ContactService,
+    private whatsAppService: WhatsAppService
+  ) {}
 
   ngAfterViewInit() {
     const observer = new IntersectionObserver(
@@ -60,144 +49,87 @@ this.formDataService.heroData$.subscribe(data => {
   }
 
 
-    getNombreError(): string {
-    const nombreControl = this.contactForm.get('nombre');
-    return nombreControl?.hasError('required') ? 'El nombre es obligatorio.' : '';
-  }
 
-  onSubmit0() {
+  onSubmit() {
     if (this.contactForm.valid) {
       const payload = this.contactForm.value as { nombre: string; email: string; whatsapp: string; mensaje: string };
-      this.storageService.saveInbox({ t: Date.now(), ...payload });
+      const now = new Date();
+      const fecha = `${now.getDate().toString().padStart(2, '0')}/${(now.getMonth() + 1).toString().padStart(2, '0')}/${now.getFullYear()}`;
 
-      const subject = encodeURIComponent('Consulta desde Órbita Software');
-      const body = encodeURIComponent(
-        `Nombre: ${payload.nombre}\nEmail: ${payload.email}\nWhatsApp: ${payload.whatsapp || '-'}\n\nMensaje:\n${payload.mensaje}`
-      );
-      const mailto = `mailto:contacto@orbita.software?subject=${subject}&body=${body}`; // TODO: Reemplazar email
-      window.location.href = mailto;
+      const contact = {
+        fecha,
+        nombre: payload.nombre,
+        email: payload.email,
+        whatsapp: payload.whatsapp,
+        mensaje: payload.mensaje
+      };
 
-      this.contactStatus = 'Gracias, abrimos tu cliente de correo para enviar la consulta.';
-    }
-  }
+      console.log('Payload enviado al backend:', JSON.stringify(contact, null, 2));
 
-onSubmit() {
-  if (this.contactForm.valid) {
-    const payload = this.contactForm.value as { nombre: string; email: string; whatsapp: string; mensaje: string };
-    const heroData = this.formDataService.heroDataSource.getValue();
+      this.contactService.saveContact(contact).subscribe({
+        next: (response) => {
+          console.log('Contact guardado en el backend:', response);
+          this.contactStatus = '✅ Contact enviado exitosamente al servidor.\n📲 Haz clic en el ícono de WhatsApp para contactarnos.';
 
-    const lead = {
-      ...heroData,
-      nombre: payload.nombre,
-      email: payload.email || (heroData && !/^\+\d{8,15}$/.test(heroData.contacto) ? heroData.contacto : ''),
-      whatsapp: payload.whatsapp || (heroData && /^\+\d{8,15}$/.test(heroData.contacto) ? heroData.contacto : ''),
-      mensaje: payload.mensaje || (heroData?.mensaje || '')
-    };
-
-    this.storageService.saveInbox({ t: Date.now(), ...payload });
-    this.leadService.saveLead(lead).subscribe({
-      next: (response) => {
-        console.log('Lead guardado en el backend:', response);
-        this.contactStatus = '✅ Lead enviado exitosamente al servidor.\n📲 Haz clic en el ícono de WhatsApp para contactarnos.';
-        this.contactForm.reset(); // Resetear el formulario
-        this.formDataService.clearHeroData();
-        this.formDataService.triggerHeroFormReset();
-
-      },
-      error: (error) => {
-        console.error('Error al enviar lead:', error);
-        this.contactStatus = '❌ Error al enviar el lead. Por favor, inténtalo de nuevo.';
-      }
-    });
-
-    const waMessage = {
-      nombre: payload.nombre,
-      email: payload.email || (heroData && !/^\+\d{8,15}$/.test(heroData.contacto) ? heroData.contacto : ''),
-      whatsapp: payload.whatsapp || (heroData && /^\+\d{8,15}$/.test(heroData.contacto) ? heroData.contacto : ''),
-      mensaje: payload.mensaje || (heroData ? `[Estimación] Tipo: ${heroData.tipo} | Alcance: ${heroData.alcance} | Hits: ${heroData.hits} | Estimación ~USD ${heroData.estimado}${heroData.mensaje ? '\nMensaje adicional: ' + heroData.mensaje : ''}` : '')
-    };
-    const waLink = this.buildWhatsMsg(waMessage);
-    console.log('waLink generado en ContactComponent:', waLink); // Depuración
-    this.whatsAppService.updateWaLink(waLink);
-    this.contactStatus += '\n✅ Mensaje preparado. Haz clic en el ícono flotante de WhatsApp para enviar.';
-  } else {
-    this.contactForm.markAllAsTouched();
-    this.contactStatus = '❌ Por favor, completa los campos obligatorios correctamente.';
-  }
-}
-
-onWhatsAppClick0() {
-  if (this.contactForm.valid) {
-    const payload = this.contactForm.value as { nombre: string; email: string; whatsapp: string; mensaje: string };
-    const heroData = this.formDataService.heroDataSource.getValue();
-    const waMessage = {
-      nombre: payload.nombre,
-      email: payload.email,
-      whatsapp: payload.whatsapp,
-      mensaje: payload.mensaje
-    };
-    const waLink = this.buildWhatsMsg(waMessage);
-    console.log('waLink generado en ContactComponent:', waLink); // Depuración
-    this.whatsAppService.updateWaLink(waLink);
-    this.contactStatus = '✅ Mensaje preparado. Haz clic en el ícono flotante de WhatsApp para enviar.';
-  } else {
-    this.contactForm.markAllAsTouched();
-    this.contactStatus = '❌ Por favor, completa los campos obligatorios correctamente.';
-  }
-}
-
-onWhatsAppClick() {
-  if (this.contactForm.valid && this.contactForm.get('nombre')?.value) {
-    const payload = this.contactForm.value as { nombre: string; email: string; whatsapp: string; mensaje: string };
-    const heroData = this.formDataService.heroDataSource.getValue();
-    const waMessage = {
-      nombre: payload.nombre,
-      email: payload.email || (heroData && !/^\+\d{8,15}$/.test(heroData.contacto) ? heroData.contacto : ''),
-      whatsapp: payload.whatsapp || (heroData && /^\+\d{8,15}$/.test(heroData.contacto) ? heroData.contacto : ''),
-      mensaje: payload.mensaje || (heroData?.mensaje || '')
-    };
-    const waLink = this.buildWhatsMsg(waMessage);
-    console.log('waLink generado en ContactComponent:', waLink); // Depuración
-    if (waLink) {
-      window.location.href = waLink; // Abrir WhatsApp directamente
-      this.contactStatus = '✅ Mensaje enviado a WhatsApp.';
-      setTimeout(() => {
-        if (!document.hidden) {
-          Swal.fire({
-            title: 'Error',
-            text: 'Asegúrate de tener WhatsApp instalado.',
-            icon: 'error',
-            confirmButtonText: 'OK'
-          });
+          this.waLink = this.buildWhatsMsg(payload);
+          console.log('waLink generado en ContactComponent:', this.waLink); // Depuración
+          this.whatsAppService.updateWaLink(this.waLink);
+         // this.contactForm.reset();
+        },
+        error: (error) => {
+          console.error('Error al enviar contact:', error);
+          this.contactStatus = '❌ Error al enviar el contacto. Por favor, inténtalo de nuevo.';
         }
-      }, 3000);
+      });
+    } else {
+      this.contactForm.markAllAsTouched();
+      this.contactStatus = '❌ Por favor, completa los campos obligatorios correctamente.';
     }
-  } else {
-    this.contactForm.markAllAsTouched();
-    this.contactStatus = '❌ Por favor, completa el campo Nombre correctamente.';
-    Swal.fire({
-      title: 'Error',
-      text: 'Por favor, complete el campo Nombre en el formulario de contacto.',
-      icon: 'error',
-      confirmButtonText: 'OK'
-    });
   }
-}
 
 
+  onWhatsAppClick() {
+    if (this.contactForm.valid && this.contactForm.get('nombre')?.value) {
+      const payload = this.contactForm.value as { nombre: string; email: string; whatsapp: string; mensaje: string };
+      const waLink = this.buildWhatsMsg(payload);
+      console.log('waLink generado en ContactComponent:', waLink); // Depuración
+      if (waLink) {
+        window.location.href = waLink; // Abrir WhatsApp directamente
+        this.contactStatus = '✅ Mensaje enviado a WhatsApp.';
+        setTimeout(() => {
+          if (!document.hidden) {
+            Swal.fire({
+              title: 'Error',
+              text: 'Asegúrate de tener WhatsApp instalado.',
+              icon: 'error',
+              confirmButtonText: 'OK'
+            });
+          }
+        }, 3000);
+      }
+    } else {
+      this.contactForm.markAllAsTouched();
+      this.contactStatus = '❌ Por favor, completa los campos obligatorios correctamente.';
+      Swal.fire({
+        title: 'Error',
+        text: 'Por favor, completa todos los campos obligatorios en el formulario de contacto.',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
+    }
+  }
 
-
- buildWhatsMsg({ nombre = '', email = '', whatsapp = '', mensaje = '' }: { nombre?: string; email?: string; whatsapp?: string; mensaje?: string }) {
+  buildWhatsMsg({ nombre = '', email = '', whatsapp = '', mensaje = '' }: { nombre?: string; email?: string; whatsapp?: string; mensaje?: string }) {
     const phone = '5491128634744'; // TODO: Reemplazar con el número real
     if (!nombre) {
       console.log('Error: Nombre es obligatorio para el mensaje de WhatsApp');
       return ''; // No generar enlace si falta el nombre
     }
-    const isPhone = /^\+\d{8,15}$/.test(whatsapp || email);
-    let message = `🚀 ¡Hola Órbita Software! 🌟\n` +
+    const isPhone = /^\+\d{8,15}$/.test(whatsapp);
+    let message = `🚀 ¡Hola Órbita!, me interesa sus servicios 🌟\n` +
                   `👤 Nombre: ${nombre}\n`;
     if (isPhone) {
-      message += `📱 WhatsApp: ${whatsapp || email || '—'}\n`;
+      message += `📱 WhatsApp: ${whatsapp || '—'}\n`;
     } else {
       message += `📩 Email: ${email || '—'}\n`;
     }
@@ -209,4 +141,33 @@ onWhatsAppClick() {
     return waLink;
   }
 
+  getNombreError(): string {
+    const nombreControl = this.contactForm.get('nombre');
+    return nombreControl?.hasError('required') ? 'El nombre es obligatorio.' : '';
+  }
+
+  getEmailError(): string {
+    const emailControl = this.contactForm.get('email');
+    if (emailControl?.hasError('required')) {
+      return 'El email es obligatorio.';
+    } else if (emailControl?.hasError('email')) {
+      return 'Ingresa un email válido (ejemplo@dominio.com).';
+    }
+    return '';
+  }
+
+  getWhatsAppError(): string {
+    const whatsappControl = this.contactForm.get('whatsapp');
+    if (whatsappControl?.hasError('required')) {
+      return 'El número de WhatsApp es obligatorio.';
+    } else if (whatsappControl?.hasError('pattern')) {
+      return 'Ingresa un número de WhatsApp válido (e.g., +54 9 11 26911817).';
+    }
+    return '';
+  }
+
+  getMensajeError(): string {
+    const mensajeControl = this.contactForm.get('mensaje');
+    return mensajeControl?.hasError('required') ? 'El mensaje es obligatorio.' : '';
+  }
 }
