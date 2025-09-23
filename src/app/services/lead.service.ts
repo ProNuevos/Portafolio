@@ -7,8 +7,9 @@ import { Observable } from 'rxjs';
 })
 export class LeadService {
 
- private apiUrl = 'http://localhost:8080/api/leads'; // URL del endpoint del backend (ajusta si es diferente)
+ //private apiUrl = 'http://localhost:8080/api/leads'; // URL del endpoint del backend (ajusta si es diferente)
 
+ private apiUrl = 'https://orbitaback-production.up.railway.app/api/leads';
   constructor(private http: HttpClient) {}
 
   saveLead(lead: any): Observable<any> {

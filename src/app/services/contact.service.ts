@@ -7,8 +7,9 @@ import { Observable } from 'rxjs';
 })
 export class ContactService {
 
-  private apiUrl = 'http://localhost:8080/api/contacts'; // Ajusta el puerto si es diferente
+  //private apiUrl = 'http://localhost:8080/api/contacts'; // Ajusta el puerto si es diferente
 
+   private apiUrl = 'https://orbitaback-production.up.railway.app/api/contacts';
   constructor(private http: HttpClient) {}
 
   saveContact(contact: any): Observable<any> {

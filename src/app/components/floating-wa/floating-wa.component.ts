@@ -47,7 +47,7 @@ constructor(
     if (!decodedMessage.includes('Nombre:') || decodedMessage.includes('Nombre: —') || !decodedMessage.includes('Mensaje:') || decodedMessage.includes('Mensaje: —')) {
       Swal.fire({
         title: 'Datos incompletos',
-        text: 'Por favor, complete todos los datos, en el formulario de contacto.',
+        text: 'Por favor, complete todos los datos, en el formulario de estimación.',
         icon: 'warning',
         confirmButtonText: 'Ir a Contacto'
       }).then(() => {
