@@ -18,6 +18,7 @@ export class TechnologiesComponent implements AfterViewInit {
     'java',
     'Spring Boot',
     'MySQL',
+    'PostgressSQL',
     'Docker',
     //'NGINX',
     'Firebase',
