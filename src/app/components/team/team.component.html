@@ -1,0 +1,26 @@
+﻿<section id="equipo" class="team-section section">
+  <div class="container">
+    <div class="team-head text-center mb-5" #appearElement data-appear>
+      <span class="team-kicker">Equipo</span>
+      <h2 class="fw-bold mt-2">Quienes impulsan Orbita</h2>
+      <p class="text-secondary mb-0">
+        Liderazgo estrategico y ejecucion tecnica para construir productos digitales confiables y escalables.
+      </p>
+    </div>
+
+    <div class="row g-4 justify-content-center">
+      <div class="col-md-6 col-xl-5" *ngFor="let member of members; let i = index" #appearElement data-appear>
+        <article class="team-card h-100" [style.animation-delay.ms]="i * 120">
+          <div class="photo-wrap">
+            <img class="team-photo" [src]="member.photo" [alt]="member.name" loading="lazy" />
+          </div>
+          <div class="team-body">
+            <h4 class="mb-1">{{ member.name }}</h4>
+            <p class="team-role mb-3">{{ member.role }}</p>
+            <p class="text-secondary mb-0">{{ member.description }}</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>

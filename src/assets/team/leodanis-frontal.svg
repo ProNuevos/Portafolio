@@ -1,0 +1,59 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1500" role="img" aria-labelledby="title desc">
+  <title id="title">Retrato frontal profesional</title>
+  <desc id="desc">Ilustracion vectorial frontal estilo corporativo.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f1d2d"/>
+      <stop offset="100%" stop-color="#17283d"/>
+    </linearGradient>
+    <radialGradient id="light" cx="50%" cy="30%" r="55%">
+      <stop offset="0%" stop-color="#7bb7ff" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#7bb7ff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="shirt" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f3cde4"/>
+      <stop offset="100%" stop-color="#eab3d6"/>
+    </linearGradient>
+    <linearGradient id="skin" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#d79a76"/>
+      <stop offset="100%" stop-color="#c78561"/>
+    </linearGradient>
+    <filter id="softShadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="1500" fill="url(#bg)"/>
+  <rect width="1200" height="1500" fill="url(#light)"/>
+
+  <g filter="url(#softShadow)">
+    <circle cx="600" cy="560" r="250" fill="url(#skin)"/>
+    <rect x="520" y="770" width="160" height="130" rx="70" fill="#c07c58"/>
+
+    <path d="M360 1140c26-176 145-252 240-252s214 76 240 252v120H360z" fill="url(#shirt)"/>
+    <path d="M470 920c39 37 78 56 130 56s91-19 130-56l44 38c-53 57-107 84-174 84s-121-27-174-84z" fill="#e3a5cb"/>
+
+    <path d="M366 530c7-151 101-257 234-257 136 0 228 105 234 257-22-19-44-28-66-28-24 0-47 10-69 28-28-18-56-28-99-28-43 0-71 10-99 28-22-18-45-28-69-28-22 0-44 9-66 28z" fill="#171717"/>
+    <path d="M410 450c39-117 113-173 190-173 78 0 151 56 190 173-32-42-66-63-100-63-31 0-60 11-90 33-30-22-59-33-90-33-34 0-68 21-100 63z" fill="#202020"/>
+
+    <ellipse cx="510" cy="590" rx="52" ry="24" fill="#fff"/>
+    <ellipse cx="690" cy="590" rx="52" ry="24" fill="#fff"/>
+    <circle cx="510" cy="590" r="15" fill="#3f2a21"/>
+    <circle cx="690" cy="590" r="15" fill="#3f2a21"/>
+    <circle cx="505" cy="585" r="4" fill="#fff" opacity="0.85"/>
+    <circle cx="685" cy="585" r="4" fill="#fff" opacity="0.85"/>
+
+    <path d="M452 542c36-23 80-23 116 0" fill="none" stroke="#1a1a1a" stroke-width="12" stroke-linecap="round"/>
+    <path d="M632 542c36-23 80-23 116 0" fill="none" stroke="#1a1a1a" stroke-width="12" stroke-linecap="round"/>
+
+    <path d="M598 620c14 44 16 69 2 90" fill="none" stroke="#9f6548" stroke-width="9" stroke-linecap="round"/>
+    <path d="M532 746c48 28 88 28 136 0" fill="none" stroke="#8f4e38" stroke-width="10" stroke-linecap="round"/>
+
+    <ellipse cx="438" cy="648" rx="30" ry="18" fill="#e09d81" opacity="0.65"/>
+    <ellipse cx="762" cy="648" rx="30" ry="18" fill="#e09d81" opacity="0.65"/>
+  </g>
+
+  <g opacity="0.8">
+    <rect x="70" y="70" width="1060" height="1360" rx="36" fill="none" stroke="#89beff" stroke-opacity="0.35" stroke-width="2"/>
+  </g>
+</svg>

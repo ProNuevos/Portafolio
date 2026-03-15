@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WhatsAppService {
 
-  constructor() { }
-
-  private waLinkSource = new BehaviorSubject<string>('whatsapp://send?phone=5491128634744&text=');
+  private readonly defaultLink = `whatsapp://send?phone=${environment.waPhone}&text=`;
+  private waLinkSource = new BehaviorSubject<string>(this.defaultLink);
   waLink$ = this.waLinkSource.asObservable();
 
   updateWaLink(waLink: string) {

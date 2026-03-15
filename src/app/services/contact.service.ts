@@ -1,18 +1,26 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
+
+export interface ContactPayload {
+  nombre: string;
+  email: string;
+  whatsapp: string;
+  mensaje: string;
+  fecha?: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class ContactService {
 
-  //private apiUrl = 'http://localhost:8080/api/contacts'; // Ajusta el puerto si es diferente
+  private readonly apiUrl = `${environment.apiUrl}/contacts`;
 
-   private apiUrl = 'https://orbitaback-production.up.railway.app/api/contacts';
   constructor(private http: HttpClient) {}
 
-  saveContact(contact: any): Observable<any> {
-    return this.http.post(this.apiUrl, contact);
+  saveContact(contact: ContactPayload): Observable<ContactPayload> {
+    return this.http.post<ContactPayload>(this.apiUrl, contact);
   }
 }

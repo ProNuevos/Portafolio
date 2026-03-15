@@ -12,6 +12,7 @@ import { ContactComponent } from './components/contact/contact.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { FloatingWaComponent } from './components/floating-wa/floating-wa.component';
 import { HeroStackComponent } from "./components/hero-stack/hero-stack.component";
+import { TeamComponent } from './components/team/team.component';
 
 @Component({
   selector: 'app-root',
@@ -25,6 +26,7 @@ import { HeroStackComponent } from "./components/hero-stack/hero-stack.component
     TechnologiesComponent,
     CtaComponent,
     ContactComponent,
+    TeamComponent,
     FooterComponent,
     FloatingWaComponent, HeroStackComponent],
   templateUrl: './app.component.html',

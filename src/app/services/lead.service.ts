@@ -1,18 +1,28 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
+
+export interface LeadPayload {
+  tipo: string;
+  alcance: string;
+  contacto: string;
+  mensaje?: string;
+  hits: number;
+  estimado: number;
+  fecha?: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class LeadService {
 
- //private apiUrl = 'http://localhost:8080/api/leads'; // URL del endpoint del backend (ajusta si es diferente)
+  private readonly apiUrl = `${environment.apiUrl}/leads`;
 
- private apiUrl = 'https://orbitaback-production.up.railway.app/api/leads';
   constructor(private http: HttpClient) {}
 
-  saveLead(lead: any): Observable<any> {
-    return this.http.post(this.apiUrl, lead);
+  saveLead(lead: LeadPayload): Observable<LeadPayload> {
+    return this.http.post<LeadPayload>(this.apiUrl, lead);
   }
 }
