@@ -1,0 +1,75 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="mbg" x1="120" y1="80" x2="930" y2="960" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#09090B"/>
+      <stop offset="0.42" stop-color="#1E1B4B"/>
+      <stop offset="0.72" stop-color="#3B0764"/>
+      <stop offset="1" stop-color="#4C0519"/>
+    </linearGradient>
+    <linearGradient id="mviolet" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#6366F1"/>
+      <stop offset="1" stop-color="#8B5CF6"/>
+    </linearGradient>
+    <linearGradient id="mgold" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#FBBF24"/>
+      <stop offset="1" stop-color="#EF4444"/>
+    </linearGradient>
+    <linearGradient id="mgreen" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#10B981"/>
+      <stop offset="1" stop-color="#059669"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1080" height="1080" rx="40" fill="url(#mbg)"/>
+  <circle cx="170" cy="180" r="160" fill="#6366F1" fill-opacity="0.18"/>
+  <circle cx="910" cy="850" r="180" fill="#EC4899" fill-opacity="0.16"/>
+
+  <rect x="302" y="106" width="476" height="868" rx="56" fill="#0F172A" stroke="rgba(255,255,255,0.12)"/>
+  <rect x="326" y="130" width="428" height="820" rx="42" fill="#FFFFFF"/>
+  <rect x="474" y="146" width="132" height="20" rx="10" fill="#E5E7EB"/>
+
+  <rect x="356" y="194" width="368" height="202" rx="30" fill="url(#mviolet)"/>
+  <circle cx="406" cy="292" r="36" fill="rgba(255,255,255,0.20)"/>
+  <text x="454" y="270" fill="#FFFFFF" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="28" font-weight="800">Rifa activa</text>
+  <text x="454" y="308" fill="#E5E7FF" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="600">Reserva tus numeros</text>
+  <rect x="454" y="336" width="130" height="34" rx="17" fill="rgba(255,255,255,0.18)"/>
+  <text x="482" y="359" fill="#FFF8D8" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="800">$500 c/u</text>
+
+  <text x="356" y="456" fill="#111827" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="24" font-weight="800">Numeros disponibles</text>
+  <g transform="translate(356 486)">
+    <rect width="52" height="52" rx="16" fill="#EEF2FF"/><text x="14" y="33" fill="#4F46E5" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="800">01</text>
+    <rect x="64" width="52" height="52" rx="16" fill="#F3F4F6"/><text x="78" y="33" fill="#9CA3AF" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="800">02</text>
+    <rect x="128" width="52" height="52" rx="16" fill="#D1FAE5"/><text x="142" y="33" fill="#047857" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="800">03</text>
+    <rect x="192" width="52" height="52" rx="16" fill="#EEF2FF"/><text x="206" y="33" fill="#4F46E5" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="800">04</text>
+    <rect x="256" width="52" height="52" rx="16" fill="#FDE68A"/><text x="270" y="33" fill="#B45309" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="800">05</text>
+
+    <rect y="64" width="52" height="52" rx="16" fill="#F3F4F6"/><text x="14" y="97" fill="#9CA3AF" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="800">06</text>
+    <rect x="64" y="64" width="52" height="52" rx="16" fill="#EEF2FF"/><text x="78" y="97" fill="#4F46E5" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="800">07</text>
+    <rect x="128" y="64" width="52" height="52" rx="16" fill="#D1FAE5"/><text x="142" y="97" fill="#047857" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="800">08</text>
+    <rect x="192" y="64" width="52" height="52" rx="16" fill="#FCE7F3"/><text x="206" y="97" fill="#BE185D" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="800">09</text>
+    <rect x="256" y="64" width="52" height="52" rx="16" fill="#EEF2FF"/><text x="266" y="97" fill="#4F46E5" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="800">10</text>
+
+    <rect y="128" width="52" height="52" rx="16" fill="#D1FAE5"/><text x="10" y="161" fill="#047857" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="800">11</text>
+    <rect x="64" y="128" width="52" height="52" rx="16" fill="#F3F4F6"/><text x="74" y="161" fill="#9CA3AF" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="800">12</text>
+    <rect x="128" y="128" width="52" height="52" rx="16" fill="#EEF2FF"/><text x="138" y="161" fill="#4F46E5" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="800">13</text>
+    <rect x="192" y="128" width="52" height="52" rx="16" fill="#D1FAE5"/><text x="202" y="161" fill="#047857" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="800">14</text>
+    <rect x="256" y="128" width="52" height="52" rx="16" fill="#FDE68A"/><text x="266" y="161" fill="#B45309" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="800">15</text>
+  </g>
+
+  <rect x="356" y="706" width="368" height="88" rx="24" fill="#FAFAFF" stroke="#E0E7FF"/>
+  <text x="384" y="742" fill="#6366F1" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="800">Seleccionados</text>
+  <text x="384" y="774" fill="#111827" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="28" font-weight="800">01, 04, 13</text>
+  <rect x="614" y="728" width="82" height="44" rx="22" fill="url(#mgreen)"/>
+  <text x="634" y="756" fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="800">3 nums</text>
+
+  <rect x="356" y="822" width="368" height="82" rx="24" fill="url(#mgold)"/>
+  <text x="418" y="873" fill="#FFFFFF" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="28" font-weight="800">Reservar ahora</text>
+
+  <rect x="120" y="698" width="176" height="110" rx="28" fill="rgba(255,255,255,0.10)" stroke="rgba(255,255,255,0.16)"/>
+  <text x="146" y="742" fill="#FFFFFF" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="20" font-weight="800">Pago</text>
+  <text x="146" y="776" fill="#D6D8F3" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="600">Mercado Pago</text>
+
+  <rect x="792" y="312" width="180" height="130" rx="28" fill="rgba(255,255,255,0.10)" stroke="rgba(255,255,255,0.16)"/>
+  <text x="820" y="356" fill="#FFFFFF" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="20" font-weight="800">Live draw</text>
+  <text x="820" y="392" fill="#FFD989" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="800">05</text>
+</svg>

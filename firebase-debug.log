@@ -1,0 +1,254 @@
+[debug] [2026-06-17T19:56:15.306Z] ----------------------------------------------------------------------
+[debug] [2026-06-17T19:56:15.309Z] Command:       C:\nvm4w\nodejs\node.exe C:\Users\Leo\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only hosting
+[debug] [2026-06-17T19:56:15.309Z] CLI Version:   14.6.0
+[debug] [2026-06-17T19:56:15.309Z] Platform:      win32
+[debug] [2026-06-17T19:56:15.309Z] Node Version:  v24.15.0
+[debug] [2026-06-17T19:56:15.310Z] Time:          Wed Jun 17 2026 15:56:15 GMT-0400 (hora de verano de Cuba)
+[debug] [2026-06-17T19:56:15.310Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-06-17T19:56:15.570Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-06-17T19:56:15.571Z] > authorizing via signed-in user (soporte.supersorteo@gmail.com)
+[debug] [2026-06-17T19:56:15.571Z] [iam] checking project orbitafront for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2026-06-17T19:56:15.572Z] Checked if tokens are valid: true, expires at: 1781727139374
+[debug] [2026-06-17T19:56:15.573Z] Checked if tokens are valid: true, expires at: 1781727139374
+[debug] [2026-06-17T19:56:15.575Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/orbitafront:testIamPermissions [none]
+[debug] [2026-06-17T19:56:15.575Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/orbitafront:testIamPermissions x-goog-quota-user=projects/orbitafront
+[debug] [2026-06-17T19:56:15.575Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/orbitafront:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-06-17T19:56:17.565Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/orbitafront:testIamPermissions 200
+[debug] [2026-06-17T19:56:17.565Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/orbitafront:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-06-17T19:56:17.568Z] Checked if tokens are valid: true, expires at: 1781727139374
+[debug] [2026-06-17T19:56:17.569Z] Checked if tokens are valid: true, expires at: 1781727139374
+[debug] [2026-06-17T19:56:17.570Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/orbitafront [none]
+[debug] [2026-06-17T19:56:19.330Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/orbitafront 200
+[debug] [2026-06-17T19:56:19.330Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/orbitafront {"projectId":"orbitafront","projectNumber":"621609587357","displayName":"orbitaFront","name":"projects/orbitafront","resources":{"hostingSite":"orbitafront"},"state":"ACTIVE","etag":"1_0c1ff066-7191-4390-a7fa-1727e916a5b5"}
+[info] 
+[info] === Deploying to 'orbitafront'...
+[info] 
+[info] i  deploying hosting 
+[debug] [2026-06-17T19:56:19.341Z] Checked if tokens are valid: true, expires at: 1781727139374
+[debug] [2026-06-17T19:56:19.341Z] Checked if tokens are valid: true, expires at: 1781727139374
+[debug] [2026-06-17T19:56:19.341Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/orbitafront/versions [none]
+[debug] [2026-06-17T19:56:19.341Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/orbitafront/versions {"status":"CREATED","labels":{"deployment-tool":"cli-firebase"}}
+[debug] [2026-06-17T19:56:21.896Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/orbitafront/versions 200
+[debug] [2026-06-17T19:56:21.897Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/orbitafront/versions {"name":"projects/621609587357/sites/orbitafront/versions/ed95705990348eed","status":"CREATED","config":{},"labels":{"deployment-tool":"cli-firebase"}}
+[info] i  hosting[orbitafront]: beginning deploy... 
+[info] i  hosting[orbitafront]: found 33 files in dist/angular17/browser 
+[debug] [2026-06-17T19:56:21.924Z] [hosting] uploading with 200 concurrency
+[debug] [2026-06-17T19:56:21.961Z] Checked if tokens are valid: true, expires at: 1781727139374
+[debug] [2026-06-17T19:56:21.961Z] Checked if tokens are valid: true, expires at: 1781727139374
+[debug] [2026-06-17T19:56:21.963Z] [hosting] hash cache [ZGlzdFxhbmd1bGFyMTdcYnJvd3Nlcg] stored for 33 files
+[debug] [2026-06-17T19:56:21.963Z] [hosting][hash queue][FINAL] {"max":35,"min":0,"avg":6.333333333333333,"active":0,"complete":33,"success":33,"errored":0,"retried":0,"total":33,"elapsed":38}
+[debug] [2026-06-17T19:56:21.964Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/621609587357/sites/orbitafront/versions/ed95705990348eed:populateFiles [none]
+[debug] [2026-06-17T19:56:21.964Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/621609587357/sites/orbitafront/versions/ed95705990348eed:populateFiles {"files":{"/favicon.ico":"a905b13e228420df3dbe746dfb656d37a49736494c0737d00e007c8dc7319912","/portfolio/gestorqr-team-admin.svg":"eeb6335432b4f82dabf7eb033f000cb52f47b0a2ab6345f3145fcff6e8ac03df","/portfolio/gestorqr-security.svg":"13e81b4698152ec5d95f32506aeaea290a5adbbb2fee2cf1733eab7ce735102a","/portfolio/gestorqr-qr-checkin.svg":"936d216d9175924f43fca0b5610a5b562024812e3f623c5d4ba2a4c0712adc7c","/portfolio/gestorqr-dashboard.svg":"b3e09895a5ada1dc8fb3823e522828cc2f7b6f41152a068a5e50e8edbb833eb6","/portfolio/exellsior-spaces.svg":"5b3dcfac897b1c66d84b8d7ac479c924b74b0013f902fd8baef99175fe2257d3","/portfolio/exellsior-reports.svg":"a8c750b771454440c82b7b8166e0f79c6ba506d4ba24f73800cdd20776d66fa5","/portfolio/exellsior-overview.svg":"9e770f1d171b4fe1dc223dcb48fe0f6d409a1959804c965e4f48797f672d1a33","/portfolio/exellsior-clients.svg":"4a1fb60883b0498b13297ac39ac3828cf08f75793785d6fc5eb47d535d2ad40c","/assets/team/leodanis-miranda.svg":"940e1f0cf102df9edf316f81e1f59ddb9aa9bdef69c6dbafe925876d6303870a","/assets/team/leodanis-frontal.svg":"2e06dd8067d125066e622907078103528ae8b5bd2c5fc181f3d32355ed8a7623","/assets/team/danilo-roldan.svg":"b73e611e58db53b0022a23c5ca1206e8b22f77ebd1a65df809cee0e111294dee","/assets/portfolio/gestorqr-team-admin.svg":"eeb6335432b4f82dabf7eb033f000cb52f47b0a2ab6345f3145fcff6e8ac03df","/assets/portfolio/gestorqr-security.svg":"13e81b4698152ec5d95f32506aeaea290a5adbbb2fee2cf1733eab7ce735102a","/assets/portfolio/gestorqr-qr-checkin.svg":"936d216d9175924f43fca0b5610a5b562024812e3f623c5d4ba2a4c0712adc7c","/assets/portfolio/gestorqr-dashboard.svg":"b3e09895a5ada1dc8fb3823e522828cc2f7b6f41152a068a5e50e8edbb833eb6","/assets/portfolio/exellsior-spaces.svg":"5b3dcfac897b1c66d84b8d7ac479c924b74b0013f902fd8baef99175fe2257d3","/assets/portfolio/exellsior-reports.svg":"a8c750b771454440c82b7b8166e0f79c6ba506d4ba24f73800cdd20776d66fa5","/assets/portfolio/exellsior-overview.svg":"9e770f1d171b4fe1dc223dcb48fe0f6d409a1959804c965e4f48797f672d1a33","/assets/portfolio/exellsior-clients.svg":"4a1fb60883b0498b13297ac39ac3828cf08f75793785d6fc5eb47d535d2ad40c","/index.html":"0a7a1a7599ae139cea6478649a443a674c6418575f8c91f1a8834cfc742a261c","/assets/portfolio/superrifa-mobile-reservation.svg":"d41428b3a9b57e789cdd0871dc01d927dd2e8a93830ee555fcb84cd68f55674c","/polyfills-RT5I6R6G.js":"54e72a58ee132476e8d86a9a4b5bb9f9457d65f834a5eac0cfe86eb09a5b4032","/assets/portfolio/superrifa-live-draw.svg":"7790b58145bc014e1a4714a916e83397516a117f26a288c07641217076e4af33","/assets/portfolio/superrifa-dashboard.svg":"d7f7de06cc8b0e0a3af2dd32e237ca61a7af1870afd4ce04ee13bc58f47d2dbb","/assets/portfolio/superrifa-hero.svg":"b045178f3c2044f635757f4f113a7e3bde7c449d44044cc3d36096db1df2b3f6","/scripts-EEEIPNC3.js":"26c90e1931403ac8c7ac055e27cdffc8795ff243a1e3e20a43f3bc99c461304a","/assets/team/leo.jpeg":"b6f62a4af03d15c936263c852fe0ffa5155f118d30eac677f1d8af047c0e1d74","/media/bootstrap-icons-X6UQXWUS.woff2":"879cf866c96ed8051a14c648591e2fc62317af233f7aed26a8414d59b7592fbf","/media/bootstrap-icons-OCU552PF.woff":"4e9185f13d76ee28a94f3890511b8bdfd92fcec93f459b5f2a6c9c80e1a6e18c","/assets/team/danilo.jpeg":"d9a1fcc4b2e18e1078170cd6cd2005a7f7dd6e026083aca6c98ddd6e9b3a5c11","/main-U3ZWLN4I.js":"bced181e360b7006c252bd71b3569b75b770f9aad34b5f56f0d3158900d92d0e","/styles-6FYUEJSI.css":"b4956ef25c55020b9e5dddf041a68f92cdabba2b89672b6f5bb4c947a5804ab3"}}
+[debug] [2026-06-17T19:56:23.157Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/621609587357/sites/orbitafront/versions/ed95705990348eed:populateFiles 200
+[debug] [2026-06-17T19:56:23.158Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/621609587357/sites/orbitafront/versions/ed95705990348eed:populateFiles {"uploadRequiredHashes":["b045178f3c2044f635757f4f113a7e3bde7c449d44044cc3d36096db1df2b3f6","b6f62a4af03d15c936263c852fe0ffa5155f118d30eac677f1d8af047c0e1d74","bced181e360b7006c252bd71b3569b75b770f9aad34b5f56f0d3158900d92d0e","0a7a1a7599ae139cea6478649a443a674c6418575f8c91f1a8834cfc742a261c","d7f7de06cc8b0e0a3af2dd32e237ca61a7af1870afd4ce04ee13bc58f47d2dbb","7790b58145bc014e1a4714a916e83397516a117f26a288c07641217076e4af33","d41428b3a9b57e789cdd0871dc01d927dd2e8a93830ee555fcb84cd68f55674c","d9a1fcc4b2e18e1078170cd6cd2005a7f7dd6e026083aca6c98ddd6e9b3a5c11"],"uploadUrl":"https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/ed95705990348eed/files"}
+[debug] [2026-06-17T19:56:23.159Z] Checked if tokens are valid: true, expires at: 1781727139374
+[debug] [2026-06-17T19:56:23.159Z] Checked if tokens are valid: true, expires at: 1781727139374
+[debug] [2026-06-17T19:56:23.159Z] Checked if tokens are valid: true, expires at: 1781727139374
+[debug] [2026-06-17T19:56:23.160Z] Checked if tokens are valid: true, expires at: 1781727139374
+[debug] [2026-06-17T19:56:23.160Z] Checked if tokens are valid: true, expires at: 1781727139374
+[debug] [2026-06-17T19:56:23.160Z] Checked if tokens are valid: true, expires at: 1781727139374
+[debug] [2026-06-17T19:56:23.160Z] Checked if tokens are valid: true, expires at: 1781727139374
+[debug] [2026-06-17T19:56:23.160Z] Checked if tokens are valid: true, expires at: 1781727139374
+[debug] [2026-06-17T19:56:23.160Z] Checked if tokens are valid: true, expires at: 1781727139374
+[debug] [2026-06-17T19:56:23.160Z] Checked if tokens are valid: true, expires at: 1781727139374
+[debug] [2026-06-17T19:56:23.161Z] Checked if tokens are valid: true, expires at: 1781727139374
+[debug] [2026-06-17T19:56:23.161Z] Checked if tokens are valid: true, expires at: 1781727139374
+[debug] [2026-06-17T19:56:23.161Z] Checked if tokens are valid: true, expires at: 1781727139374
+[debug] [2026-06-17T19:56:23.161Z] Checked if tokens are valid: true, expires at: 1781727139374
+[debug] [2026-06-17T19:56:23.161Z] Checked if tokens are valid: true, expires at: 1781727139374
+[debug] [2026-06-17T19:56:23.161Z] Checked if tokens are valid: true, expires at: 1781727139374
+[debug] [2026-06-17T19:56:23.161Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/ed95705990348eed/files/b045178f3c2044f635757f4f113a7e3bde7c449d44044cc3d36096db1df2b3f6 [none]
+[debug] [2026-06-17T19:56:23.161Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/ed95705990348eed/files/b045178f3c2044f635757f4f113a7e3bde7c449d44044cc3d36096db1df2b3f6 [stream]
+[debug] [2026-06-17T19:56:23.163Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/ed95705990348eed/files/b6f62a4af03d15c936263c852fe0ffa5155f118d30eac677f1d8af047c0e1d74 [none]
+[debug] [2026-06-17T19:56:23.163Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/ed95705990348eed/files/b6f62a4af03d15c936263c852fe0ffa5155f118d30eac677f1d8af047c0e1d74 [stream]
+[debug] [2026-06-17T19:56:23.166Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/ed95705990348eed/files/bced181e360b7006c252bd71b3569b75b770f9aad34b5f56f0d3158900d92d0e [none]
+[debug] [2026-06-17T19:56:23.166Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/ed95705990348eed/files/bced181e360b7006c252bd71b3569b75b770f9aad34b5f56f0d3158900d92d0e [stream]
+[debug] [2026-06-17T19:56:23.170Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/ed95705990348eed/files/0a7a1a7599ae139cea6478649a443a674c6418575f8c91f1a8834cfc742a261c [none]
+[debug] [2026-06-17T19:56:23.170Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/ed95705990348eed/files/0a7a1a7599ae139cea6478649a443a674c6418575f8c91f1a8834cfc742a261c [stream]
+[debug] [2026-06-17T19:56:23.172Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/ed95705990348eed/files/d7f7de06cc8b0e0a3af2dd32e237ca61a7af1870afd4ce04ee13bc58f47d2dbb [none]
+[debug] [2026-06-17T19:56:23.172Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/ed95705990348eed/files/d7f7de06cc8b0e0a3af2dd32e237ca61a7af1870afd4ce04ee13bc58f47d2dbb [stream]
+[debug] [2026-06-17T19:56:23.174Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/ed95705990348eed/files/7790b58145bc014e1a4714a916e83397516a117f26a288c07641217076e4af33 [none]
+[debug] [2026-06-17T19:56:23.174Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/ed95705990348eed/files/7790b58145bc014e1a4714a916e83397516a117f26a288c07641217076e4af33 [stream]
+[debug] [2026-06-17T19:56:23.176Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/ed95705990348eed/files/d41428b3a9b57e789cdd0871dc01d927dd2e8a93830ee555fcb84cd68f55674c [none]
+[debug] [2026-06-17T19:56:23.177Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/ed95705990348eed/files/d41428b3a9b57e789cdd0871dc01d927dd2e8a93830ee555fcb84cd68f55674c [stream]
+[debug] [2026-06-17T19:56:23.178Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/ed95705990348eed/files/d9a1fcc4b2e18e1078170cd6cd2005a7f7dd6e026083aca6c98ddd6e9b3a5c11 [none]
+[debug] [2026-06-17T19:56:23.178Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/ed95705990348eed/files/d9a1fcc4b2e18e1078170cd6cd2005a7f7dd6e026083aca6c98ddd6e9b3a5c11 [stream]
+[debug] [2026-06-17T19:56:23.180Z] [hosting][populate queue][FINAL] {"max":1200,"min":1200,"avg":1200,"active":0,"complete":1,"success":1,"errored":0,"retried":0,"total":1,"elapsed":1219}
+[debug] [2026-06-17T19:56:23.181Z] [hosting] uploads queued: 8
+[info] i  hosting: uploading new files [0/8] (0%) 
+[debug] [2026-06-17T19:56:25.407Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/ed95705990348eed/files/b045178f3c2044f635757f4f113a7e3bde7c449d44044cc3d36096db1df2b3f6 200
+[debug] [2026-06-17T19:56:25.407Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/ed95705990348eed/files/b045178f3c2044f635757f4f113a7e3bde7c449d44044cc3d36096db1df2b3f6 [stream]
+[debug] [2026-06-17T19:56:25.408Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/ed95705990348eed/files/0a7a1a7599ae139cea6478649a443a674c6418575f8c91f1a8834cfc742a261c 200
+[debug] [2026-06-17T19:56:25.408Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/ed95705990348eed/files/0a7a1a7599ae139cea6478649a443a674c6418575f8c91f1a8834cfc742a261c [stream]
+[debug] [2026-06-17T19:56:25.409Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/ed95705990348eed/files/d7f7de06cc8b0e0a3af2dd32e237ca61a7af1870afd4ce04ee13bc58f47d2dbb 200
+[debug] [2026-06-17T19:56:25.409Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/ed95705990348eed/files/d7f7de06cc8b0e0a3af2dd32e237ca61a7af1870afd4ce04ee13bc58f47d2dbb [stream]
+[debug] [2026-06-17T19:56:25.576Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/ed95705990348eed/files/7790b58145bc014e1a4714a916e83397516a117f26a288c07641217076e4af33 200
+[debug] [2026-06-17T19:56:25.576Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/ed95705990348eed/files/7790b58145bc014e1a4714a916e83397516a117f26a288c07641217076e4af33 [stream]
+[info] i  hosting: uploading new files [4/8] (50%) 
+[info] i  hosting: uploading new files [4/8] (50%) 
+[debug] [2026-06-17T19:56:29.176Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/ed95705990348eed/files/d41428b3a9b57e789cdd0871dc01d927dd2e8a93830ee555fcb84cd68f55674c 200
+[debug] [2026-06-17T19:56:29.177Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/ed95705990348eed/files/d41428b3a9b57e789cdd0871dc01d927dd2e8a93830ee555fcb84cd68f55674c [stream]
+[debug] [2026-06-17T19:56:29.187Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/ed95705990348eed/files/bced181e360b7006c252bd71b3569b75b770f9aad34b5f56f0d3158900d92d0e 200
+[debug] [2026-06-17T19:56:29.187Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/ed95705990348eed/files/bced181e360b7006c252bd71b3569b75b770f9aad34b5f56f0d3158900d92d0e [stream]
+[info] i  hosting: uploading new files [6/8] (75%) 
+[info] i  hosting: uploading new files [6/8] (75%) 
+[info] i  hosting: uploading new files [6/8] (75%) 
+[debug] [2026-06-17T19:56:35.779Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/ed95705990348eed/files/d9a1fcc4b2e18e1078170cd6cd2005a7f7dd6e026083aca6c98ddd6e9b3a5c11 200
+[debug] [2026-06-17T19:56:35.779Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/ed95705990348eed/files/d9a1fcc4b2e18e1078170cd6cd2005a7f7dd6e026083aca6c98ddd6e9b3a5c11 [stream]
+[debug] [2026-06-17T19:56:35.808Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/ed95705990348eed/files/b6f62a4af03d15c936263c852fe0ffa5155f118d30eac677f1d8af047c0e1d74 200
+[debug] [2026-06-17T19:56:35.808Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/ed95705990348eed/files/b6f62a4af03d15c936263c852fe0ffa5155f118d30eac677f1d8af047c0e1d74 [stream]
+[debug] [2026-06-17T19:56:35.809Z] [hosting][upload queue][FINAL] {"max":12649,"min":2248,"avg":5809,"active":0,"complete":8,"success":8,"errored":0,"retried":0,"total":8,"elapsed":12651}
+[info] i  hosting: upload complete 
+[info] +  hosting[orbitafront]: file upload complete 
+[debug] [2026-06-17T19:56:35.809Z] [hosting] deploy completed after 13905ms
+[debug] [2026-06-17T19:56:35.809Z] [
+  {
+    "config": {
+      "public": "dist/angular17/browser",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ],
+      "site": "orbitafront"
+    },
+    "version": "projects/621609587357/sites/orbitafront/versions/ed95705990348eed"
+  }
+]
+[info] i  hosting[orbitafront]: finalizing version... 
+[debug] [2026-06-17T19:56:35.812Z] Checked if tokens are valid: true, expires at: 1781727139374
+[debug] [2026-06-17T19:56:35.812Z] Checked if tokens are valid: true, expires at: 1781727139374
+[debug] [2026-06-17T19:56:35.812Z] >>> [apiv2][query] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/orbitafront/versions/ed95705990348eed updateMask=status%2Cconfig
+[debug] [2026-06-17T19:56:35.812Z] >>> [apiv2][body] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/orbitafront/versions/ed95705990348eed {"status":"FINALIZED","config":{"rewrites":[{"glob":"**","path":"/index.html"}]}}
+[debug] [2026-06-17T19:56:37.027Z] <<< [apiv2][status] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/orbitafront/versions/ed95705990348eed 200
+[debug] [2026-06-17T19:56:37.027Z] <<< [apiv2][body] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/orbitafront/versions/ed95705990348eed {"name":"projects/621609587357/sites/orbitafront/versions/ed95705990348eed","status":"FINALIZED","config":{"rewrites":[{"glob":"**","path":"/index.html"}]},"labels":{"deployment-tool":"cli-firebase"},"createTime":"2026-06-17T19:56:26.658488Z","createUser":{"email":"soporte.supersorteo@gmail.com"},"finalizeTime":"2026-06-17T19:56:42.597614Z","finalizeUser":{"email":"soporte.supersorteo@gmail.com"}}
+[debug] [2026-06-17T19:56:37.028Z] [hosting] finalized version for orbitafront:[object Object]
+[info] +  hosting[orbitafront]: version finalized 
+[info] i  hosting[orbitafront]: releasing new version... 
+[debug] [2026-06-17T19:56:37.028Z] Checked if tokens are valid: true, expires at: 1781727139374
+[debug] [2026-06-17T19:56:37.028Z] Checked if tokens are valid: true, expires at: 1781727139374
+[debug] [2026-06-17T19:56:37.028Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/orbitafront/channels/live/releases versionName=projects%2F621609587357%2Fsites%2Forbitafront%2Fversions%2Fed95705990348eed
+[debug] [2026-06-17T19:56:37.028Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/orbitafront/channels/live/releases {}
+[debug] [2026-06-17T19:56:37.952Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/orbitafront/channels/live/releases 200
+[debug] [2026-06-18T12:27:52.777Z] ----------------------------------------------------------------------
+[debug] [2026-06-18T12:27:52.780Z] Command:       C:\nvm4w\nodejs\node.exe C:\Users\Leo\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only hosting
+[debug] [2026-06-18T12:27:52.780Z] CLI Version:   14.6.0
+[debug] [2026-06-18T12:27:52.781Z] Platform:      win32
+[debug] [2026-06-18T12:27:52.781Z] Node Version:  v24.15.0
+[debug] [2026-06-18T12:27:52.781Z] Time:          Thu Jun 18 2026 08:27:52 GMT-0400 (hora de verano de Cuba)
+[debug] [2026-06-18T12:27:52.781Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-06-18T12:27:53.058Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-06-18T12:27:53.059Z] > authorizing via signed-in user (soporte.supersorteo@gmail.com)
+[debug] [2026-06-18T12:27:53.059Z] [iam] checking project orbitafront for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2026-06-18T12:27:53.060Z] Checked if tokens are valid: false, expires at: 1781727139374
+[debug] [2026-06-18T12:27:53.060Z] Checked if tokens are valid: false, expires at: 1781727139374
+[debug] [2026-06-18T12:27:53.061Z] > refreshing access token with scopes: []
+[debug] [2026-06-18T12:27:53.063Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-06-18T12:27:53.063Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-06-18T12:27:53.946Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-06-18T12:27:53.946Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-06-18T12:27:53.971Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/orbitafront:testIamPermissions [none]
+[debug] [2026-06-18T12:27:53.971Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/orbitafront:testIamPermissions x-goog-quota-user=projects/orbitafront
+[debug] [2026-06-18T12:27:53.971Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/orbitafront:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-06-18T12:27:54.747Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/orbitafront:testIamPermissions 200
+[debug] [2026-06-18T12:27:54.748Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/orbitafront:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-06-18T12:27:54.750Z] Checked if tokens are valid: true, expires at: 1781789272947
+[debug] [2026-06-18T12:27:54.751Z] Checked if tokens are valid: true, expires at: 1781789272947
+[debug] [2026-06-18T12:27:54.753Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/orbitafront [none]
+[debug] [2026-06-18T12:27:55.652Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/orbitafront 200
+[debug] [2026-06-18T12:27:55.653Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/orbitafront {"projectId":"orbitafront","projectNumber":"621609587357","displayName":"orbitaFront","name":"projects/orbitafront","resources":{"hostingSite":"orbitafront"},"state":"ACTIVE","etag":"1_0c1ff066-7191-4390-a7fa-1727e916a5b5"}
+[info] 
+[info] === Deploying to 'orbitafront'...
+[info] 
+[info] i  deploying hosting 
+[debug] [2026-06-18T12:27:55.665Z] Checked if tokens are valid: true, expires at: 1781789272947
+[debug] [2026-06-18T12:27:55.666Z] Checked if tokens are valid: true, expires at: 1781789272947
+[debug] [2026-06-18T12:27:55.666Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/orbitafront/versions [none]
+[debug] [2026-06-18T12:27:55.667Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/orbitafront/versions {"status":"CREATED","labels":{"deployment-tool":"cli-firebase"}}
+[debug] [2026-06-18T12:27:57.144Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/orbitafront/versions 200
+[debug] [2026-06-18T12:27:57.145Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/orbitafront/versions {"name":"projects/621609587357/sites/orbitafront/versions/445e0c1965e8408c","status":"CREATED","config":{},"labels":{"deployment-tool":"cli-firebase"}}
+[info] i  hosting[orbitafront]: beginning deploy... 
+[info] i  hosting[orbitafront]: found 35 files in dist/angular17/browser 
+[debug] [2026-06-18T12:27:57.195Z] [hosting] uploading with 200 concurrency
+[debug] [2026-06-18T12:27:57.236Z] Checked if tokens are valid: true, expires at: 1781789272947
+[debug] [2026-06-18T12:27:57.236Z] Checked if tokens are valid: true, expires at: 1781789272947
+[debug] [2026-06-18T12:27:57.238Z] [hosting] hash cache [ZGlzdFxhbmd1bGFyMTdcYnJvd3Nlcg] stored for 35 files
+[debug] [2026-06-18T12:27:57.238Z] [hosting][hash queue][FINAL] {"max":38,"min":0,"avg":4.514285714285714,"active":0,"complete":35,"success":35,"errored":0,"retried":0,"total":35,"elapsed":40}
+[debug] [2026-06-18T12:27:57.239Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/621609587357/sites/orbitafront/versions/445e0c1965e8408c:populateFiles [none]
+[debug] [2026-06-18T12:27:57.239Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/621609587357/sites/orbitafront/versions/445e0c1965e8408c:populateFiles {"files":{"/favicon.ico":"a905b13e228420df3dbe746dfb656d37a49736494c0737d00e007c8dc7319912","/portfolio/gestorqr-team-admin.svg":"eeb6335432b4f82dabf7eb033f000cb52f47b0a2ab6345f3145fcff6e8ac03df","/portfolio/gestorqr-security.svg":"13e81b4698152ec5d95f32506aeaea290a5adbbb2fee2cf1733eab7ce735102a","/portfolio/gestorqr-qr-checkin.svg":"936d216d9175924f43fca0b5610a5b562024812e3f623c5d4ba2a4c0712adc7c","/portfolio/gestorqr-dashboard.svg":"b3e09895a5ada1dc8fb3823e522828cc2f7b6f41152a068a5e50e8edbb833eb6","/portfolio/exellsior-spaces.svg":"5b3dcfac897b1c66d84b8d7ac479c924b74b0013f902fd8baef99175fe2257d3","/portfolio/exellsior-reports.svg":"a8c750b771454440c82b7b8166e0f79c6ba506d4ba24f73800cdd20776d66fa5","/portfolio/exellsior-overview.svg":"9e770f1d171b4fe1dc223dcb48fe0f6d409a1959804c965e4f48797f672d1a33","/portfolio/exellsior-clients.svg":"4a1fb60883b0498b13297ac39ac3828cf08f75793785d6fc5eb47d535d2ad40c","/assets/team/leodanis-miranda.svg":"940e1f0cf102df9edf316f81e1f59ddb9aa9bdef69c6dbafe925876d6303870a","/assets/team/leodanis-frontal.svg":"2e06dd8067d125066e622907078103528ae8b5bd2c5fc181f3d32355ed8a7623","/assets/team/leo.jpeg":"b6f62a4af03d15c936263c852fe0ffa5155f118d30eac677f1d8af047c0e1d74","/assets/team/danilo.jpeg":"d9a1fcc4b2e18e1078170cd6cd2005a7f7dd6e026083aca6c98ddd6e9b3a5c11","/assets/team/danilo-roldan.svg":"b73e611e58db53b0022a23c5ca1206e8b22f77ebd1a65df809cee0e111294dee","/assets/portfolio/superrifa-mobile-reservation.svg":"d41428b3a9b57e789cdd0871dc01d927dd2e8a93830ee555fcb84cd68f55674c","/assets/portfolio/superrifa-live-draw.svg":"7790b58145bc014e1a4714a916e83397516a117f26a288c07641217076e4af33","/assets/portfolio/superrifa-hero.svg":"b045178f3c2044f635757f4f113a7e3bde7c449d44044cc3d36096db1df2b3f6","/assets/portfolio/superrifa-dashboard.svg":"d7f7de06cc8b0e0a3af2dd32e237ca61a7af1870afd4ce04ee13bc58f47d2dbb","/assets/portfolio/gestorqr-team-admin.svg":"eeb6335432b4f82dabf7eb033f000cb52f47b0a2ab6345f3145fcff6e8ac03df","/assets/portfolio/gestorqr-security.svg":"13e81b4698152ec5d95f32506aeaea290a5adbbb2fee2cf1733eab7ce735102a","/assets/portfolio/gestorqr-qr-checkin.svg":"936d216d9175924f43fca0b5610a5b562024812e3f623c5d4ba2a4c0712adc7c","/assets/portfolio/gestorqr-dashboard.svg":"b3e09895a5ada1dc8fb3823e522828cc2f7b6f41152a068a5e50e8edbb833eb6","/assets/portfolio/exellsior-spaces.svg":"5b3dcfac897b1c66d84b8d7ac479c924b74b0013f902fd8baef99175fe2257d3","/assets/portfolio/exellsior-reports.svg":"a8c750b771454440c82b7b8166e0f79c6ba506d4ba24f73800cdd20776d66fa5","/assets/portfolio/exellsior-overview.svg":"9e770f1d171b4fe1dc223dcb48fe0f6d409a1959804c965e4f48797f672d1a33","/assets/portfolio/exellsior-clients.svg":"4a1fb60883b0498b13297ac39ac3828cf08f75793785d6fc5eb47d535d2ad40c","/polyfills-RT5I6R6G.js":"54e72a58ee132476e8d86a9a4b5bb9f9457d65f834a5eac0cfe86eb09a5b4032","/chunk-TMC7WMLO.js":"af71ca7d3ba57c8d6f3d1aa93a298f1773ca4303af3746f7169bd7f01439a9c7","/index.html":"320c5fac16c387d501c4226b8d4be87506e1f602fc9ec52b047e0c83a9a229c1","/chunk-TYKRIPX6.js":"4f2a0d494c965f7c3ebe2e07091f001514a99317cf7c806e549f49c67faed08b","/scripts-EEEIPNC3.js":"26c90e1931403ac8c7ac055e27cdffc8795ff243a1e3e20a43f3bc99c461304a","/media/bootstrap-icons-X6UQXWUS.woff2":"879cf866c96ed8051a14c648591e2fc62317af233f7aed26a8414d59b7592fbf","/media/bootstrap-icons-OCU552PF.woff":"4e9185f13d76ee28a94f3890511b8bdfd92fcec93f459b5f2a6c9c80e1a6e18c","/main-EJLFBVOO.js":"9ba8dedb3b8498b0b444eac84ce66650d5af77a6f382aba0b210f99037604720","/styles-6FYUEJSI.css":"b4956ef25c55020b9e5dddf041a68f92cdabba2b89672b6f5bb4c947a5804ab3"}}
+[debug] [2026-06-18T12:27:57.926Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/621609587357/sites/orbitafront/versions/445e0c1965e8408c:populateFiles 200
+[debug] [2026-06-18T12:27:57.926Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/621609587357/sites/orbitafront/versions/445e0c1965e8408c:populateFiles {"uploadRequiredHashes":["af71ca7d3ba57c8d6f3d1aa93a298f1773ca4303af3746f7169bd7f01439a9c7","320c5fac16c387d501c4226b8d4be87506e1f602fc9ec52b047e0c83a9a229c1","9ba8dedb3b8498b0b444eac84ce66650d5af77a6f382aba0b210f99037604720","4f2a0d494c965f7c3ebe2e07091f001514a99317cf7c806e549f49c67faed08b"],"uploadUrl":"https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/445e0c1965e8408c/files"}
+[debug] [2026-06-18T12:27:57.928Z] Checked if tokens are valid: true, expires at: 1781789272947
+[debug] [2026-06-18T12:27:57.928Z] Checked if tokens are valid: true, expires at: 1781789272947
+[debug] [2026-06-18T12:27:57.929Z] Checked if tokens are valid: true, expires at: 1781789272947
+[debug] [2026-06-18T12:27:57.929Z] Checked if tokens are valid: true, expires at: 1781789272947
+[debug] [2026-06-18T12:27:57.930Z] Checked if tokens are valid: true, expires at: 1781789272947
+[debug] [2026-06-18T12:27:57.930Z] Checked if tokens are valid: true, expires at: 1781789272947
+[debug] [2026-06-18T12:27:57.931Z] Checked if tokens are valid: true, expires at: 1781789272947
+[debug] [2026-06-18T12:27:57.931Z] Checked if tokens are valid: true, expires at: 1781789272947
+[debug] [2026-06-18T12:27:57.931Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/445e0c1965e8408c/files/af71ca7d3ba57c8d6f3d1aa93a298f1773ca4303af3746f7169bd7f01439a9c7 [none]
+[debug] [2026-06-18T12:27:57.931Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/445e0c1965e8408c/files/af71ca7d3ba57c8d6f3d1aa93a298f1773ca4303af3746f7169bd7f01439a9c7 [stream]
+[debug] [2026-06-18T12:27:57.938Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/445e0c1965e8408c/files/320c5fac16c387d501c4226b8d4be87506e1f602fc9ec52b047e0c83a9a229c1 [none]
+[debug] [2026-06-18T12:27:57.939Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/445e0c1965e8408c/files/320c5fac16c387d501c4226b8d4be87506e1f602fc9ec52b047e0c83a9a229c1 [stream]
+[debug] [2026-06-18T12:27:57.942Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/445e0c1965e8408c/files/9ba8dedb3b8498b0b444eac84ce66650d5af77a6f382aba0b210f99037604720 [none]
+[debug] [2026-06-18T12:27:57.942Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/445e0c1965e8408c/files/9ba8dedb3b8498b0b444eac84ce66650d5af77a6f382aba0b210f99037604720 [stream]
+[debug] [2026-06-18T12:27:57.946Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/445e0c1965e8408c/files/4f2a0d494c965f7c3ebe2e07091f001514a99317cf7c806e549f49c67faed08b [none]
+[debug] [2026-06-18T12:27:57.946Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/445e0c1965e8408c/files/4f2a0d494c965f7c3ebe2e07091f001514a99317cf7c806e549f49c67faed08b [stream]
+[debug] [2026-06-18T12:27:57.949Z] [hosting][populate queue][FINAL] {"max":695,"min":695,"avg":695,"active":0,"complete":1,"success":1,"errored":0,"retried":0,"total":1,"elapsed":713}
+[debug] [2026-06-18T12:27:57.950Z] [hosting] uploads queued: 4
+[debug] [2026-06-18T12:27:59.055Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/445e0c1965e8408c/files/af71ca7d3ba57c8d6f3d1aa93a298f1773ca4303af3746f7169bd7f01439a9c7 200
+[debug] [2026-06-18T12:27:59.055Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/445e0c1965e8408c/files/af71ca7d3ba57c8d6f3d1aa93a298f1773ca4303af3746f7169bd7f01439a9c7 [stream]
+[info] i  hosting: uploading new files [1/4] (25%) 
+[debug] [2026-06-18T12:27:59.292Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/445e0c1965e8408c/files/4f2a0d494c965f7c3ebe2e07091f001514a99317cf7c806e549f49c67faed08b 200
+[debug] [2026-06-18T12:27:59.292Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/445e0c1965e8408c/files/4f2a0d494c965f7c3ebe2e07091f001514a99317cf7c806e549f49c67faed08b [stream]
+[debug] [2026-06-18T12:27:59.311Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/445e0c1965e8408c/files/320c5fac16c387d501c4226b8d4be87506e1f602fc9ec52b047e0c83a9a229c1 200
+[debug] [2026-06-18T12:27:59.311Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/445e0c1965e8408c/files/320c5fac16c387d501c4226b8d4be87506e1f602fc9ec52b047e0c83a9a229c1 [stream]
+[debug] [2026-06-18T12:27:59.578Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/445e0c1965e8408c/files/9ba8dedb3b8498b0b444eac84ce66650d5af77a6f382aba0b210f99037604720 200
+[debug] [2026-06-18T12:27:59.578Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/orbitafront/versions/445e0c1965e8408c/files/9ba8dedb3b8498b0b444eac84ce66650d5af77a6f382aba0b210f99037604720 [stream]
+[debug] [2026-06-18T12:27:59.578Z] [hosting][upload queue][FINAL] {"max":1649,"min":1129,"avg":1381.25,"active":0,"complete":4,"success":4,"errored":0,"retried":0,"total":4,"elapsed":1652}
+[info] i  hosting: upload complete 
+[info] +  hosting[orbitafront]: file upload complete 
+[debug] [2026-06-18T12:27:59.579Z] [hosting] deploy completed after 2425ms
+[debug] [2026-06-18T12:27:59.579Z] [
+  {
+    "config": {
+      "public": "dist/angular17/browser",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ],
+      "site": "orbitafront"
+    },
+    "version": "projects/621609587357/sites/orbitafront/versions/445e0c1965e8408c"
+  }
+]
+[info] i  hosting[orbitafront]: finalizing version... 
+[debug] [2026-06-18T12:27:59.581Z] Checked if tokens are valid: true, expires at: 1781789272947
+[debug] [2026-06-18T12:27:59.581Z] Checked if tokens are valid: true, expires at: 1781789272947
+[debug] [2026-06-18T12:27:59.581Z] >>> [apiv2][query] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/orbitafront/versions/445e0c1965e8408c updateMask=status%2Cconfig
+[debug] [2026-06-18T12:27:59.581Z] >>> [apiv2][body] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/orbitafront/versions/445e0c1965e8408c {"status":"FINALIZED","config":{"rewrites":[{"glob":"**","path":"/index.html"}]}}
+[debug] [2026-06-18T12:28:00.345Z] <<< [apiv2][status] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/orbitafront/versions/445e0c1965e8408c 200
+[debug] [2026-06-18T12:28:00.345Z] <<< [apiv2][body] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/orbitafront/versions/445e0c1965e8408c {"name":"projects/621609587357/sites/orbitafront/versions/445e0c1965e8408c","status":"FINALIZED","config":{"rewrites":[{"glob":"**","path":"/index.html"}]},"labels":{"deployment-tool":"cli-firebase"},"createTime":"2026-06-18T12:28:01.533344Z","createUser":{"email":"soporte.supersorteo@gmail.com"},"finalizeTime":"2026-06-18T12:28:05.216817Z","finalizeUser":{"email":"soporte.supersorteo@gmail.com"}}
+[debug] [2026-06-18T12:28:00.346Z] [hosting] finalized version for orbitafront:[object Object]
+[info] +  hosting[orbitafront]: version finalized 
+[info] i  hosting[orbitafront]: releasing new version... 
+[debug] [2026-06-18T12:28:00.347Z] Checked if tokens are valid: true, expires at: 1781789272947
+[debug] [2026-06-18T12:28:00.347Z] Checked if tokens are valid: true, expires at: 1781789272947
+[debug] [2026-06-18T12:28:00.347Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/orbitafront/channels/live/releases versionName=projects%2F621609587357%2Fsites%2Forbitafront%2Fversions%2F445e0c1965e8408c
+[debug] [2026-06-18T12:28:00.347Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/orbitafront/channels/live/releases {}
+[debug] [2026-06-18T12:28:01.436Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/orbitafront/channels/live/releases 200

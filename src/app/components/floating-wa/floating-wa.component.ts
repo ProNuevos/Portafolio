@@ -1,6 +1,5 @@
 ﻿import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import Swal from 'sweetalert2';
 import { WhatsAppService } from '../../services/whats-app.service';
 
 @Component({
@@ -30,7 +29,7 @@ export class FloatingWaComponent implements OnInit {
     const missingMensaje = !decodedMessage.includes('Mensaje:') || decodedMessage.includes('Mensaje: —');
 
     if (missingNombre || missingMensaje) {
-      Swal.fire({
+      void this.showAlert({
         title: 'Datos incompletos',
         text: 'Por favor, complete todos los datos en el formulario de estimacion.',
         icon: 'warning',
@@ -47,6 +46,16 @@ export class FloatingWaComponent implements OnInit {
   private scrollToContactAfterModal() {
     // SweetAlert bloquea el scroll del body mientras el modal esta abierto.
     setTimeout(() => this.scrollToContact(), 180);
+  }
+
+  private async showAlert(options: {
+    title: string;
+    text: string;
+    icon: 'warning';
+    confirmButtonText: string;
+  }) {
+    const Swal = (await import('sweetalert2/dist/sweetalert2.esm.js')).default;
+    return Swal.fire(options);
   }
 
   private scrollToContact() {

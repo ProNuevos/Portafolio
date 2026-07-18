@@ -24,14 +24,14 @@ export class TeamComponent implements AfterViewInit {
       role: 'CEO',
       description:
         'Define la vision del producto, alinea estrategia comercial y tecnica, y lidera la toma de decisiones para escalar el negocio con foco en resultados.',
-      photo: '/assets/team/danilo-roldan.svg'
+      photo: '/assets/team/danilo.jpeg'
     },
     {
       name: 'Leodanis Miranda',
       role: 'Programador Principal',
       description:
         'Disena y desarrolla la arquitectura de las aplicaciones, implementa funcionalidades clave y asegura calidad tecnica, rendimiento y mantenibilidad.',
-      photo: '/assets/team/leodanis-miranda.svg'
+      photo: '/assets/team/leo.jpeg'
     }
   ];
 

@@ -2,7 +2,6 @@ import { Component, AfterViewInit, ElementRef, QueryList, ViewChildren } from '@
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { WhatsAppService } from '../../services/whats-app.service';
-import Swal from 'sweetalert2';
 import { ContactService } from '../../services/contact.service';
 import { environment } from '../../../environments/environment';
 
@@ -73,7 +72,7 @@ export class ContactComponent implements AfterViewInit {
     if (this.contactForm.invalid || !this.contactForm.get('nombre')?.value) {
       this.contactForm.markAllAsTouched();
       this.contactStatus = '❌ Por favor, completa los campos obligatorios correctamente.';
-      Swal.fire({
+      void this.showAlert({
         title: 'Campos incompletos',
         text: 'Completa todos los campos antes de continuar por WhatsApp.',
         icon: 'warning',
@@ -89,7 +88,7 @@ export class ContactComponent implements AfterViewInit {
       this.contactStatus = '✅ Abriendo WhatsApp...';
       setTimeout(() => {
         if (!document.hidden) {
-          Swal.fire({
+          void this.showAlert({
             title: 'WhatsApp no disponible',
             text: 'Asegurate de tener WhatsApp instalado.',
             icon: 'info',
@@ -107,6 +106,16 @@ export class ContactComponent implements AfterViewInit {
     message += isPhone ? `📱 WhatsApp: ${whatsapp || '—'}\n` : `📩 Email: ${email || '—'}\n`;
     message += `💬 Mensaje: ${mensaje || '—'}`;
     return `whatsapp://send?phone=${environment.waPhone}&text=${encodeURIComponent(message)}`;
+  }
+
+  private async showAlert(options: {
+    title: string;
+    text: string;
+    icon: 'warning' | 'info';
+    confirmButtonText: string;
+  }) {
+    const Swal = (await import('sweetalert2/dist/sweetalert2.esm.js')).default;
+    return Swal.fire(options);
   }
 
   getNombreError(): string {

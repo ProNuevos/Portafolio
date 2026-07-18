@@ -1,0 +1,71 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="ldbg" x1="150" y1="90" x2="1450" y2="780" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#09090B"/>
+      <stop offset="0.34" stop-color="#111827"/>
+      <stop offset="0.66" stop-color="#1E1B4B"/>
+      <stop offset="1" stop-color="#3B0764"/>
+    </linearGradient>
+    <radialGradient id="ldorb1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(350 210) rotate(39) scale(260 260)">
+      <stop stop-color="#6366F1" stop-opacity="0.42"/>
+      <stop offset="1" stop-color="#6366F1" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="ldorb2" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1200 690) rotate(39) scale(260 260)">
+      <stop stop-color="#EC4899" stop-opacity="0.38"/>
+      <stop offset="1" stop-color="#EC4899" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="ldviolet" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#6366F1"/>
+      <stop offset="1" stop-color="#8B5CF6"/>
+    </linearGradient>
+    <linearGradient id="ldgold" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#FBBF24"/>
+      <stop offset="0.6" stop-color="#F59E0B"/>
+      <stop offset="1" stop-color="#EF4444"/>
+    </linearGradient>
+    <linearGradient id="ldgreen" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#10B981"/>
+      <stop offset="1" stop-color="#059669"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="900" rx="32" fill="url(#ldbg)"/>
+  <circle cx="350" cy="210" r="260" fill="url(#ldorb1)"/>
+  <circle cx="1200" cy="690" r="260" fill="url(#ldorb2)"/>
+
+  <text x="140" y="140" fill="#E5E7FF" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700">Sorteo en tiempo real para organizer y participantes</text>
+  <text x="140" y="218" fill="white" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="68" font-weight="800">Cuenta regresiva y ganador</text>
+  <text x="140" y="294" fill="#FFD989" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="68" font-weight="800">en vivo</text>
+
+  <rect x="140" y="360" width="320" height="172" rx="30" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.12)"/>
+  <text x="174" y="408" fill="#FFFFFF" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="26" font-weight="800">Estado</text>
+  <text x="174" y="456" fill="#C7D2FE" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700">Sorteo ejecutandose</text>
+  <rect x="174" y="478" width="252" height="18" rx="9" fill="rgba(255,255,255,0.08)"/>
+  <rect x="174" y="478" width="186" height="18" rx="9" fill="url(#ldviolet)"/>
+
+  <rect x="140" y="560" width="320" height="172" rx="30" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.12)"/>
+  <text x="174" y="608" fill="#FFFFFF" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="26" font-weight="800">Participacion</text>
+  <text x="174" y="656" fill="#BAF4D6" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700">Solo numeros reservados elegibles</text>
+  <rect x="174" y="676" width="112" height="26" rx="13" fill="rgba(16,185,129,0.16)"/>
+  <text x="194" y="694" fill="#D1FAE5" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="800">20 reservados</text>
+
+  <g>
+    <circle cx="1008" cy="408" r="204" fill="rgba(255,255,255,0.10)" stroke="rgba(255,255,255,0.12)" stroke-width="2"/>
+    <circle cx="1008" cy="408" r="162" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.12)" stroke-width="2"/>
+    <circle cx="1008" cy="408" r="120" fill="url(#ldgold)"/>
+    <text x="974" y="430" fill="white" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="92" font-weight="800">05</text>
+    <text x="928" y="242" fill="#FDE68A" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="800">Cuenta regresiva</text>
+  </g>
+
+  <rect x="760" y="644" width="496" height="132" rx="32" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.12)"/>
+  <circle cx="824" cy="710" r="34" fill="url(#ldgreen)"/>
+  <text x="878" y="694" fill="#FFFFFF" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="30" font-weight="800">Ganador confirmado</text>
+  <text x="878" y="736" fill="#D1FAE5" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700">Numero 05 · Carlos Perez</text>
+
+  <g transform="translate(1260 202)">
+    <rect width="200" height="142" rx="30" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.12)"/>
+    <text x="28" y="46" fill="#FFFFFF" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="22" font-weight="800">Overlay live</text>
+    <rect x="28" y="70" width="144" height="44" rx="22" fill="url(#ldviolet)"/>
+    <text x="80" y="99" fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="800">5</text>
+  </g>
+</svg>

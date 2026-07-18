@@ -36,16 +36,27 @@
 }
 
 .photo-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 1rem;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  aspect-ratio: 16 / 10;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02)),
+    rgba(10, 14, 20, 0.92);
+  aspect-ratio: 4 / 3;
+  min-height: 280px;
+  padding: 0.75rem;
 }
 
 .team-photo {
   width: 100%;
   height: 100%;
+  display: block;
   object-fit: cover;
+  object-fit: contain;
+  object-position: center;
   transition: transform 0.45s ease;
 }
 
@@ -61,5 +72,23 @@
 @media (max-width: 767px) {
   .team-card {
     padding: 1rem;
+  }
+
+  .photo-wrap {
+    min-height: 220px;
+    aspect-ratio: 1 / 1;
+    padding: 0.5rem;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .photo-wrap {
+    min-height: 320px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .photo-wrap {
+    min-height: 360px;
   }
 }

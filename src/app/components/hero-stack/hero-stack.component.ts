@@ -13,37 +13,83 @@ export class HeroStackComponent implements AfterViewInit {
 
   banners = [
     {
-      bg: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1920&auto=format&fit=crop',
+      bg: '/assets/portfolio/metro1.jpg',
       title: 'METRO APP',
       sub: 'La gema en nuestras manos. Una plataforma de exito internacional.',
+      siteUrl: 'https://www.metroapp.site',
+      siteLabel: 'Visitar sitio',
       modalId: 'modal1',
       modalTitle: 'METRO APP, nuestro primer gran exito',
       modalDesc: 'Una de las plataformas mas elegidas por los constructores de toda Argentina. Unica en su tipo, ha crecido exponencialmente en muy poco tiempo. Se abre paso internacional con una vision solida y estrategia de vanguardia.',
       gallery: [
-        { src: 'https://picsum.photos/seed/p1/1200/800', alt: 'Dashboard', capTitle: 'Dashboard', capSub: 'KPIs en tiempo real.' },
-        { src: 'https://picsum.photos/seed/p2/1200/800', alt: 'Presupuestos', capTitle: 'Presupuestos', capSub: 'Listas de precios dinamicas.' },
-        { src: 'https://picsum.photos/seed/p3/1200/800', alt: 'Logistica', capTitle: 'Logistica', capSub: 'Seguimiento de entregas.' },
-        { src: 'https://picsum.photos/seed/p4/1200/800', alt: 'Finanzas', capTitle: 'Finanzas', capSub: 'Margenes y cashflow.' }
+        {
+          src: '/assets/portfolio/metro1.jpg',
+          alt: 'Vista principal de Metro App',
+          capTitle: 'Vista principal',
+          capSub: 'Pantalla inicial del producto con acceso rapido a los modulos clave.'
+        },
+        {
+          src: '/assets/portfolio/metro2.jpg',
+          alt: 'Panel de gestion de Metro App',
+          capTitle: 'Panel de gestion',
+          capSub: 'Operacion centralizada con informacion relevante para el seguimiento diario.'
+        },
+        {
+          src: '/assets/portfolio/metro3.jpg',
+          alt: 'Modulo operativo de Metro App',
+          capTitle: 'Modulo operativo',
+          capSub: 'Flujos pensados para agilizar tareas y mejorar el control del negocio.'
+        },
+        {
+          src: '/assets/portfolio/metro4.jpg',
+          alt: 'Vista complementaria de Metro App',
+          capTitle: 'Vista complementaria',
+          capSub: 'Experiencia visual consistente para consultar datos y ejecutar acciones rapidamente.'
+        }
       ]
     },
     {
-      bg: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1920&auto=format&fit=crop',
+      bg: '/assets/portfolio/superrifa-hero.svg',
       title: 'SUPERSORTEO',
-      sub: 'Un proyecto innovador destinado al exito.',
+      sub: 'La siguiente generacion de rifas en linea para todo el mundo',
+      siteUrl: 'https://supersorteo-7db83.web.app',
+      siteLabel: 'Visitar sitio',
       modalId: 'modal2',
       modalTitle: 'Participa y gana con SUPERSORTEO',
       modalDesc: '',
       gallery: [
-        { src: 'https://picsum.photos/seed/c1/1200/800', alt: 'Descuentos', capTitle: 'Descuentos', capSub: 'Ofertas en comercios adheridos.' },
-        { src: 'https://picsum.photos/seed/c2/1200/800', alt: 'Eventos', capTitle: 'Eventos', capSub: 'Charlas y capacitaciones.' },
-        { src: 'https://picsum.photos/seed/c3/1200/800', alt: 'Networking', capTitle: 'Networking', capSub: 'Conecta con colegas del rubro.' },
-        { src: 'https://picsum.photos/seed/c4/1200/800', alt: 'Beneficios exclusivos', capTitle: 'Beneficios exclusivos', capSub: 'Acceso a convenios especiales.' }
+        {
+          src: '/assets/portfolio/superrifa-hero.svg',
+          alt: 'Vista principal de SuperSorteo',
+          capTitle: 'Experiencia principal',
+          capSub: 'Pantalla inicial del producto con enfoque promocional y acceso rapido al sorteo.'
+        },
+        {
+          src: '/assets/portfolio/superrifa-dashboard.svg',
+          alt: 'Dashboard de SuperSorteo',
+          capTitle: 'Dashboard de gestion',
+          capSub: 'Panel central para administrar sorteos, participantes y seguimiento general.'
+        },
+        {
+          src: '/assets/portfolio/superrifa-live-draw.svg',
+          alt: 'Sorteo en vivo de SuperSorteo',
+          capTitle: 'Sorteo en vivo',
+          capSub: 'Visualizacion del proceso de seleccion de ganadores en tiempo real.'
+        },
+        {
+          src: '/assets/portfolio/superrifa-mobile-reservation.svg',
+          alt: 'Reserva mobile de SuperSorteo',
+          capTitle: 'Reserva desde movil',
+          capSub: 'Flujo optimizado para que los usuarios participen y reserven numeros desde el telefono.'
+        }
       ]
     },
     {
       bg: '/portfolio/gestorqr-dashboard.svg',
       title: 'GESTORQR',
       sub: 'Gestion de empleados con control y trazabilidad mediante QR.',
+      siteUrl: 'https://example.com/gestorqr',
+      siteLabel: 'Visitar sitio',
       modalId: 'modal3',
       modalTitle: 'GESTORQR - Gestion inteligente de empleados',
       modalDesc: 'Plataforma para administrar empleados, registrar accesos y simplificar procesos diarios de la empresa con flujos basados en QR.',
@@ -78,6 +124,8 @@ export class HeroStackComponent implements AfterViewInit {
       bg: '/assets/portfolio/exellsior-overview.svg',
       title: 'EXELLSIOR',
       sub: 'Sistema integral para gestionar un car wash con foco en control, velocidad y calidad de servicio.',
+      siteUrl: 'https://exellssior-app.web.app',
+      siteLabel: 'Visitar sitio',
       modalId: 'modal4',
       modalTitle: 'EXELLSIOR - Gestion inteligente para lavaderos',
       modalDesc: 'Aplicacion web para centralizar operacion, clientes y reportes en un solo panel. Diseñada para equipos que necesitan visibilidad en tiempo real y procesos mas ordenados.',

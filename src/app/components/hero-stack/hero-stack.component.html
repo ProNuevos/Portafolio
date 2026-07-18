@@ -5,6 +5,9 @@
       <div class="hero-content mx-auto">
         <h1 class="hero-title display-5">{{ b.title }}</h1>
         <p class="hero-sub lead mb-0">{{ b.sub }}</p>
+        <a class="banner-link" [href]="b.siteUrl" target="_blank" rel="noopener noreferrer">
+          {{ b.siteLabel }}
+        </a>
       </div>
       <button type="button" class="banner-cta" data-bs-toggle="modal" [attr.data-bs-target]="'#' + b.modalId">Conocer más</button>
     </div>
