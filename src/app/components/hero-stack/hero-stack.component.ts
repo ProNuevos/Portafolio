@@ -88,7 +88,7 @@ export class HeroStackComponent implements AfterViewInit {
       bg: '/portfolio/gestorqr-dashboard.svg',
       title: 'GESTORQR',
       sub: 'Gestion de empleados con control y trazabilidad mediante QR.',
-      siteUrl: 'https://example.com/gestorqr',
+      siteUrl: 'https://gestor-qr-afe03.web.app',
       siteLabel: 'Visitar sitio',
       modalId: 'modal3',
       modalTitle: 'GESTORQR - Gestion inteligente de empleados',
