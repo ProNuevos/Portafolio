@@ -1,25 +1,33 @@
-import { Component, AfterViewInit, ElementRef, QueryList, ViewChildren } from '@angular/core';
+import { Component, DestroyRef, ElementRef, ViewChild, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { WhatsAppService } from '../../services/whats-app.service';
 import { ContactService } from '../../services/contact.service';
-import { environment } from '../../../environments/environment';
+import { finalize, timeout } from 'rxjs';
+import { submissionError } from '../../services/form-utils';
+import { RevealOnScrollDirective } from '../../directives/reveal-on-scroll.directive';
+import { ContactDialogService } from '../../services/contact-dialog.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RevealOnScrollDirective],
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss']
 })
-export class ContactComponent implements AfterViewInit {
-  @ViewChildren('appearElement') appearElements!: QueryList<ElementRef>;
+export class ContactComponent {
+  @ViewChild('contactDialog', { static: true }) dialog!: ElementRef<HTMLDialogElement>;
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly dialogService = inject(ContactDialogService);
+  private previousOverflow = '';
+  private returnFocus: HTMLElement | null = null;
 
   contactForm = this.fb.group({
-    nombre: ['', Validators.required],
-    email: ['', [Validators.required, Validators.email]],
+    nombre: ['', [Validators.required, Validators.maxLength(100)]],
+    email: ['', [Validators.required, Validators.email, Validators.maxLength(150)]],
     whatsapp: ['', [Validators.required, Validators.pattern(/^\+\d{8,15}$/)]],
-    mensaje: ['', Validators.required]
+    mensaje: ['', [Validators.required, Validators.maxLength(1000)]]
   });
 
   contactStatus = '';
@@ -29,21 +37,44 @@ export class ContactComponent implements AfterViewInit {
     private fb: FormBuilder,
     private contactService: ContactService,
     private whatsAppService: WhatsAppService
-  ) {}
+  ) {
+    this.dialogService.openRequests$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => this.openContact());
+  }
 
-  ngAfterViewInit() {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) entry.target.classList.add('is-visible');
-        });
-      },
-      { threshold: 0.15 }
-    );
-    this.appearElements.forEach((element) => observer.observe(element.nativeElement));
+  openContact() {
+    if (this.dialog.nativeElement.open) return;
+    this.returnFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    this.previousOverflow = document.body.style.overflow;
+    this.dialog.nativeElement.showModal();
+    document.body.style.overflow = 'hidden';
+  }
+
+  closeContact() {
+    this.dialog.nativeElement.close();
+    this.resetContactForm();
+    document.body.style.overflow = this.previousOverflow;
+    this.returnFocus?.focus();
+  }
+
+  onBackdropClick(event: MouseEvent) {
+    const dialog = this.dialog.nativeElement;
+    const rect = dialog.getBoundingClientRect();
+    if (event.target === dialog && (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom)) this.closeContact();
+  }
+
+  private resetContactForm() {
+    this.contactForm.reset({ nombre: '', email: '', whatsapp: '', mensaje: '' });
+    this.contactStatus = '';
+    this.isSubmitting = false;
   }
 
   onSubmit() {
+    if (this.isSubmitting) return;
+    for (const [key, value] of Object.entries(this.contactForm.getRawValue())) {
+      let normalized = (value ?? '').trim();
+      if ((key === 'whatsapp' || key === 'contacto') && normalized.startsWith('+')) normalized = normalized.replace(/[\s()\-]/g, '');
+      this.contactForm.get(key)?.setValue(normalized, { emitEvent: false });
+    }
     if (this.contactForm.invalid) {
       this.contactForm.markAllAsTouched();
       this.contactStatus = '❌ Por favor, completa los campos obligatorios correctamente.';
@@ -51,80 +82,39 @@ export class ContactComponent implements AfterViewInit {
     }
 
     const payload = this.contactForm.value as { nombre: string; email: string; whatsapp: string; mensaje: string };
-    const now = new Date();
-    const fecha = `${now.getDate().toString().padStart(2, '0')}/${(now.getMonth() + 1).toString().padStart(2, '0')}/${now.getFullYear()}`;
-
     this.isSubmitting = true;
-    this.contactService.saveContact({ ...payload, fecha }).subscribe({
+    this.contactStatus = 'Enviando tu mensaje…';
+    this.contactService.saveContact(payload).pipe(timeout(20000), finalize(() => this.isSubmitting = false)).subscribe({
       next: () => {
         this.contactStatus = '✅ Mensaje enviado. Te escribimos pronto.\n📲 También podés contactarnos por WhatsApp.';
         this.whatsAppService.updateWaLink(this.buildWhatsMsg(payload));
-        this.isSubmitting = false;
       },
-      error: () => {
-        this.contactStatus = '❌ Error al enviar el contacto. Por favor, intentalo de nuevo.';
-        this.isSubmitting = false;
+      error: (error: unknown) => {
+        this.contactStatus = submissionError(error);
       }
     });
   }
 
   onWhatsAppClick() {
-    if (this.contactForm.invalid || !this.contactForm.get('nombre')?.value) {
-      this.contactForm.markAllAsTouched();
-      this.contactStatus = '❌ Por favor, completa los campos obligatorios correctamente.';
-      void this.showAlert({
-        title: 'Campos incompletos',
-        text: 'Completa todos los campos antes de continuar por WhatsApp.',
-        icon: 'warning',
-        confirmButtonText: 'OK'
-      });
-      return;
-    }
-
-    const payload = this.contactForm.value as { nombre: string; email: string; whatsapp: string; mensaje: string };
-    const waLink = this.buildWhatsMsg(payload);
-    if (waLink) {
-      window.location.href = waLink;
-      this.contactStatus = '✅ Abriendo WhatsApp...';
-      setTimeout(() => {
-        if (!document.hidden) {
-          void this.showAlert({
-            title: 'WhatsApp no disponible',
-            text: 'Asegurate de tener WhatsApp instalado.',
-            icon: 'info',
-            confirmButtonText: 'OK'
-          });
-        }
-      }, 3000);
-    }
+    this.whatsAppService.open(this.buildWhatsMsg(this.contactForm.getRawValue()));
   }
-
-  buildWhatsMsg({ nombre = '', email = '', whatsapp = '', mensaje = '' }: { nombre?: string; email?: string; whatsapp?: string; mensaje?: string }) {
-    if (!nombre) return '';
-    const isPhone = /^\+\d{8,15}$/.test(whatsapp);
-    let message = `🚀 ¡Hola Orbita!, me interesan sus servicios\n👤 Nombre: ${nombre}\n`;
-    message += isPhone ? `📱 WhatsApp: ${whatsapp || '—'}\n` : `📩 Email: ${email || '—'}\n`;
-    message += `💬 Mensaje: ${mensaje || '—'}`;
-    return `whatsapp://send?phone=${environment.waPhone}&text=${encodeURIComponent(message)}`;
-  }
-
-  private async showAlert(options: {
-    title: string;
-    text: string;
-    icon: 'warning' | 'info';
-    confirmButtonText: string;
-  }) {
-    const Swal = (await import('sweetalert2/dist/sweetalert2.esm.js')).default;
-    return Swal.fire(options);
+  buildWhatsMsg(data: { nombre?: string | null; email?: string | null; whatsapp?: string | null; mensaje?: string | null }) {
+    const lines = ['Hola Órbita, me interesan sus servicios.'];
+    for (const [label, value] of [['Nombre', data.nombre], ['Email', data.email], ['WhatsApp', data.whatsapp], ['Mensaje', data.mensaje]]) {
+      if (value?.trim()) lines.push(label + ': ' + value.trim());
+    }
+    return this.whatsAppService.buildLink(lines.join('\n'));
   }
 
   getNombreError(): string {
     const c = this.contactForm.get('nombre');
+    if (c?.hasError('maxlength')) return 'Máximo 100 caracteres.';
     return c?.hasError('required') ? 'El nombre es obligatorio.' : '';
   }
 
   getEmailError(): string {
     const c = this.contactForm.get('email');
+    if (c?.hasError('maxlength')) return 'Máximo 150 caracteres.';
     if (c?.hasError('required')) return 'El email es obligatorio.';
     if (c?.hasError('email')) return 'Ingresa un email valido (ejemplo@dominio.com).';
     return '';
@@ -139,6 +129,7 @@ export class ContactComponent implements AfterViewInit {
 
   getMensajeError(): string {
     const c = this.contactForm.get('mensaje');
+    if (c?.hasError('maxlength')) return 'Máximo 1000 caracteres.';
     return c?.hasError('required') ? 'El mensaje es obligatorio.' : '';
   }
 }

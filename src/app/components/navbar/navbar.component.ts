@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { ContactDialogService } from '../../services/contact-dialog.service';
 
 @Component({
   selector: 'app-navbar',
@@ -9,6 +10,7 @@ import { Component } from '@angular/core';
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
+  constructor(private readonly contactDialog: ContactDialogService) {}
 
 scrollToSection(sectionId: string) {
     const element = document.getElementById(sectionId);
@@ -16,5 +18,7 @@ scrollToSection(sectionId: string) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   }
+
+  openContactDialog() { this.contactDialog.open(); }
 
 }

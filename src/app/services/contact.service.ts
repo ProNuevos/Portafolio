@@ -8,7 +8,6 @@ export interface ContactPayload {
   email: string;
   whatsapp: string;
   mensaje: string;
-  fecha?: string;
 }
 
 @Injectable({

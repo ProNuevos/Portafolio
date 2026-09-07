@@ -1,25 +1,31 @@
-<main class="container py-4 py-md-5">
+<section id="proyectos" class="portfolio section"><div class="container">
+  <header class="portfolio-heading">
+    <span class="orb-eyebrow"><i class="bi bi-briefcase" aria-hidden="true"></i> Trabajo seleccionado</span>
+    <h2>Proyectos que convierten<br><span class="glow">ideas en resultados.</span></h2>
+    <p>Conocé algunas de las plataformas que diseñamos y desarrollamos para resolver desafíos reales.</p>
+  </header>
   <section class="hero-stack">
-    <div *ngFor="let b of banners" class="hero-banner">
+    <article *ngFor="let b of banners" class="hero-banner">
       <div class="hero-bg" [style.background-image]="'url(' + b.bg + ')'"></div>
       <div class="hero-content mx-auto">
-        <h1 class="hero-title display-5">{{ b.title }}</h1>
-        <p class="hero-sub lead mb-0">{{ b.sub }}</p>
-        <a class="banner-link" [href]="b.siteUrl" target="_blank" rel="noopener noreferrer">
+        <span class="project-label">Caso de estudio</span>
+        <h3 class="hero-title">{{ b.title }}</h3>
+        <p class="hero-sub mb-0">{{ b.sub }}</p>
+        <a class="banner-link" [href]="b.siteUrl" target="_blank" rel="noopener noreferrer" [attr.aria-label]="'Visitar ' + b.title + ' (abre en otra pestaña)'">
           {{ b.siteLabel }}
         </a>
       </div>
-      <button type="button" class="banner-cta" data-bs-toggle="modal" [attr.data-bs-target]="'#' + b.modalId">Conocer más</button>
-    </div>
+      <button type="button" class="banner-cta" data-bs-toggle="modal" [attr.data-bs-target]="'#' + b.modalId" [attr.aria-label]="'Ver detalles de ' + b.title">Ver proyecto <i class="bi bi-arrow-up-right" aria-hidden="true"></i></button>
+    </article>
   </section>
-</main>
+</div></section>
 
-<div *ngFor="let b of banners" class="modal fade" [id]="b.modalId" tabindex="-1">
+<div *ngFor="let b of banners" class="modal fade" [id]="b.modalId" tabindex="-1" role="dialog" aria-modal="true" [attr.aria-labelledby]="b.modalId + '-title'">
   <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header" *ngIf="b.modalTitle">
-        <h5 class="modal-title">{{ b.modalTitle }}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        <h5 class="modal-title" [id]="b.modalId + '-title'">{{ b.modalTitle }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar detalles del proyecto"></button>
       </div>
       <div class="modal-body">
         <h6 *ngIf="b.modalDesc">{{ b.modalDesc }}</h6>
@@ -27,7 +33,7 @@
           <div class="row g-4">
             <div class="col-12" *ngFor="let item of b.gallery">
               <figure class="gallery-item">
-                <img [src]="item.src" [alt]="item.alt" />
+                <img [src]="item.src" [alt]="item.alt" loading="lazy" />
                 <figcaption class="caption">
                   <h5>{{ item.capTitle }}</h5>
                   <p class="mb-0 text-secondary">{{ item.capSub }}</p>

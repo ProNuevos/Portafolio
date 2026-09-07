@@ -20,4 +20,9 @@ describe('NavbarComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('links projects to the projects section', () => {
+    const link = fixture.nativeElement.querySelector('a[href="#proyectos"]') as HTMLAnchorElement;
+    expect(link.textContent).toContain('Proyectos');
+  });
 });

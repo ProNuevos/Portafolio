@@ -1,11 +1,15 @@
-<footer class="py-4 mt-5 border-top border-secondary-subtle">
-  <div class="container d-flex flex-column flex-lg-row justify-content-between align-items-center gap-3">
-    <div class="text-secondary">© {{ currentYear }} Órbita Software. Todos los derechos reservados.</div>
-    <div class="d-flex gap-3 small">
-      <a href="#servicios">Servicios</a>
-      <a href="#casos">Casos</a>
-      <a href="#proceso">Proceso</a>
-      <a href="#contacto">Contacto</a>
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-main">
+      <div>
+        <a class="footer-brand" href="#inicio">Órbita<span class="logo-dot"></span></a>
+        <p>Software claro y hecho a medida para impulsar tu negocio.</p>
+      </div>
+      <div class="footer-contact">
+        <a href="mailto:contacto@orbita.software">contacto&#64;orbita.software</a>
+        <button type="button" class="footer-cta" (click)="openContactDialog()" aria-haspopup="dialog" aria-controls="contact-dialog">Iniciar una consulta <i class="bi bi-arrow-up-right" aria-hidden="true"></i></button>
+      </div>
     </div>
+    <div class="footer-bottom"><span>© {{ currentYear }} Órbita Software.</span><span>Desarrollo digital a medida.</span></div>
   </div>
 </footer>

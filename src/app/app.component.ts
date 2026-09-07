@@ -4,7 +4,6 @@ import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HeroComponent } from './components/hero/hero.component';
 import { ServicesComponent } from './components/services/services.component';
-import { CasesComponent } from './components/cases/cases.component';
 import { ProcessComponent } from './components/process/process.component';
 import { TechnologiesComponent } from './components/technologies/technologies.component';
 import { CtaComponent } from './components/cta/cta.component';
@@ -21,7 +20,6 @@ import { TeamComponent } from './components/team/team.component';
     NavbarComponent,
     HeroComponent,
     ServicesComponent,
-    CasesComponent,
     ProcessComponent,
     TechnologiesComponent,
     CtaComponent,

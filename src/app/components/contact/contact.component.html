@@ -1,59 +1,39 @@
 <section id="contacto" class="section pt-0">
   <div class="container">
-    <div class="row g-4">
-      <div class="col-lg-6" #appearElement data-appear>
-        <h2 class="fw-bold mb-3">Contacto</h2>
-        <p class="text-secondary">Completá el formulario y te escribimos. También podés escribirnos por WhatsApp.</p>
-        <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="row g-3 orb-card rounded-4 p-4">
-          <div class="col-md-6">
-            <label class="form-label required">Nombre</label>
-            <input formControlName="nombre" type="text" class="form-control" required [ngClass]="{'is-invalid': contactForm.get('nombre')?.invalid && contactForm.get('nombre')?.touched}">
-            <div class="invalid-feedback" *ngIf="contactForm.get('nombre')?.touched && contactForm.get('nombre')?.invalid">
-              {{ getNombreError() }}
-            </div>
-          </div>
-          <div class="col-md-6">
-            <label class="form-label required">Email</label>
-            <input formControlName="email" type="email" class="form-control" required [ngClass]="{'is-invalid': contactForm.get('email')?.invalid && contactForm.get('email')?.touched}">
-            <div class="invalid-feedback" *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.invalid">
-              {{ getEmailError() }}
-            </div>
-          </div>
-          <div class="col-12">
-            <label class="form-label required">WhatsApp</label>
-            <input formControlName="whatsapp" type="tel" class="form-control" placeholder="+54 9 …" required [ngClass]="{'is-invalid': contactForm.get('whatsapp')?.invalid && contactForm.get('whatsapp')?.touched}">
-            <div class="invalid-feedback" *ngIf="contactForm.get('whatsapp')?.touched && contactForm.get('whatsapp')?.invalid">
-              {{ getWhatsAppError() }}
-            </div>
-          </div>
-          <div class="col-12">
-            <label class="form-label required">Mensaje</label>
-            <textarea formControlName="mensaje" class="form-control" rows="4" required [ngClass]="{'is-invalid': contactForm.get('mensaje')?.invalid && contactForm.get('mensaje')?.touched}"></textarea>
-            <div class="invalid-feedback" *ngIf="contactForm.get('mensaje')?.touched && contactForm.get('mensaje')?.invalid">
-              {{ getMensajeError() }}
-            </div>
-          </div>
-          <div class="col-12 d-flex gap-2">
-            <button class="btn btn-orb" type="submit"><i class="bi bi-send me-2"></i> Enviar</button>
-            <button class="btn btn-outline-orb" type="button" (click)="onWhatsAppClick()"><i class="bi bi-whatsapp me-2"></i> WhatsApp</button>
-          </div>
-          <div id="contactStatus" class="small text-secondary">{{ contactStatus }}</div>
-        </form>
-        <p class="small text-secondary mt-2"><i class="bi bi-lock me-1"></i> Usamos tus datos solo para responderte.</p>
+    <div class="contact-aside" appReveal data-appear>
+      <div>
+        <span class="contact-overline">CONTACTO DIRECTO</span>
+        <h2>¿Tenés una idea?<br><span>Hablemos.</span></h2>
+        <p>Contanos qué necesitás y te respondemos con una primera propuesta clara, sin compromiso.</p>
       </div>
-      <div class="col-lg-6" #appearElement data-appear>
-        <div class="orb-card rounded-4 p-4 h-100">
-          <h5 class="mb-3">Datos</h5>
-          <ul class="list-unstyled text-secondary">
-            <li class="mb-2"><i class="bi bi-geo-alt me-2"></i> Buenos Aires, Argentina</li>
-            <li class="mb-2"><i class="bi bi-envelope me-2"></i> contacto&#64;orbita.software</li>
-            <li class="mb-2"><i class="bi bi-whatsapp me-2"></i> +54 9 11 2863-4744</li>
-          </ul>
-          <div class="ratio ratio-16x9 rounded-3 overflow-hidden">
-            <iframe title="Mapa" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.openstreetmap.org/export/embed.html?bbox=-58.5%2C-34.9%2C-58.2%2C-34.6&amp;layer=mapnik"></iframe>
-          </div>
-        </div>
+      <div class="contact-links">
+        <a class="contact-channel" href="mailto:contacto@orbita.software"><span class="channel-icon"><i class="bi bi-envelope" aria-hidden="true"></i></span><span><small>Email</small>contacto&#64;orbita.software</span><i class="bi bi-arrow-up-right channel-arrow" aria-hidden="true"></i></a>
+        <button type="button" class="contact-channel contact-channel-button" (click)="openContact()" aria-haspopup="dialog" aria-controls="contact-dialog"><span class="channel-icon"><i class="bi bi-chat-square-text" aria-hidden="true"></i></span><span><small>Formulario</small>Contanos sobre tu proyecto</span><i class="bi bi-arrow-up-right channel-arrow" aria-hidden="true"></i></button>
       </div>
+      <div class="contact-aside-footer"><i class="bi bi-clock-history" aria-hidden="true"></i> Respondemos habitualmente dentro de 24 a 48 horas hábiles.</div>
     </div>
   </div>
 </section>
+
+<dialog #contactDialog id="contact-dialog" class="estimate-dialog contact-dialog" aria-labelledby="contact-title" aria-describedby="contact-description" (cancel)="closeContact()" (click)="onBackdropClick($event)">
+  <div class="estimate-shell">
+    <div class="estimate-heading">
+      <div class="estimate-kicker"><span class="estimate-icon"><i class="bi bi-chat-square-text" aria-hidden="true"></i></span> HABLEMOS DE TU IDEA</div>
+      <button type="button" class="estimate-close" aria-label="Cerrar formulario de contacto" (click)="closeContact()"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+      <h2 id="contact-title">Reservá una <span>llamada.</span></h2>
+      <p id="contact-description">Dejanos tus datos y una breve descripción. Te contactamos para conocer tu proyecto y preparar una propuesta.</p>
+      <div class="estimate-note"><i class="bi bi-check2-circle" aria-hidden="true"></i> Sin compromiso <span>·</span> Respuesta personalizada</div>
+    </div>
+    <div class="estimate-body">
+      <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" [attr.aria-busy]="isSubmitting" class="row g-3 estimate-form">
+        <div class="col-md-6"><label class="form-label required" for="contact-nombre">Nombre</label><input id="contact-nombre" maxlength="100" formControlName="nombre" type="text" class="form-control" [ngClass]="{'is-invalid': contactForm.get('nombre')?.invalid && contactForm.get('nombre')?.touched}"><div class="invalid-feedback">{{ getNombreError() }}</div></div>
+        <div class="col-md-6"><label class="form-label required" for="contact-email">Email</label><input id="contact-email" maxlength="150" formControlName="email" type="email" class="form-control" [ngClass]="{'is-invalid': contactForm.get('email')?.invalid && contactForm.get('email')?.touched}"><div class="invalid-feedback">{{ getEmailError() }}</div></div>
+        <div class="col-12"><label class="form-label required" for="contact-whatsapp">WhatsApp</label><input id="contact-whatsapp" formControlName="whatsapp" type="tel" class="form-control" placeholder="+5491123456789" [ngClass]="{'is-invalid': contactForm.get('whatsapp')?.invalid && contactForm.get('whatsapp')?.touched}"><div class="invalid-feedback">{{ getWhatsAppError() }}</div></div>
+        <div class="col-12"><label class="form-label required" for="contact-mensaje">Contanos sobre tu proyecto</label><textarea id="contact-mensaje" maxlength="1000" formControlName="mensaje" class="form-control" rows="4" [ngClass]="{'is-invalid': contactForm.get('mensaje')?.invalid && contactForm.get('mensaje')?.touched}"></textarea><div class="invalid-feedback">{{ getMensajeError() }}</div></div>
+        <div class="col-12 d-grid"><button class="btn btn-orb" type="submit" [disabled]="isSubmitting"><i class="bi bi-send me-2" aria-hidden="true"></i>{{ isSubmitting ? 'Enviando…' : 'Enviar consulta' }}</button></div>
+        <div role="status" aria-live="polite" aria-atomic="true" class="small estimate-status" [class.has-result]="contactStatus" [ngClass]="{'text-secondary': contactStatus.indexOf('❌') === -1, 'text-danger': contactStatus.indexOf('❌') !== -1}">{{ contactStatus }}</div>
+      </form>
+      <div class="estimate-footer"><i class="bi bi-shield-check" aria-hidden="true"></i> Usamos tus datos únicamente para responder tu consulta.</div>
+    </div>
+  </div>
+</dialog>

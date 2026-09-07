@@ -1,10 +1,13 @@
-import { Component, AfterViewInit, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, OnInit, QueryList, ViewChildren, ViewChild, DestroyRef, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { EstimateDialogService } from '../../services/estimate-dialog.service';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { LeadService } from '../../services/lead.service';
 import { WhatsAppService } from '../../services/whats-app.service';
 import { FormDataService } from '../../services/form-data.service';
-import { environment } from '../../../environments/environment';
+import { finalize, timeout } from 'rxjs';
+import { submissionError } from '../../services/form-utils';
 
 @Component({
   selector: 'app-hero',
@@ -15,12 +18,19 @@ import { environment } from '../../../environments/environment';
 })
 export class HeroComponent implements OnInit, AfterViewInit {
   @ViewChildren('appearElement') appearElements!: QueryList<ElementRef>;
+  @ViewChild('estimateDialog', { static: true }) dialog!: ElementRef<HTMLDialogElement>;
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly dialogService = inject(EstimateDialogService);
+  private previousOverflow = '';
+  private returnFocus: HTMLElement | null = null;
+  private scrollLocked = false;
+  estimateWaLink = '';
 
   estimateForm = this.fb.group({
     tipo: ['', Validators.required],
-    alcance: ['Mediano'],
-    mensaje: [''],
-    contacto: ['', [Validators.required, Validators.pattern(/^(?:[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}|\+\d{8,15})$/)]]
+    alcance: ['Mediano', Validators.required],
+    mensaje: ['', Validators.maxLength(2000)],
+    contacto: ['', [Validators.maxLength(500), Validators.required, Validators.pattern(/^(?:[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}|\+\d{8,15})$/)]]
   });
 
   estimateResult = '';
@@ -48,20 +58,16 @@ export class HeroComponent implements OnInit, AfterViewInit {
     private leadService: LeadService,
     private whatsAppService: WhatsAppService,
     private formDataService: FormDataService
-  ) {
-    this.estimateForm.get('contacto')?.valueChanges.subscribe(value => {
-      if (value && value.startsWith('+')) {
-        const normalized = '+' + value.replace(/[^0-9]/g, '');
-        this.estimateForm.get('contacto')?.setValue(normalized, { emitEvent: false });
-      }
-    });
-  }
+  ) {}
 
   ngOnInit() {
-    this.formDataService.resetHeroForm$.subscribe(reset => {
+    this.dialogService.openRequests$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => this.openEstimate());
+    this.destroyRef.onDestroy(() => this.restorePage());
+    this.formDataService.resetHeroForm$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(reset => {
       if (reset) {
         this.estimateForm.reset({ tipo: '', alcance: 'Mediano', mensaje: '', contacto: '' });
         this.estimateResult = '';
+        this.estimateWaLink = '';
       }
     });
   }
@@ -76,6 +82,48 @@ export class HeroComponent implements OnInit, AfterViewInit {
       { threshold: 0.15 }
     );
     this.appearElements.forEach((element) => observer.observe(element.nativeElement));
+    this.destroyRef.onDestroy(() => observer.disconnect());
+  }
+
+  openEstimate() {
+    if (this.dialog.nativeElement.open) return;
+    this.returnFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    this.previousOverflow = document.body.style.overflow;
+    this.dialog.nativeElement.showModal();
+    document.body.style.overflow = 'hidden';
+    this.scrollLocked = true;
+  }
+
+  closeEstimate() {
+    this.dialog.nativeElement.close();
+    this.resetEstimateForm();
+    this.restorePage();
+  }
+
+  private resetEstimateForm() {
+    this.estimateForm.reset({ tipo: '', alcance: 'Mediano', mensaje: '', contacto: '' });
+    this.estimateResult = '';
+    this.estimateWaLink = '';
+    this.isSubmitting = false;
+  }
+
+  restorePage() {
+    if (!this.scrollLocked) return;
+    document.body.style.overflow = this.previousOverflow;
+    this.scrollLocked = false;
+    this.returnFocus?.focus();
+  }
+
+  onBackdropClick(event: MouseEvent) {
+    const dialog = this.dialog.nativeElement;
+    const rect = dialog.getBoundingClientRect();
+    if (event.target === dialog && (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom)) {
+      this.closeEstimate();
+    }
+  }
+
+  continueWhatsApp() {
+    if (this.estimateWaLink) this.whatsAppService.open(this.estimateWaLink);
   }
 
   scrollToSection(sectionId: string) {
@@ -83,6 +131,12 @@ export class HeroComponent implements OnInit, AfterViewInit {
   }
 
   onSubmit() {
+    if (this.isSubmitting) return;
+    for (const [key, value] of Object.entries(this.estimateForm.getRawValue())) {
+      let normalized = (value ?? '').trim();
+      if ((key === 'whatsapp' || key === 'contacto') && normalized.startsWith('+')) normalized = normalized.replace(/[\s()\-]/g, '');
+      this.estimateForm.get(key)?.setValue(normalized, { emitEvent: false });
+    }
     if (this.estimateForm.invalid) {
       this.estimateForm.markAllAsTouched();
       this.estimateResult = '❌ Por favor, completa los campos obligatorios correctamente.';
@@ -93,47 +147,39 @@ export class HeroComponent implements OnInit, AfterViewInit {
     const hits = Math.ceil((this.weights[tipo] ?? 1) * (this.alcanceMul[alcance] ?? 1.6));
     const estimado = this.baseUSD * hits;
 
-    this.estimateResult = `✅ Estimación referencial: ~USD ${estimado.toLocaleString()} en ${hits} hitos.\nTe escribimos a: ${contacto}.`;
+    this.estimateResult = `Estimación referencial: ~USD ${estimado.toLocaleString()} en ${hits} hitos.\nEnviando tu consulta…`;
     this.isSubmitting = true;
 
-    const now = new Date();
-    const fecha = `${now.getDate().toString().padStart(2, '0')}/${(now.getMonth() + 1).toString().padStart(2, '0')}/${now.getFullYear()}`;
-
-    this.leadService.saveLead({ fecha, tipo, alcance, contacto, mensaje, hits, estimado }).subscribe({
+    this.leadService.saveLead({ tipo, alcance, contacto, mensaje, hits, estimado }).pipe(timeout(20000), finalize(() => this.isSubmitting = false)).subscribe({
       next: () => {
-        this.estimateResult += '\n✅ Lead enviado exitosamente.\n📲 Hacé clic en el ícono de WhatsApp para contactarnos.';
-        this.isSubmitting = false;
+        this.estimateResult = `✅ Estimación referencial: ~USD ${estimado.toLocaleString()} en ${hits} hitos.\nConsulta enviada. Te escribimos a: ${contacto}.\nTambién podés continuar por WhatsApp.`;
       },
-      error: () => {
-        this.estimateResult = '❌ Error al enviar el lead. Por favor, intentalo de nuevo.';
-        this.isSubmitting = false;
+      error: (error: unknown) => {
+        this.estimateResult = submissionError(error);
       }
     });
 
-    this.whatsAppService.updateWaLink(this.buildWhatsMsg({
+    this.estimateWaLink = this.buildWhatsMsg({
       email: contacto,
       whatsapp: contacto,
-      mensaje: `[Estimación] Tipo: ${tipo} | Alcance: ${alcance} | Hits: ${hits} | Estimación ~USD ${estimado}`
-    }));
+      mensaje: `[Estimación] Tipo: ${tipo} | Alcance: ${alcance} | Hitos: ${hits} | Estimación ~USD ${estimado}\n${mensaje}`
+    });
+    this.whatsAppService.updateWaLink(this.estimateWaLink);
   }
 
-  buildWhatsMsg({ nombre = '', email = '', whatsapp = '', mensaje = '' }: { nombre?: string; email?: string; whatsapp?: string; mensaje?: string }) {
-    const isPhone = /^\+\d{8,15}$/.test(email);
-    let message = `🚀 Quiero comunicarme con los administradores de Órbita, me interesa sus servicios 🌟\n` +
-                  `👤 Nombre: ${nombre || '—'}\n`;
-    message += isPhone ? `📱 WhatsApp: ${whatsapp || '—'}\n` : `📩 Email: ${email || '—'}\n`;
-    message += `💬 Mensaje: ${mensaje || '—'}`;
-    return `whatsapp://send?phone=${environment.waPhone}&text=${encodeURIComponent(message)}`;
+  buildWhatsMsg({ email = '', mensaje = '' }: { nombre?: string; email?: string; whatsapp?: string; mensaje?: string }) {
+    const label = email.startsWith('+') ? 'WhatsApp' : 'Email';
+    return this.whatsAppService.buildLink('Hola Órbita, me interesan sus servicios.\n' + label + ': ' + email + '\nMensaje: ' + mensaje);
   }
 
-
-getTipoError(): string {
+  getTipoError(): string {
     const tipoControl = this.estimateForm.get('tipo');
     return tipoControl?.hasError('required') ? 'El tipo de proyecto es obligatorio.' : '';
   }
 
 getContactoError(): string {
     const contactoControl = this.estimateForm.get('contacto');
+    if (contactoControl?.hasError('maxlength')) return 'Máximo 500 caracteres.';
     if (contactoControl?.hasError('required')) {
       return 'El email o WhatsApp es obligatorio.';
     } else if (contactoControl?.hasError('pattern')) {

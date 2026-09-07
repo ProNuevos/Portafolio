@@ -10,7 +10,6 @@ export interface LeadPayload {
   mensaje?: string;
   hits: number;
   estimado: number;
-  fecha?: string;
 }
 
 @Injectable({

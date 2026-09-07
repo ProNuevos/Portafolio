@@ -1,11 +1,11 @@
 <section id="proceso" class="section">
   <div class="container">
-    <div class="text-center mb-5" #appearElement data-appear>
+    <div class="text-center mb-5" appReveal data-appear>
       <h2 class="fw-bold">Cómo trabajamos</h2>
       <p class="text-secondary">Metodología simple, transparente y efectiva.</p>
     </div>
     <div class="row g-4">
-      <div class="col-md-6 col-lg-3" *ngFor="let step of steps" #appearElement data-appear>
+      <div class="col-md-6 col-lg-3" *ngFor="let step of steps" appReveal data-appear>
         <div class="orb-card rounded-4 p-4 h-100 orb-step">
           <span class="badge text-bg-dark mb-2">{{ step.number }}</span>
           <h5>{{ step.title }}</h5>

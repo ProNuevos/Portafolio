@@ -1,13 +1,13 @@
 <section class="section">
   <div class="container">
-    <div class="orb-card orb-cta rounded-4 p-4 p-lg-5" #appearElement data-appear>
+    <div class="orb-card orb-cta rounded-4 p-4 p-lg-5" appReveal data-appear>
       <div class="row align-items-center g-4">
         <div class="col-lg-8">
           <h2 class="fw-bold">¿Listo para arrancar?</h2>
           <p class="text-secondary mb-0">Contanos tu idea y en 24-48 h te devolvemos un plan inicial por hitos.</p>
         </div>
         <div class="col-lg-4 text-lg-end">
-          <a href="#contacto" class="btn btn-orb btn-lg"><i class="bi bi-calendar2-check me-2"></i> Reservar una llamada</a>
+          <button type="button" class="btn btn-orb btn-lg" (click)="openContactDialog()" aria-haspopup="dialog" aria-controls="contact-dialog"><i class="bi bi-calendar2-check me-2" aria-hidden="true"></i> Reservar una llamada</button>
         </div>
       </div>
     </div>

@@ -20,4 +20,11 @@ describe('HeroStackComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('renders a labelled projects section with one card per project', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('#proyectos h2')?.textContent).toContain('Proyectos');
+    expect(compiled.querySelectorAll('#proyectos article.hero-banner').length).toBe(component.banners.length);
+    expect(compiled.querySelectorAll('#proyectos article.hero-banner').length).toBe(4);
+  });
 });

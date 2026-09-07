@@ -85,7 +85,7 @@ export class HeroStackComponent implements AfterViewInit {
       ]
     },
     {
-      bg: '/portfolio/gestorqr-dashboard.svg',
+      bg: '/assets/portfolio/gestorqr-dashboard.svg',
       title: 'GESTORQR',
       sub: 'Gestion de empleados con control y trazabilidad mediante QR.',
       siteUrl: 'https://gestor-qr-afe03.web.app',
@@ -95,25 +95,25 @@ export class HeroStackComponent implements AfterViewInit {
       modalDesc: 'Plataforma para administrar empleados, registrar accesos y simplificar procesos diarios de la empresa con flujos basados en QR.',
       gallery: [
         {
-          src: '/portfolio/gestorqr-dashboard.svg',
+          src: '/assets/portfolio/gestorqr-dashboard.svg',
           alt: 'Panel principal de GestorQR',
           capTitle: 'Dashboard operativo',
           capSub: 'Vision centralizada de actividad, estado y metricas del personal.'
         },
         {
-          src: '/portfolio/gestorqr-qr-checkin.svg',
+          src: '/assets/portfolio/gestorqr-qr-checkin.svg',
           alt: 'Check-in por QR en GestorQR',
           capTitle: 'Check-in con QR',
           capSub: 'Registro rapido de ingresos y egresos con escaneo seguro.'
         },
         {
-          src: '/portfolio/gestorqr-team-admin.svg',
+          src: '/assets/portfolio/gestorqr-team-admin.svg',
           alt: 'Administracion de equipo en GestorQR',
           capTitle: 'Gestion de empleados',
           capSub: 'Altas, bajas, roles y seguimiento de todo el equipo.'
         },
         {
-          src: '/portfolio/gestorqr-security.svg',
+          src: '/assets/portfolio/gestorqr-security.svg',
           alt: 'Seguridad y auditoria en GestorQR',
           capTitle: 'Seguridad y auditoria',
           capSub: 'Control de accesos, trazabilidad de eventos e historial.'

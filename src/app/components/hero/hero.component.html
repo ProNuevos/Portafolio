@@ -1,27 +1,38 @@
 <header id="inicio" class="orb-hero section pb-0">
   <div class="container">
     <div class="row align-items-center gy-4">
-      <div class="col-lg-7" #appearElement data-appear>
-        <span class="badge orb-badge rounded-pill mb-3"><i class="bi bi-rocket-takeoff me-2"></i> Desarrollo a medida • Entrega integral</span>
+      <div class="col-lg-9 mx-auto text-center" #appearElement data-appear>
+        <span class="orb-eyebrow"><i class="bi bi-stars" aria-hidden="true"></i> Desarrollo a medida para negocios reales</span>
         <h1 class="display-4 fw-bold">Construimos <span class="glow">software real</span> que impulsa tu negocio</h1>
         <p class="lead text-secondary mt-3">Web apps modernas, APIs, dashboards, automatizaciones y soporte post-entrega. Desde la idea hasta producción, con foco en resultados.</p>
-        <div class="d-flex gap-2 mt-3">
-          <a href="#contacto" class="btn btn-orb btn-lg"><i class="bi bi-chat-dots me-2"></i> Hablemos</a>
-          <a href="#casos" class="btn btn-outline-orb btn-lg"><i class="bi bi-play-circle me-2"></i> Ver casos</a>
+        <div class="d-flex flex-wrap justify-content-center gap-3 mt-4">
+          <button type="button" class="btn btn-orb btn-lg" (click)="openEstimate()" aria-haspopup="dialog" aria-controls="estimate-dialog">Estimá tu proyecto <i class="bi bi-arrow-up-right ms-2" aria-hidden="true"></i></button>
+          <a href="#proyectos" class="btn btn-outline-orb btn-lg"><i class="bi bi-grid-1x2 me-2" aria-hidden="true"></i> Ver proyectos</a>
         </div>
-        <div class="d-flex align-items-center gap-4 mt-4 text-secondary small">
-          <div><i class="bi bi-shield-check me-1"></i> Contratos claros</div>
-          <div><i class="bi bi-lightning-charge me-1"></i> Entregas por hitos</div>
-          <div><i class="bi bi-headset me-1"></i> Soporte cercano</div>
+        <div class="hero-proof" aria-label="Forma de trabajo">
+          <span><i class="bi bi-check2-circle" aria-hidden="true"></i> Entregas por hitos</span>
+          <span><i class="bi bi-check2-circle" aria-hidden="true"></i> Comunicación directa</span>
+          <span><i class="bi bi-check2-circle" aria-hidden="true"></i> Soporte post-entrega</span>
         </div>
       </div>
-      <div class="col-lg-5" #appearElement data-appear>
-        <div class="orb-card rounded-4 p-4">
-          <h5 class="mb-3"><i class="bi bi-cpu me-2"></i> Estimá tu proyecto</h5>
-          <form [formGroup]="estimateForm" (ngSubmit)="onSubmit()" class="row g-3">
+    </div>
+  </div>
+</header>
+
+<dialog #estimateDialog id="estimate-dialog" class="estimate-dialog" aria-labelledby="estimate-title" aria-describedby="estimate-description" (close)="restorePage()" (cancel)="closeEstimate()" (click)="onBackdropClick($event)">
+  <div class="estimate-shell">
+    <div class="estimate-heading">
+      <div class="estimate-kicker"><span class="estimate-icon"><i class="bi bi-stars" aria-hidden="true"></i></span> TU PRÓXIMO PROYECTO</div>
+      <button type="button" class="estimate-close" aria-label="Cerrar estimador" (click)="closeEstimate()"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+      <h2 id="estimate-title">Estimá tu <span>proyecto.</span></h2>
+      <p id="estimate-description">Contanos tu idea. Obtené una estimación inicial y conversemos sobre cómo hacerla realidad.</p>
+      <div class="estimate-note"><i class="bi bi-check2-circle" aria-hidden="true"></i> Sin compromiso <span>·</span> Atención personalizada</div>
+    </div>
+    <div class="estimate-body">
+          <form [formGroup]="estimateForm" (ngSubmit)="onSubmit()" [attr.aria-busy]="isSubmitting" class="row g-3 estimate-form">
             <div class="col-12">
-              <label class="form-label required">Tipo de proyecto</label>
-              <select formControlName="tipo" class="form-select" required [ngClass]="{'is-invalid': estimateForm.get('tipo')?.invalid && estimateForm.get('tipo')?.touched}">
+              <label class="form-label required" for="hero-tipo">Tipo de proyecto</label>
+              <select id="hero-tipo" autofocus formControlName="tipo" class="form-select" required [ngClass]="{'is-invalid': estimateForm.get('tipo')?.invalid && estimateForm.get('tipo')?.touched}">
                 <option value="" selected disabled>Elegí una opción…</option>
                 <option>Landing / Sitio institucional</option>
                 <option>Web App (SPA/MPA)</option>
@@ -35,32 +46,38 @@
               </div>
             </div>
             <div class="col-12">
-              <label class="form-label">Alcance aproximado</label>
-              <select formControlName="alcance" class="form-select">
+              <label class="form-label" for="hero-alcance">Alcance aproximado</label>
+              <select id="hero-alcance" formControlName="alcance" class="form-select">
                 <option>Pequeño</option>
                 <option>Mediano</option>
                 <option>Grande</option>
               </select>
             </div>
             <div class="col-12">
-              <label class="form-label">Mensaje</label>
-              <textarea formControlName="mensaje" class="form-control" rows="3" placeholder="Contanos en 2-3 líneas qué necesitás"></textarea>
+              <label class="form-label" for="hero-mensaje">Mensaje</label>
+              <textarea id="hero-mensaje" maxlength="2000" formControlName="mensaje" class="form-control" rows="3" placeholder="Contanos en 2-3 líneas qué necesitás"></textarea>
+              <div class="text-danger small" *ngIf="estimateForm.get('mensaje')?.hasError('maxlength')">Máximo 2000 caracteres.</div>
             </div>
             <div class="col-12">
-              <label class="form-label required">Email o WhatsApp</label>
-              <input formControlName="contacto" type="text" class="form-control" placeholder="tu@email.com o +5491123456789" required [ngClass]="{'is-invalid': estimateForm.get('contacto')?.invalid && estimateForm.get('contacto')?.touched}">
+              <label class="form-label required" for="hero-contacto">Email o WhatsApp</label>
+              <input id="hero-contacto" aria-describedby="estimate-privacy" maxlength="500" formControlName="contacto" type="text" class="form-control" placeholder="tu@email.com o +5491123456789" required [ngClass]="{'is-invalid': estimateForm.get('contacto')?.invalid && estimateForm.get('contacto')?.touched}">
               <div class="invalid-feedback">{{ getContactoError() }}</div>
-              <div class="form-hint mt-1">No compartimos tus datos. Solo para conversar sobre tu proyecto.</div>
+              <div id="estimate-privacy" class="form-hint mt-2">No compartimos tus datos. Solo para conversar sobre tu proyecto.</div>
             </div>
             <div class="col-12 d-grid">
-              <button class="btn btn-orb"   type="submit"><i class="bi bi-calculator me-2"></i> Obtener estimación & contacto</button>
+              <button class="btn btn-orb"   type="submit" [disabled]="isSubmitting"><i class="bi bi-calculator me-2"></i> {{ isSubmitting ? 'Enviando…' : 'Obtener estimación y contactar' }}</button>
             </div>
-            <div id="estimateResult" class="small" [ngClass]="{'text-secondary': estimateResult.indexOf('❌') === -1, 'text-danger': estimateResult.indexOf('❌') !== -1}">
+            <div id="estimateResult" role="status" aria-live="polite" aria-atomic="true" style="white-space: pre-line" class="small estimate-status" [class.has-result]="estimateResult" [ngClass]="{'text-secondary': estimateResult.indexOf('❌') === -1, 'text-danger': estimateResult.indexOf('❌') !== -1}">
               {{ estimateResult }}
             </div>
+            <div class="col-12" *ngIf="estimateWaLink && !isSubmitting">
+              <button type="button" class="btn btn-outline-orb w-100" (click)="continueWhatsApp()">
+                <i class="bi bi-whatsapp me-2" aria-hidden="true"></i>Continuar por WhatsApp
+              </button>
+              <p class="small text-secondary text-center mt-2 mb-0">Se abre otra pestaña con los datos de tu consulta.</p>
+            </div>
           </form>
-        </div>
-      </div>
+      <div class="estimate-footer"><i class="bi bi-shield-check" aria-hidden="true"></i> El valor es orientativo. Definimos el presupuesto final con vos.</div>
     </div>
   </div>
-</header>
+</dialog>
