@@ -8,6 +8,7 @@ import { WhatsAppService } from '../../services/whats-app.service';
 import { FormDataService } from '../../services/form-data.service';
 import { finalize, timeout } from 'rxjs';
 import { submissionError } from '../../services/form-utils';
+import { emailOrPhoneValidator, normalizePhone } from '../../services/contact-validation';
 
 @Component({
   selector: 'app-hero',
@@ -30,7 +31,7 @@ export class HeroComponent implements OnInit, AfterViewInit {
     tipo: ['', Validators.required],
     alcance: ['Mediano', Validators.required],
     mensaje: ['', Validators.maxLength(2000)],
-    contacto: ['', [Validators.maxLength(500), Validators.required, Validators.pattern(/^(?:[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}|\+\d{8,15})$/)]]
+    contacto: ['', [Validators.maxLength(500), emailOrPhoneValidator]]
   });
 
   estimateResult = '';
@@ -134,7 +135,7 @@ export class HeroComponent implements OnInit, AfterViewInit {
     if (this.isSubmitting) return;
     for (const [key, value] of Object.entries(this.estimateForm.getRawValue())) {
       let normalized = (value ?? '').trim();
-      if ((key === 'whatsapp' || key === 'contacto') && normalized.startsWith('+')) normalized = normalized.replace(/[\s()\-]/g, '');
+      if (key === 'contacto' && normalized && !normalized.includes('@')) normalized = normalizePhone(normalized);
       this.estimateForm.get(key)?.setValue(normalized, { emitEvent: false });
     }
     if (this.estimateForm.invalid) {
@@ -182,7 +183,7 @@ getContactoError(): string {
     if (contactoControl?.hasError('maxlength')) return 'Máximo 500 caracteres.';
     if (contactoControl?.hasError('required')) {
       return 'El email o WhatsApp es obligatorio.';
-    } else if (contactoControl?.hasError('pattern')) {
+    } else if (contactoControl?.hasError('contactFormat')) {
       return 'Ingresa un email válido (ejemplo@dominio.com) o un número de WhatsApp válido (e.g., +54 9 11 26911817).';
     }
     return '';

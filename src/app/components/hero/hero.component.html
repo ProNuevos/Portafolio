@@ -3,7 +3,7 @@
     <div class="row align-items-center gy-4">
       <div class="col-lg-9 mx-auto text-center" #appearElement data-appear>
         <span class="orb-eyebrow"><i class="bi bi-stars" aria-hidden="true"></i> Desarrollo a medida para negocios reales</span>
-        <h1 class="display-4 fw-bold">Construimos <span class="glow">software real</span> que impulsa tu negocio</h1>
+        <h1 class="hero-main-title">Construimos <span class="glow">software real</span> que impulsa tu negocio</h1>
         <p class="lead text-secondary mt-3">Web apps modernas, APIs, dashboards, automatizaciones y soporte post-entrega. Desde la idea hasta producción, con foco en resultados.</p>
         <div class="d-flex flex-wrap justify-content-center gap-3 mt-4">
           <button type="button" class="btn btn-orb btn-lg" (click)="openEstimate()" aria-haspopup="dialog" aria-controls="estimate-dialog">Estimá tu proyecto <i class="bi bi-arrow-up-right ms-2" aria-hidden="true"></i></button>
@@ -60,9 +60,9 @@
             </div>
             <div class="col-12">
               <label class="form-label required" for="hero-contacto">Email o WhatsApp</label>
-              <input id="hero-contacto" aria-describedby="estimate-privacy" maxlength="500" formControlName="contacto" type="text" class="form-control" placeholder="tu@email.com o +5491123456789" required [ngClass]="{'is-invalid': estimateForm.get('contacto')?.invalid && estimateForm.get('contacto')?.touched}">
+              <input id="hero-contacto" aria-describedby="estimate-privacy" maxlength="500" formControlName="contacto" type="text" class="form-control" placeholder="tu@email.com o +54 9 11 1234-5678" required [ngClass]="{'is-invalid': estimateForm.get('contacto')?.invalid && estimateForm.get('contacto')?.touched}">
               <div class="invalid-feedback">{{ getContactoError() }}</div>
-              <div id="estimate-privacy" class="form-hint mt-2">No compartimos tus datos. Solo para conversar sobre tu proyecto.</div>
+              <div id="estimate-privacy" class="form-hint mt-2">Aceptamos WhatsApp de Argentina y Uruguay. No compartimos tus datos.</div>
             </div>
             <div class="col-12 d-grid">
               <button class="btn btn-orb"   type="submit" [disabled]="isSubmitting"><i class="bi bi-calculator me-2"></i> {{ isSubmitting ? 'Enviando…' : 'Obtener estimación y contactar' }}</button>

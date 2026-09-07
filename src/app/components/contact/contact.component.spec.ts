@@ -63,8 +63,19 @@ describe('ContactComponent', () => {
     fill(); component.contactForm.patchValue({ mensaje: 'a'.repeat(1001) }); component.onSubmit();
     expect(component.getMensajeError()).toContain('1000');
     fill(); component.contactForm.patchValue({ whatsapp: '+54abc1128634744' }); component.onSubmit();
-    expect(component.contactForm.controls.whatsapp.hasError('pattern')).toBeTrue();
+    expect(component.contactForm.controls.whatsapp.hasError('argentinaUruguayPhone')).toBeTrue();
     TestBed.inject(HttpTestingController).expectNone(r => r.url.endsWith('/contacts'));
+  });
+
+  it('accepts Argentine and Uruguayan phones and requires only one contact method', () => {
+    component.contactForm.setValue({ nombre: 'Ana', email: '', whatsapp: '099 123 456', mensaje: 'Consulta' });
+    expect(component.contactForm.valid).toBeTrue();
+    component.contactForm.setValue({ nombre: 'Ana', email: 'ana@example.com', whatsapp: '', mensaje: 'Consulta' });
+    expect(component.contactForm.valid).toBeTrue();
+    component.contactForm.setValue({ nombre: 'Ana', email: '', whatsapp: '+54 9 11 1234-5678', mensaje: 'Consulta' });
+    expect(component.contactForm.valid).toBeTrue();
+    component.contactForm.patchValue({ whatsapp: '' });
+    expect(component.contactForm.hasError('contactRequired')).toBeTrue();
   });
 
   it('opens WhatsApp without requiring form completion', () => {

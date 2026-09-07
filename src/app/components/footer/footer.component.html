@@ -1,15 +1,16 @@
 <footer class="site-footer">
   <div class="container">
-    <div class="footer-main">
-      <div>
-        <a class="footer-brand" href="#inicio">Órbita<span class="logo-dot"></span></a>
-        <p>Software claro y hecho a medida para impulsar tu negocio.</p>
+    <div class="footer-panel">
+      <div class="footer-brand-block">
+        <a class="footer-brand" href="#inicio" aria-label="Órbita Software, volver al inicio">Órbita<span class="logo-dot"></span></a>
+        <p>Software a medida para convertir buenas ideas en productos digitales claros y confiables.</p>
       </div>
-      <div class="footer-contact">
-        <a href="mailto:contacto@orbita.software">contacto&#64;orbita.software</a>
-        <button type="button" class="footer-cta" (click)="openContactDialog()" aria-haspopup="dialog" aria-controls="contact-dialog">Iniciar una consulta <i class="bi bi-arrow-up-right" aria-hidden="true"></i></button>
+      <div class="footer-action">
+        <span>¿Tenés un proyecto en mente?</span>
+        <a class="footer-email" href="mailto:contacto@orbita.software">contacto&#64;orbita.software</a>
+        <button type="button" class="btn btn-orb footer-cta" (click)="openContactDialog()" aria-haspopup="dialog" aria-controls="contact-dialog">Reservar una llamada <i class="bi bi-arrow-up-right" aria-hidden="true"></i></button>
       </div>
     </div>
-    <div class="footer-bottom"><span>© {{ currentYear }} Órbita Software.</span><span>Desarrollo digital a medida.</span></div>
+    <div class="footer-bottom"><span>© {{ currentYear }} Órbita Software.</span><span>Todos los derechos reservados.</span></div>
   </div>
 </footer>

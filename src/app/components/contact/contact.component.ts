@@ -8,6 +8,7 @@ import { submissionError } from '../../services/form-utils';
 import { RevealOnScrollDirective } from '../../directives/reveal-on-scroll.directive';
 import { ContactDialogService } from '../../services/contact-dialog.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { atLeastOneContactValidator, argentinaUruguayPhoneValidator, normalizePhone } from '../../services/contact-validation';
 
 @Component({
   selector: 'app-contact',
@@ -25,10 +26,10 @@ export class ContactComponent {
 
   contactForm = this.fb.group({
     nombre: ['', [Validators.required, Validators.maxLength(100)]],
-    email: ['', [Validators.required, Validators.email, Validators.maxLength(150)]],
-    whatsapp: ['', [Validators.required, Validators.pattern(/^\+\d{8,15}$/)]],
+    email: ['', [Validators.email, Validators.maxLength(150)]],
+    whatsapp: ['', [Validators.maxLength(30), argentinaUruguayPhoneValidator]],
     mensaje: ['', [Validators.required, Validators.maxLength(1000)]]
-  });
+  }, { validators: atLeastOneContactValidator });
 
   contactStatus = '';
   isSubmitting = false;
@@ -72,7 +73,7 @@ export class ContactComponent {
     if (this.isSubmitting) return;
     for (const [key, value] of Object.entries(this.contactForm.getRawValue())) {
       let normalized = (value ?? '').trim();
-      if ((key === 'whatsapp' || key === 'contacto') && normalized.startsWith('+')) normalized = normalized.replace(/[\s()\-]/g, '');
+      if (key === 'whatsapp' && normalized) normalized = normalizePhone(normalized);
       this.contactForm.get(key)?.setValue(normalized, { emitEvent: false });
     }
     if (this.contactForm.invalid) {
@@ -115,15 +116,15 @@ export class ContactComponent {
   getEmailError(): string {
     const c = this.contactForm.get('email');
     if (c?.hasError('maxlength')) return 'Máximo 150 caracteres.';
-    if (c?.hasError('required')) return 'El email es obligatorio.';
     if (c?.hasError('email')) return 'Ingresa un email valido (ejemplo@dominio.com).';
+    if (this.contactForm.hasError('contactRequired')) return 'Ingresá un email o un número de WhatsApp.';
     return '';
   }
 
   getWhatsAppError(): string {
     const c = this.contactForm.get('whatsapp');
-    if (c?.hasError('required')) return 'El numero de WhatsApp es obligatorio.';
-    if (c?.hasError('pattern')) return 'Formato valido: +54911XXXXXXXX';
+    if (c?.hasError('argentinaUruguayPhone')) return 'Ingresá un WhatsApp válido de Argentina o Uruguay.';
+    if (this.contactForm.hasError('contactRequired')) return 'Ingresá un email o un número de WhatsApp.';
     return '';
   }
 

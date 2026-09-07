@@ -188,6 +188,12 @@ section[id] { scroll-margin-top: 76px; }
 .stack-badge { padding: .6rem .8rem; color: #c9d8e2; border-color: rgba(255,255,255,.15); }
 .orb-step { position: relative; border-left-color: rgba(124,247,198,.45); }
 .orb-step .badge { color: #07120d; background: var(--orb-primary) !important; }
+.process-step { min-height: 235px; overflow: hidden; background-position: center; background-size: cover; border-left: 2px solid rgba(124,247,198,.6); }
+.process-step-overlay { position: absolute; inset: 0; background: linear-gradient(145deg, rgba(6,13,20,.9), rgba(8,16,24,.66)); transition: background .25s ease; }
+.process-step-content { position: relative; z-index: 1; }
+.process-step h5 { color: #f4f8fb; font-weight: 700; }
+.process-step p { color: #d3dee5 !important; line-height: 1.6; }
+.process-step:hover .process-step-overlay { background: linear-gradient(145deg, rgba(6,13,20,.82), rgba(8,16,24,.5)); }
 .orb-cta { overflow: hidden; background: linear-gradient(120deg, rgba(124,247,198,.17), rgba(123,183,255,.12)); }
 .team-photo { object-fit: contain; }
 .floating-wa .btn { display: grid; place-items: center; width: 56px; height: 56px; color: #062114; border: 0; background: var(--orb-primary); box-shadow: 0 12px 34px rgba(0,0,0,.42); }
@@ -221,3 +227,33 @@ section[id] { scroll-margin-top: 76px; }
 .footer-contact a:hover { color: var(--orb-primary); }
 .footer-cta { padding: 0; border: 0; background: transparent; }
 @media (max-width: 767px) { .footer-main { align-items: flex-start; flex-direction: column; }.footer-contact { justify-items: start; } }
+
+/* Escala unificada de títulos principales */
+.orb-hero h1,
+.portfolio-heading h2,
+#servicios > .container > div:first-child > h2,
+#proceso > .container > div:first-child > h2,
+#tecnologias h2,
+.team-head h2,
+.contact-aside > div:first-child > h2,
+.orb-cta h2 {
+  font-size: clamp(2.15rem, 4.5vw, 3.5rem);
+  font-weight: 750;
+  line-height: 1.08;
+  letter-spacing: -.05em;
+}
+
+.orb-hero .hero-main-title {
+  font-size: clamp(2.15rem, 4.5vw, 3.5rem);
+  font-weight: 750;
+  line-height: 1.08;
+  letter-spacing: -.05em;
+}
+
+/* Pie de página */
+.site-footer { margin-top: clamp(3rem, 8vw, 6rem); padding: 0 0 1.5rem; border: 0; background: transparent; }
+.footer-panel { display: flex; justify-content: space-between; gap: 2.5rem; align-items: center; padding: clamp(1.75rem, 4vw, 2.75rem); border: 1px solid rgba(255,255,255,.09); border-radius: 1.25rem; background: radial-gradient(520px 230px at 100% 0%, rgba(123,183,255,.14), transparent 72%), linear-gradient(135deg, rgba(18,29,40,.9), rgba(8,14,20,.92)); box-shadow: 0 20px 45px rgba(0,0,0,.18); }
+.footer-brand-block { max-width: 470px; }.footer-brand { display: inline-flex; align-items: center; color: #f4f8fb; font-size: 1.55rem; font-weight: 750; letter-spacing: -.045em; text-decoration: none; }.footer-brand-block p { margin: .75rem 0 0; color: #9cabb7; line-height: 1.6; }
+.footer-action { display: grid; justify-items: end; gap: .55rem; text-align: right; }.footer-action > span { color: #dce7ed; font-size: .86rem; font-weight: 650; }.footer-email { color: #a9b9c5; font-size: .82rem; text-decoration: none; }.footer-email:hover { color: var(--orb-primary); }.footer-cta { display: inline-flex; align-items: center; gap: .5rem; margin-top: .35rem; padding: .65rem 1rem; font-size: .84rem; }
+.footer-bottom { display: flex; justify-content: space-between; gap: 1rem; padding: 1.25rem .25rem 0; color: #71818e; border: 0; font-size: .75rem; }
+@media (max-width: 767px) { .footer-panel { align-items: flex-start; flex-direction: column; gap: 1.75rem; }.footer-action { justify-items: start; text-align: left; }.footer-bottom { flex-direction: column; gap: .35rem; } }
