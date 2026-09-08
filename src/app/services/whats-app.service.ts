@@ -9,5 +9,14 @@ export class WhatsAppService {
     return 'https://wa.me/' + environment.waPhone.replace(/\D/g, '') + '?text=' + encodeURIComponent(message);
   }
   updateWaLink(link: string) { this.waLinkSource.next(link); }
-  open(link: string) { window.open(link, '_blank', 'noopener,noreferrer'); }
+  open(link: string) {
+    const url = new URL(link);
+    const phone = url.pathname.replace(/\D/g, '');
+    const text = url.searchParams.get('text') ?? '';
+    this.openTo(phone, text);
+  }
+
+  openTo(phone: string, message: string) {
+    window.location.href = `whatsapp://send?phone=${phone.replace(/\D/g, '')}&text=${encodeURIComponent(message)}`;
+  }
 }

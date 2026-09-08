@@ -5,7 +5,7 @@ import { environment } from '../../environments/environment';
 
 export interface ContactPayload {
   nombre: string;
-  email: string;
+  email?: string;
   whatsapp: string;
   mensaje: string;
 }

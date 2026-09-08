@@ -8,7 +8,6 @@ import { WhatsAppService } from '../../services/whats-app.service';
 import { FormDataService } from '../../services/form-data.service';
 import { finalize, timeout } from 'rxjs';
 import { submissionError } from '../../services/form-utils';
-import { emailOrPhoneValidator, normalizePhone } from '../../services/contact-validation';
 
 @Component({
   selector: 'app-hero',
@@ -26,12 +25,12 @@ export class HeroComponent implements OnInit, AfterViewInit {
   private returnFocus: HTMLElement | null = null;
   private scrollLocked = false;
   estimateWaLink = '';
+  estimateEmailLink = '';
 
   estimateForm = this.fb.group({
     tipo: ['', Validators.required],
     alcance: ['Mediano', Validators.required],
-    mensaje: ['', Validators.maxLength(2000)],
-    contacto: ['', [Validators.maxLength(500), emailOrPhoneValidator]]
+    mensaje: ['', Validators.maxLength(2000)]
   });
 
   estimateResult = '';
@@ -66,9 +65,10 @@ export class HeroComponent implements OnInit, AfterViewInit {
     this.destroyRef.onDestroy(() => this.restorePage());
     this.formDataService.resetHeroForm$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(reset => {
       if (reset) {
-        this.estimateForm.reset({ tipo: '', alcance: 'Mediano', mensaje: '', contacto: '' });
+        this.estimateForm.reset({ tipo: '', alcance: 'Mediano', mensaje: '' });
         this.estimateResult = '';
         this.estimateWaLink = '';
+        this.estimateEmailLink = '';
       }
     });
   }
@@ -102,9 +102,10 @@ export class HeroComponent implements OnInit, AfterViewInit {
   }
 
   private resetEstimateForm() {
-    this.estimateForm.reset({ tipo: '', alcance: 'Mediano', mensaje: '', contacto: '' });
+    this.estimateForm.reset({ tipo: '', alcance: 'Mediano', mensaje: '' });
     this.estimateResult = '';
     this.estimateWaLink = '';
+    this.estimateEmailLink = '';
     this.isSubmitting = false;
   }
 
@@ -127,6 +128,10 @@ export class HeroComponent implements OnInit, AfterViewInit {
     if (this.estimateWaLink) this.whatsAppService.open(this.estimateWaLink);
   }
 
+  continueEmail() {
+    if (this.estimateEmailLink) window.open(this.estimateEmailLink, '_blank', 'noopener,noreferrer');
+  }
+
   scrollToSection(sectionId: string) {
     document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
   }
@@ -135,7 +140,6 @@ export class HeroComponent implements OnInit, AfterViewInit {
     if (this.isSubmitting) return;
     for (const [key, value] of Object.entries(this.estimateForm.getRawValue())) {
       let normalized = (value ?? '').trim();
-      if (key === 'contacto' && normalized && !normalized.includes('@')) normalized = normalizePhone(normalized);
       this.estimateForm.get(key)?.setValue(normalized, { emitEvent: false });
     }
     if (this.estimateForm.invalid) {
@@ -144,28 +148,28 @@ export class HeroComponent implements OnInit, AfterViewInit {
       return;
     }
 
-    const { tipo, alcance, contacto, mensaje } = this.estimateForm.value as { tipo: string; alcance: string; contacto: string; mensaje: string };
+    const { tipo, alcance, mensaje } = this.estimateForm.value as { tipo: string; alcance: string; mensaje: string };
     const hits = Math.ceil((this.weights[tipo] ?? 1) * (this.alcanceMul[alcance] ?? 1.6));
     const estimado = this.baseUSD * hits;
 
-    this.estimateResult = `Estimación referencial: ~USD ${estimado.toLocaleString()} en ${hits} hitos.\nEnviando tu consulta…`;
+    this.estimateResult = 'Estamos enviando tu consulta…';
+    this.estimateWaLink = '';
+    this.estimateEmailLink = '';
     this.isSubmitting = true;
 
-    this.leadService.saveLead({ tipo, alcance, contacto, mensaje, hits, estimado }).pipe(timeout(20000), finalize(() => this.isSubmitting = false)).subscribe({
+    this.leadService.saveLead({ tipo, alcance, contacto: '', mensaje, hits, estimado }).pipe(timeout(20000), finalize(() => this.isSubmitting = false)).subscribe({
       next: () => {
-        this.estimateResult = `✅ Estimación referencial: ~USD ${estimado.toLocaleString()} en ${hits} hitos.\nConsulta enviada. Te escribimos a: ${contacto}.\nTambién podés continuar por WhatsApp.`;
+        this.estimateResult = '✅ Recibimos los datos de tu proyecto.\nElegí WhatsApp o email a continuación para enviarnos tu consulta y coordinaremos una propuesta personalizada.';
+        const summary = `[Proyecto] Tipo: ${tipo} | Alcance: ${alcance}\n${mensaje}`;
+        this.estimateWaLink = this.whatsAppService.buildLink(`Hola Órbita, me interesan sus servicios.\n${summary}`);
+        this.whatsAppService.updateWaLink(this.estimateWaLink);
+        this.estimateEmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=Orbisoft.proyectos%40gmail.com&su=${encodeURIComponent('Consulta de proyecto desde el sitio web')}&body=${encodeURIComponent(`Hola Órbita, me interesan sus servicios.\n${summary}`)}`;
       },
       error: (error: unknown) => {
         this.estimateResult = submissionError(error);
       }
     });
 
-    this.estimateWaLink = this.buildWhatsMsg({
-      email: contacto,
-      whatsapp: contacto,
-      mensaje: `[Estimación] Tipo: ${tipo} | Alcance: ${alcance} | Hitos: ${hits} | Estimación ~USD ${estimado}\n${mensaje}`
-    });
-    this.whatsAppService.updateWaLink(this.estimateWaLink);
   }
 
   buildWhatsMsg({ email = '', mensaje = '' }: { nombre?: string; email?: string; whatsapp?: string; mensaje?: string }) {
@@ -178,14 +182,4 @@ export class HeroComponent implements OnInit, AfterViewInit {
     return tipoControl?.hasError('required') ? 'El tipo de proyecto es obligatorio.' : '';
   }
 
-getContactoError(): string {
-    const contactoControl = this.estimateForm.get('contacto');
-    if (contactoControl?.hasError('maxlength')) return 'Máximo 500 caracteres.';
-    if (contactoControl?.hasError('required')) {
-      return 'El email o WhatsApp es obligatorio.';
-    } else if (contactoControl?.hasError('contactFormat')) {
-      return 'Ingresa un email válido (ejemplo@dominio.com) o un número de WhatsApp válido (e.g., +54 9 11 26911817).';
-    }
-    return '';
-  }
 }

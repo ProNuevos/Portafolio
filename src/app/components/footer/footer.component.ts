@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { ContactDialogService } from '../../services/contact-dialog.service';
+import { EstimateDialogService } from '../../services/estimate-dialog.service';
 
 @Component({
   selector: 'app-footer',
@@ -12,7 +12,7 @@ import { ContactDialogService } from '../../services/contact-dialog.service';
 export class FooterComponent {
   currentYear = new Date().getFullYear();
 
-  constructor(private readonly contactDialog: ContactDialogService) {}
+  constructor(private readonly estimateDialog: EstimateDialogService) {}
 
-  openContactDialog() { this.contactDialog.open(); }
+  openContactDialog() { this.estimateDialog.open(); }
 }

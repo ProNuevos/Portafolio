@@ -18,7 +18,7 @@ export const argentinaUruguayPhoneValidator: ValidatorFn = (control: AbstractCon
 
 export const emailOrPhoneValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
   const value = String(control.value ?? '').trim();
-  if (!value) return { required: true };
+  if (!value) return null;
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) || isArgentinaOrUruguayPhone(value) ? null : { contactFormat: true };
 };
 

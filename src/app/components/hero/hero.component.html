@@ -10,7 +10,7 @@
         <h1 class="hero-main-title">Construimos <span class="glow">software real</span> que impulsa tu negocio</h1>
         <p class="lead text-secondary mt-3">Web apps modernas, APIs, dashboards, automatizaciones y soporte post-entrega. Desde la idea hasta producción, con foco en resultados.</p>
         <div class="d-flex flex-wrap justify-content-center gap-3 mt-4">
-          <button type="button" class="btn btn-orb btn-lg" (click)="openEstimate()" aria-haspopup="dialog" aria-controls="estimate-dialog">Estimá tu proyecto <i class="bi bi-arrow-up-right ms-2" aria-hidden="true"></i></button>
+          <button type="button" class="btn btn-orb btn-lg" (click)="openEstimate()" aria-haspopup="dialog" aria-controls="estimate-dialog">Cotizá tu proyecto <i class="bi bi-arrow-up-right ms-2" aria-hidden="true"></i></button>
           <a href="#proyectos" class="btn btn-outline-orb btn-lg"><i class="bi bi-grid-1x2 me-2" aria-hidden="true"></i> Ver proyectos</a>
         </div>
         <div class="hero-proof" aria-label="Forma de trabajo">
@@ -28,8 +28,8 @@
     <div class="estimate-heading">
       <div class="estimate-kicker"><span class="estimate-icon"><i class="bi bi-stars" aria-hidden="true"></i></span> TU PRÓXIMO PROYECTO</div>
       <button type="button" class="estimate-close" aria-label="Cerrar estimador" (click)="closeEstimate()"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
-      <h2 id="estimate-title">Estimá tu <span>proyecto.</span></h2>
-      <p id="estimate-description">Contanos tu idea. Obtené una estimación inicial y conversemos sobre cómo hacerla realidad.</p>
+      <h2 id="estimate-title">Cotizá tu <span>proyecto.</span></h2>
+      <p id="estimate-description">Contanos tu idea y conversemos sobre cómo hacerla realidad con una propuesta personalizada.</p>
       <div class="estimate-note"><i class="bi bi-check2-circle" aria-hidden="true"></i> Sin compromiso <span>·</span> Atención personalizada</div>
     </div>
     <div class="estimate-body">
@@ -62,26 +62,24 @@
               <textarea id="hero-mensaje" maxlength="2000" formControlName="mensaje" class="form-control" rows="3" placeholder="Contanos en 2-3 líneas qué necesitás"></textarea>
               <div class="text-danger small" *ngIf="estimateForm.get('mensaje')?.hasError('maxlength')">Máximo 2000 caracteres.</div>
             </div>
-            <div class="col-12">
-              <label class="form-label required" for="hero-contacto">Email o WhatsApp</label>
-              <input id="hero-contacto" aria-describedby="estimate-privacy" maxlength="500" formControlName="contacto" type="text" class="form-control" placeholder="tu@email.com o +54 9 11 1234-5678" required [ngClass]="{'is-invalid': estimateForm.get('contacto')?.invalid && estimateForm.get('contacto')?.touched}">
-              <div class="invalid-feedback">{{ getContactoError() }}</div>
-              <div id="estimate-privacy" class="form-hint mt-2">Aceptamos WhatsApp de Argentina y Uruguay. No compartimos tus datos.</div>
-            </div>
             <div class="col-12 d-grid">
               <button class="btn btn-orb"   type="submit" [disabled]="isSubmitting"><i class="bi bi-calculator me-2"></i> {{ isSubmitting ? 'Enviando…' : 'Obtener estimación y contactar' }}</button>
             </div>
             <div id="estimateResult" role="status" aria-live="polite" aria-atomic="true" style="white-space: pre-line" class="small estimate-status" [class.has-result]="estimateResult" [ngClass]="{'text-secondary': estimateResult.indexOf('❌') === -1, 'text-danger': estimateResult.indexOf('❌') !== -1}">
               {{ estimateResult }}
             </div>
-            <div class="col-12" *ngIf="estimateWaLink && !isSubmitting">
+            <div class="col-12" *ngIf="estimateWaLink && estimateEmailLink && !isSubmitting">
               <button type="button" class="btn btn-outline-orb w-100" (click)="continueWhatsApp()">
                 <i class="bi bi-whatsapp me-2" aria-hidden="true"></i>Continuar por WhatsApp
               </button>
-              <p class="small text-secondary text-center mt-2 mb-0">Se abre otra pestaña con los datos de tu consulta.</p>
+            </div>
+            <div class="col-12" *ngIf="estimateWaLink && estimateEmailLink && !isSubmitting">
+              <button type="button" class="btn btn-outline-orb w-100" (click)="continueEmail()">
+                <i class="bi bi-envelope me-2" aria-hidden="true"></i>Continuar por email
+              </button>
             </div>
           </form>
-      <div class="estimate-footer"><i class="bi bi-shield-check" aria-hidden="true"></i> El valor es orientativo. Definimos el presupuesto final con vos.</div>
+      <div class="estimate-footer"><i class="bi bi-shield-check" aria-hidden="true"></i> Revisamos cada proyecto para preparar una propuesta a medida.</div>
     </div>
   </div>
 </dialog>

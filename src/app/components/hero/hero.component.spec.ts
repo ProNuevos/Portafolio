@@ -31,7 +31,7 @@ describe('HeroComponent', () => {
   afterEach(() => TestBed.inject(HttpTestingController).verify());
 
   function fill() {
-    component.estimateForm.setValue({ tipo: 'API / Backend', alcance: 'Mediano', contacto: ' +54 (9) 11-2863 4744 ', mensaje: 'Integrar catálogo & pedidos' });
+    component.estimateForm.setValue({ tipo: 'API / Backend', alcance: 'Mediano', mensaje: 'Integrar catálogo & pedidos' });
   }
 
   it('sends one request, confirms only after success and opens WhatsApp without a name', () => {
@@ -44,7 +44,7 @@ describe('HeroComponent', () => {
     expect(fixture.nativeElement.querySelector('button[type="submit"]').disabled).toBeTrue();
     expect(component.estimateResult).not.toContain('Te escribimos');
     const req = TestBed.inject(HttpTestingController).expectOne(r => r.url.endsWith('/leads'));
-    expect(req.request.body.contacto).toBe('+5491128634744');
+    expect(req.request.body.contacto).toBe('');
     req.flush({});
     expect(component.isSubmitting).toBeFalse();
     expect(component.estimateResult).toContain('Consulta enviada');
@@ -82,9 +82,7 @@ describe('HeroComponent', () => {
     trigger.remove();
   });
 
-  it('rejects invalid contact and oversized messages', () => {
-    fill(); component.estimateForm.patchValue({ contacto: 'bad' }); component.onSubmit();
-    expect(component.getContactoError()).not.toBe('');
+  it('rejects oversized messages', () => {
     fill(); component.estimateForm.patchValue({ mensaje: 'a'.repeat(2001) }); component.onSubmit();
     expect(component.estimateForm.controls.mensaje.hasError('maxlength')).toBeTrue();
     TestBed.inject(HttpTestingController).expectNone(r => r.url.endsWith('/leads'));

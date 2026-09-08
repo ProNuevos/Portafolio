@@ -3,7 +3,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ContactComponent } from './contact.component';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting, HttpTestingController } from '@angular/common/http/testing';
-import { WhatsAppService } from '../../services/whats-app.service';
 
 describe('ContactComponent', () => {
   let component: ContactComponent;
@@ -28,7 +27,7 @@ describe('ContactComponent', () => {
   afterEach(() => TestBed.inject(HttpTestingController).verify());
 
   function fill() {
-    component.contactForm.setValue({ nombre: ' Ana ', email: ' ana@example.com ', whatsapp: ' +54 (9) 11-2863 4744 ', mensaje: ' Necesito una web ' });
+    component.contactForm.setValue({ nombre: ' Ana ', whatsapp: ' +54 (9) 11-2863 4744 ', mensaje: ' Necesito una web ' });
   }
 
   it('normalizes input and sends only once while pending', () => {
@@ -38,7 +37,7 @@ describe('ContactComponent', () => {
     fixture.detectChanges();
     expect(fixture.nativeElement.querySelector('button[type="submit"]').disabled).toBeTrue();
     const req = TestBed.inject(HttpTestingController).expectOne(r => r.url.endsWith('/contacts'));
-    expect(req.request.body).toEqual(jasmine.objectContaining({ nombre: 'Ana', email: 'ana@example.com', whatsapp: '+5491128634744', mensaje: 'Necesito una web' }));
+    expect(req.request.body).toEqual(jasmine.objectContaining({ nombre: 'Ana', whatsapp: '+5491128634744', mensaje: 'Necesito una web' }));
     expect(component.contactStatus).not.toContain('Mensaje enviado');
     req.flush({});
     fixture.detectChanges();
@@ -67,22 +66,18 @@ describe('ContactComponent', () => {
     TestBed.inject(HttpTestingController).expectNone(r => r.url.endsWith('/contacts'));
   });
 
-  it('accepts Argentine and Uruguayan phones and requires only one contact method', () => {
-    component.contactForm.setValue({ nombre: 'Ana', email: '', whatsapp: '099 123 456', mensaje: 'Consulta' });
+  it('accepts Argentine and Uruguayan phones and also permits an omitted phone', () => {
+    component.contactForm.setValue({ nombre: 'Ana', whatsapp: '099 123 456', mensaje: 'Consulta' });
     expect(component.contactForm.valid).toBeTrue();
-    component.contactForm.setValue({ nombre: 'Ana', email: 'ana@example.com', whatsapp: '', mensaje: 'Consulta' });
+    component.contactForm.setValue({ nombre: 'Ana', whatsapp: '', mensaje: 'Consulta' });
     expect(component.contactForm.valid).toBeTrue();
-    component.contactForm.setValue({ nombre: 'Ana', email: '', whatsapp: '+54 9 11 1234-5678', mensaje: 'Consulta' });
+    component.contactForm.setValue({ nombre: 'Ana', whatsapp: '+54 9 11 1234-5678', mensaje: 'Consulta' });
     expect(component.contactForm.valid).toBeTrue();
-    component.contactForm.patchValue({ whatsapp: '' });
-    expect(component.contactForm.hasError('contactRequired')).toBeTrue();
   });
 
-  it('opens WhatsApp without requiring form completion', () => {
-    const open = spyOn(TestBed.inject(WhatsAppService), 'open');
-    component.onWhatsAppClick();
-    expect(open).toHaveBeenCalledTimes(1);
-    expect(open.calls.mostRecent().args[0]).toMatch(/^https:\/\/wa.me\//);
+  it('builds a WhatsApp link without requiring a phone number', () => {
+    const link = component.buildWhatsMsg({ nombre: 'Ana', mensaje: 'Consulta' });
+    expect(link).toMatch(/^https:\/\/wa.me\//);
   });
 
   it('resets its fields when the dialog is closed', () => {
@@ -90,7 +85,7 @@ describe('ContactComponent', () => {
     component.contactStatus = 'Mensaje pendiente';
     component.openContact();
     component.closeContact();
-    expect(component.contactForm.getRawValue()).toEqual({ nombre: '', email: '', whatsapp: '', mensaje: '' });
+    expect(component.contactForm.getRawValue()).toEqual({ nombre: '', whatsapp: '', mensaje: '' });
     expect(component.contactStatus).toBe('');
   });
 });

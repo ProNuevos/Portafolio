@@ -12,6 +12,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { FloatingWaComponent } from './components/floating-wa/floating-wa.component';
 import { HeroStackComponent } from "./components/hero-stack/hero-stack.component";
 import { TeamComponent } from './components/team/team.component';
+import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 
 @Component({
   selector: 'app-root',
@@ -26,7 +27,7 @@ import { TeamComponent } from './components/team/team.component';
     ContactComponent,
     TeamComponent,
     FooterComponent,
-    FloatingWaComponent, HeroStackComponent],
+    FloatingWaComponent, HeroStackComponent, AdminPanelComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
