@@ -6,7 +6,7 @@
   z-index: 0;
   pointer-events: none;
   opacity: 1;
-  background: linear-gradient(180deg, rgba(8, 13, 18, .9), rgba(8, 13, 18, .76)), url('/assets/portada/portada1.jpeg') center / cover no-repeat;
+  background: linear-gradient(180deg, rgba(8, 48, 82, .6), rgba(12, 76, 121, .42)), url('/assets/portada/portada1.jpeg') center / cover no-repeat;
 }
 
 .orb-hero .container { position: relative; z-index: 1; }
@@ -21,4 +21,37 @@
   border: 1px solid rgba(255, 255, 255, .15);
   border-radius: 1rem;
   box-shadow: 0 18px 46px rgba(0, 0, 0, .3);
+}
+
+/* Contraste del contenido sin ocultar la imagen de fondo */
+.orb-hero .hero-main-title {
+  color: #f8fbff;
+  font-weight: 750;
+  text-shadow: 0 2px 14px rgba(5, 30, 53, .55);
+}
+
+.orb-hero .hero-main-title .glow {
+  color: #bce8ff;
+  text-shadow: 0 2px 14px rgba(5, 30, 53, .55);
+}
+
+.orb-hero .lead {
+  color: rgba(248, 251, 255, .9) !important;
+  font-weight: 400;
+  text-shadow: 0 2px 10px rgba(5, 30, 53, .48);
+}
+
+.orb-hero .orb-eyebrow { color: #f8fbff; border-color: rgba(255,255,255,.35); background: rgba(6,42,75,.25); }
+.orb-hero .hero-proof { color: rgba(248,251,255,.86); text-shadow: 0 1px 6px rgba(5,30,53,.4); }
+.orb-hero .hero-proof i { color: #bce8ff; }
+
+.orb-hero .btn-outline-orb {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: rgba(255, 255, 255, .14);
+  --bs-btn-border-color: rgba(255, 255, 255, .78);
+  --bs-btn-hover-color: #0d4f83;
+  --bs-btn-hover-bg: #fff;
+  --bs-btn-hover-border-color: #fff;
+  box-shadow: 0 8px 20px rgba(3, 31, 56, .2);
+  backdrop-filter: blur(4px);
 }
