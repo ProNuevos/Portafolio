@@ -1,0 +1,21 @@
+
+.navbar-logo {
+  display: block;
+  width: min(170px, 43vw);
+  height: auto;
+  max-height: 42px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, .28));
+  transform-origin: left center;
+  transition: filter .2s ease, transform .2s ease;
+}
+
+.navbar-brand:hover .navbar-logo,
+.navbar-brand:focus-visible .navbar-logo {
+  filter: brightness(1.1) drop-shadow(0 5px 14px rgba(41, 195, 255, .28));
+  transform: scale(1.025);
+}
+
+@media (max-width: 575px) {
+  .navbar-logo { width: min(145px, 45vw); }
+}
