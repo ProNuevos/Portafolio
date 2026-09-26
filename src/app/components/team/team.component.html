@@ -2,22 +2,23 @@
   <div class="container">
     <div class="team-head text-center mb-5" appReveal data-appear>
       <span class="team-kicker">Sobre mí</span>
-      <h2 class="display-6 fw-bold mt-3">La persona detrás de <span class="glow">Órbita.</span></h2>
-      <p class="text-secondary mb-0">
-        Desarrollo productos digitales confiables, claros y adaptados a las necesidades reales de cada negocio.
-      </p>
+      <h2 class="display-6 fw-bold mt-3">La persona detrás de <span class="glow">Negocio Digital</span></h2>
+      <p class="text-secondary mb-0">Creo webs, sistemas y automatizaciones con una mirada práctica: entender el negocio, resolver lo importante y entregar una experiencia clara para sus clientes.</p>
     </div>
 
     <div class="row g-4 justify-content-center">
-      <div class="col-md-6 col-xl-5" *ngFor="let member of members; let i = index" appReveal data-appear>
+      <div class="col-md-9 col-xl-7" *ngFor="let member of members; let i = index" appReveal data-appear>
         <article class="team-card h-100" [style.animation-delay.ms]="i * 120">
           <div class="photo-wrap">
             <img class="team-photo" [src]="member.photo" [alt]="member.name" loading="lazy" />
+            <span class="photo-badge"><i class="bi bi-code-slash"></i> Negocio Digital</span>
           </div>
           <div class="team-body">
             <h4 class="mb-1">{{ member.name }}</h4>
-            <p class="team-role mb-3"><i class="bi bi-dot" aria-hidden="true"></i>{{ member.role }}</p>
+            <p class="team-role mb-3"><i class="bi bi-patch-check-fill" aria-hidden="true"></i>{{ member.role }}</p>
             <p class="text-secondary mb-0">{{ member.description }}</p>
+            <div class="team-tags"><span><i class="bi bi-window"></i> Web apps</span><span><i class="bi bi-robot"></i> IA y automatización</span><span><i class="bi bi-database-check"></i> Sistemas completos</span></div>
+            <div class="team-signature"><span class="signature-line"></span><span>Construyamos algo que haga crecer tu negocio.</span></div>
           </div>
         </article>
       </div>

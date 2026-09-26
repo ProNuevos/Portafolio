@@ -1,20 +1,20 @@
-
+/* ── Navbar logo ─────────────────────────────────── */
 .navbar-logo {
   display: block;
-  width: min(205px, 48vw);
-  height: auto;
-  max-height: 50px;
+  width: min(205px, 48vw); height: auto; max-height: 50px;
   object-fit: contain;
-  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, .28));
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,.32));
   transform-origin: left center;
   transition: filter .2s ease, transform .2s ease;
 }
 
 .navbar-brand:hover .navbar-logo,
 .navbar-brand:focus-visible .navbar-logo {
-  filter: brightness(1.1) drop-shadow(0 5px 14px rgba(41, 195, 255, .28));
+  filter: brightness(1.12) drop-shadow(0 4px 16px rgba(125,248,200,.28));
   transform: scale(1.025);
 }
+
+/* Scrolled state is handled via .navbar-scrolled in styles.scss */
 
 @media (max-width: 575px) {
   .navbar-logo { width: min(170px, 52vw); max-height: 44px; }

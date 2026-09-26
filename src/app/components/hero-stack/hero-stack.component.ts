@@ -15,12 +15,12 @@ export class HeroStackComponent implements AfterViewInit {
     {
       bg: '/assets/portfolio/metro1.jpg',
       title: 'METRO APP',
-      sub: 'La gema en nuestras manos. Una plataforma de exito internacional.',
+      sub: 'Plataforma digital para centralizar operaciones y facilitar la gestión diaria de proyectos.',
       siteUrl: 'https://metroapp-1c409.web.app/',
       siteLabel: 'Visitar sitio',
       modalId: 'modal1',
-      modalTitle: 'METRO APP, nuestro primer gran exito',
-      modalDesc: 'Una de las plataformas mas elegidas por los constructores de toda Argentina. Unica en su tipo, ha crecido exponencialmente en muy poco tiempo. Se abre paso internacional con una vision solida y estrategia de vanguardia.',
+      modalTitle: 'METRO APP, gestión digital para proyectos de construcción',
+      modalDesc: 'Una plataforma que organiza la operación de empresas constructoras, reúne información clave y facilita el seguimiento de cada proyecto.',
       gallery: [
         {
           src: '/assets/portfolio/metro1.jpg',
@@ -51,11 +51,11 @@ export class HeroStackComponent implements AfterViewInit {
     {
       bg: '/assets/portfolio/superrifa-hero.svg',
       title: 'SUPERSORTEO',
-      sub: 'La siguiente generacion de rifas en linea para todo el mundo',
+      sub: 'Plataforma de sorteos online con una experiencia simple y segura para participantes y administradores.',
       siteUrl: 'https://supersorteo-7db83.web.app',
       siteLabel: 'Visitar sitio',
       modalId: 'modal2',
-      modalTitle: 'Participa y gana con SUPERSORTEO',
+      modalTitle: 'SUPERSORTEO, participación y gestión de sorteos online',
       modalDesc: '',
       gallery: [
         {
@@ -87,11 +87,11 @@ export class HeroStackComponent implements AfterViewInit {
     {
       bg: '/assets/portfolio/gestorqr-dashboard.svg',
       title: 'GESTORQR',
-      sub: 'Gestion de empleados con control y trazabilidad mediante QR.',
+      sub: 'Control de asistencia y gestión de empleados mediante códigos QR.',
       siteUrl: 'https://gestor-qr-afe03.web.app',
       siteLabel: 'Visitar sitio',
       modalId: 'modal3',
-      modalTitle: 'GESTORQR - Gestion inteligente de empleados',
+      modalTitle: 'GESTORQR, control operativo con trazabilidad',
       modalDesc: 'Plataforma para administrar empleados, registrar accesos y simplificar procesos diarios de la empresa con flujos basados en QR.',
       gallery: [
         {
@@ -123,11 +123,11 @@ export class HeroStackComponent implements AfterViewInit {
     {
       bg: '/assets/portfolio/exellsior-overview.svg',
       title: 'EXELLSIOR',
-      sub: 'Sistema integral para gestionar un car wash con foco en control, velocidad y calidad de servicio.',
+      sub: 'Sistema para organizar un car wash, agilizar la atención y tener control de la operación.',
       siteUrl: 'https://exellssior-app.web.app',
       siteLabel: 'Visitar sitio',
       modalId: 'modal4',
-      modalTitle: 'EXELLSIOR - Gestion inteligente para lavaderos',
+      modalTitle: 'EXELLSIOR, operación ordenada para lavaderos',
       modalDesc: 'Aplicacion web para centralizar operacion, clientes y reportes en un solo panel. Diseñada para equipos que necesitan visibilidad en tiempo real y procesos mas ordenados.',
       gallery: [
         {

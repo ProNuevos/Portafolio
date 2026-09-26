@@ -1,58 +1,68 @@
-﻿.orb-hero { padding-bottom: 4rem !important; }
+/* ── Hero ─────────────────────────────────────────── */
+.orb-hero { padding-bottom: 7rem !important; }
 
+/* Cover image with cinematic dark overlay */
 .hero-cover {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 1;
-  background: linear-gradient(180deg, rgba(8, 48, 82, .6), rgba(12, 76, 121, .42)), url('/assets/portada/portfolio_cover_light.webp') center / cover no-repeat;
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(4,8,16,.68), rgba(5,12,24,.55)),
+    url('/assets/portada/portfolio_cover_light.webp') center / cover no-repeat;
 }
 
-.orb-hero .container { position: relative; z-index: 1; }
+.orb-hero .container { position: relative; z-index: 1; transform: translateY(-1.5rem); }
 
+/* Inline cover image (option B) */
 .hero-cover-image {
-  display: block;
-  width: min(100%, 720px);
-  max-height: 260px;
-  margin: 0 auto 1.5rem;
-  object-fit: cover;
-  object-position: center;
-  border: 1px solid rgba(255, 255, 255, .15);
-  border-radius: 1rem;
-  box-shadow: 0 18px 46px rgba(0, 0, 0, .3);
+  display: block; width: min(100%, 720px); max-height: 260px;
+  margin: 0 auto 1.5rem; object-fit: cover; object-position: center;
+  border: 1px solid rgba(255,255,255,.12); border-radius: 1rem;
+  box-shadow: 0 18px 48px rgba(0,0,0,.38);
 }
 
-/* Contraste del contenido sin ocultar la imagen de fondo */
+/* Title — white on dark overlay */
 .orb-hero .hero-main-title {
-  color: #f8fbff;
-  font-weight: 750;
-  text-shadow: 0 2px 14px rgba(5, 30, 53, .55);
+  color: #f2f8ff; font-weight: 750;
+  text-shadow: 0 2px 22px rgba(3,12,28,.6);
 }
 
+/* .glow inside hero — gradient text, override inherited text-shadow */
 .orb-hero .hero-main-title .glow {
-  color: #bce8ff;
-  text-shadow: 0 2px 14px rgba(5, 30, 53, .55);
+  text-shadow: none;
+  /* inherits global gradient text from .glow */
 }
 
 .orb-hero .lead {
-  color: rgba(248, 251, 255, .9) !important;
+  color: rgba(218,228,244,.92) !important;
   font-weight: 400;
-  text-shadow: 0 2px 10px rgba(5, 30, 53, .48);
+  text-shadow: 0 2px 14px rgba(3,12,28,.5);
 }
 
-.orb-hero .orb-eyebrow { color: #f8fbff; border-color: rgba(255,255,255,.35); background: rgba(6,42,75,.25); }
-.orb-hero .hero-proof { color: rgba(248,251,255,.86); text-shadow: 0 1px 6px rgba(5,30,53,.4); }
-.orb-hero .hero-proof i { color: #bce8ff; }
+.orb-hero .orb-eyebrow {
+  color: rgba(215,238,255,.9);
+  border-color: rgba(255,255,255,.28);
+  background: rgba(8,24,52,.2);
+}
+.orb-hero .hero-proof {
+  margin-top: 3.6rem;
+  color: rgba(215,228,248,.86);
+  text-shadow: 0 1px 8px rgba(3,12,28,.4);
+}
+.orb-hero .hero-proof i { color: #93deff; }
 
+@media (max-width: 767px) {
+  .orb-hero { padding-bottom: 4.5rem !important; }
+  .orb-hero .container { transform: translateY(-.6rem); }
+  .orb-hero .hero-proof { margin-top: 2.8rem; }
+}
+
+/* Secondary button — white ghost on dark background */
 .orb-hero .btn-outline-orb {
   --bs-btn-color: #fff;
-  --bs-btn-bg: rgba(255, 255, 255, .14);
-  --bs-btn-border-color: rgba(255, 255, 255, .78);
-  --bs-btn-hover-color: #0d4f83;
+  --bs-btn-bg: rgba(255,255,255,.11);
+  --bs-btn-border-color: rgba(255,255,255,.72);
+  --bs-btn-hover-color: #0b3158;
   --bs-btn-hover-bg: #fff;
   --bs-btn-hover-border-color: #fff;
-  box-shadow: 0 8px 20px rgba(3, 31, 56, .2);
+  box-shadow: 0 8px 22px rgba(2,18,44,.22);
   backdrop-filter: blur(4px);
 }
-

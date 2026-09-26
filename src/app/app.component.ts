@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HeroComponent } from './components/hero/hero.component';
@@ -11,13 +11,16 @@ import { ContactComponent } from './components/contact/contact.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { FloatingWaComponent } from './components/floating-wa/floating-wa.component';
 import { CallRequestComponent } from './components/call-request/call-request.component';
-import { HeroStackComponent } from "./components/hero-stack/hero-stack.component";
+import { EstimateDialogService } from './services/estimate-dialog.service';
+import { HeroStackComponent } from './components/hero-stack/hero-stack.component';
 import { TeamComponent } from './components/team/team.component';
+import { GsapAnimationsService } from './services/gsap-animations.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule,
+  imports: [
+    CommonModule,
     NavbarComponent,
     HeroComponent,
     ServicesComponent,
@@ -27,10 +30,26 @@ import { TeamComponent } from './components/team/team.component';
     ContactComponent,
     TeamComponent,
     FooterComponent,
-    FloatingWaComponent, HeroStackComponent, CallRequestComponent],
+    FloatingWaComponent,
+    HeroStackComponent,
+    CallRequestComponent
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit {
   title = 'angular17';
+
+  constructor(
+    private readonly estimateDialog: EstimateDialogService,
+    private readonly gsapAnimations: GsapAnimationsService
+  ) {}
+
+  ngAfterViewInit(): void {
+    this.gsapAnimations.init();
+  }
+
+  openEstimate(): void {
+    this.estimateDialog.open();
+  }
 }

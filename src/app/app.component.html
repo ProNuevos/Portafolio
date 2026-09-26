@@ -2,11 +2,43 @@
 <main>
 <app-hero id="inicio"></app-hero>
 <app-hero-stack></app-hero-stack>
+<section class="needs-section section" aria-labelledby="needs-title">
+  <div class="container">
+    <div class="needs-grid">
+      <div class="needs-copy">
+        <span class="orb-eyebrow"><i class="bi bi-lightbulb" aria-hidden="true"></i> Cuando tu negocio necesita avanzar</span>
+        <h2 id="needs-title">¿Te reconoces en alguno de estos problemas?</h2>
+        <p>Una buena solución digital empieza por entender lo que hoy te quita tiempo, clientes o control.</p>
+        <button type="button" class="btn btn-orb" (click)="openEstimate()">Contame qué necesitas <i class="bi bi-arrow-up-right ms-2"></i></button>
+      </div>
+      <div class="needs-list">
+        <div><i class="bi bi-chat-square-dots"></i><span>Recibes consultas y reservas por mensajes que se mezclan.</span></div>
+        <div><i class="bi bi-clock-history"></i><span>Repites las mismas tareas y pierdes tiempo cada día.</span></div>
+        <div><i class="bi bi-graph-up-arrow"></i><span>Quieres crecer, pero no tienes una herramienta que acompañe ese crecimiento.</span></div>
+        <div><i class="bi bi-window"></i><span>Necesitas una presencia profesional para que más clientes confíen en tu negocio.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
 <app-services id="servicios"></app-services>
 
 <app-process id="proceso"></app-process>
 <app-technologies id="tecnologias"></app-technologies>
 <app-team></app-team>
+<section class="trust-section section" aria-labelledby="trust-title">
+  <div class="container">
+    <div class="trust-heading text-center">
+      <span class="orb-eyebrow"><i class="bi bi-shield-check" aria-hidden="true"></i> Una forma de trabajar clara</span>
+      <h2 id="trust-title">Tu proyecto queda en buenas manos.</h2>
+      <p>Trabajo contigo para convertir una idea o un problema del día a día en una solución que puedas entender, usar y hacer crecer.</p>
+    </div>
+    <div class="trust-grid">
+      <article><i class="bi bi-person-check"></i><h3>Trato directo</h3><p>Hablas directamente con la persona que entiende tu proyecto y toma las decisiones técnicas.</p></article>
+      <article><i class="bi bi-diagram-3"></i><h3>Soluciones a medida</h3><p>Partimos de cómo funciona tu negocio para construir solo lo que realmente necesitas.</p></article>
+      <article><i class="bi bi-rocket-takeoff"></i><h3>Listo para crecer</h3><p>Entregamos una base sólida para que puedas comenzar y sumar mejoras con el tiempo.</p></article>
+    </div>
+  </div>
+</section>
 <app-cta></app-cta>
 <app-contact></app-contact>
 </main>

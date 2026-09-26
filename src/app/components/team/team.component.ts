@@ -20,8 +20,8 @@ export class TeamComponent {
   members: TeamMember[] = [
     {
       name: 'Leodanis Miranda',
-      role: 'Programador Principal',
-      description: 'Disena y desarrolla la arquitectura de las aplicaciones, implementa funcionalidades clave y asegura calidad tecnica, rendimiento y mantenibilidad.',
+      role: 'Desarrollador full stack · Fundador de Negocio Digital',
+      description: 'Diseño y desarrollo soluciones digitales para negocios que necesitan una presencia profesional, procesos más simples y herramientas que realmente puedan usar todos los días. Trabajo desde la idea inicial hasta el despliegue y la mejora continua.',
       photo: '/assets/team/leo.jpeg'
     }
   ];
