@@ -1,8 +1,10 @@
-const apiBaseUrl = 'https://orbitaback-production.up.railway.app';
+﻿const apiBaseUrl = 'https://orbitaback-production.up.railway.app';
 
 export const environment = {
   production: true,
   apiBaseUrl,
   apiUrl: `${apiBaseUrl}/api`,
-  waPhone: '5491128634744'
+  waPhone: '59896909509',
+  contactEmail: 'leodanismiranda@gmail.com'
 };
+

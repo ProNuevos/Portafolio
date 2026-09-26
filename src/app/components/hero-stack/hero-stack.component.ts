@@ -16,7 +16,7 @@ export class HeroStackComponent implements AfterViewInit {
       bg: '/assets/portfolio/metro1.jpg',
       title: 'METRO APP',
       sub: 'La gema en nuestras manos. Una plataforma de exito internacional.',
-      siteUrl: 'https://www.metroapp.site',
+      siteUrl: 'https://metroapp-1c409.web.app/',
       siteLabel: 'Visitar sitio',
       modalId: 'modal1',
       modalTitle: 'METRO APP, nuestro primer gran exito',
@@ -153,6 +153,42 @@ export class HeroStackComponent implements AfterViewInit {
           alt: 'Vista operativa del negocio Exellsior',
           capTitle: 'Vista operativa del negocio',
           capSub: 'Flujo operativo completo del lavadero con soporte digital para recepcion, seguimiento y automatizacion de tareas.'
+        }
+      ]
+    },
+    {
+      bg: '/assets/portfolio/barberia-interior.png',
+      title: 'BARBERÍA EL CORTE',
+      sub: 'Sistema de reservas para barberías con agente de IA y panel de administración.',
+      siteUrl: 'https://agente-barberia-frontend.vercel.app',
+      siteLabel: 'Visitar sitio',
+      modalId: 'modal5',
+      modalTitle: 'BARBERÍA EL CORTE - Reservas inteligentes',
+      modalDesc: 'Una experiencia digital para que los clientes consulten servicios, elijan barbero y horario, y reserven su turno desde la web o mediante un agente de IA.',
+      gallery: [
+        {
+          src: '/assets/portfolio/barberia-interior.png',
+          alt: 'Página principal de Barbería El Corte',
+          capTitle: 'Experiencia de la barbería',
+          capSub: 'Presentación visual del negocio con acceso directo a la reserva de turnos.'
+        },
+        {
+          src: '/assets/portfolio/reserva-movil.png',
+          alt: 'Reserva de turnos desde móvil',
+          capTitle: 'Reservas desde cualquier dispositivo',
+          capSub: 'Flujo de reserva adaptado a móviles para elegir servicio, barbero, fecha y hora.'
+        },
+        {
+          src: '/assets/portfolio/asistente-ia-reservas.png',
+          alt: 'Agente de IA para reservas',
+          capTitle: 'Agente de IA',
+          capSub: 'Asistente conversacional que orienta al cliente y recopila los datos necesarios para reservar.'
+        },
+        {
+          src: '/assets/portfolio/panel-administracion.png',
+          alt: 'Panel de administración de reservas',
+          capTitle: 'Panel de administración',
+          capSub: 'Gestión centralizada de reservas, servicios, barberos y disponibilidad.'
         }
       ]
     }

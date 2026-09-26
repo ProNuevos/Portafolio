@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RevealOnScrollDirective } from '../../directives/reveal-on-scroll.directive';
-import { EstimateDialogService } from '../../services/estimate-dialog.service';
+import { CallRequestService } from '../../services/call-request.service';
 
 @Component({
   selector: 'app-cta',
@@ -11,7 +11,7 @@ import { EstimateDialogService } from '../../services/estimate-dialog.service';
   styleUrls: ['./cta.component.scss']
 })
 export class CtaComponent {
-  constructor(private readonly estimateDialog: EstimateDialogService) {}
+  constructor(private readonly callRequest: CallRequestService) {}
 
-  openContactDialog() { this.estimateDialog.open(); }
+  openContactDialog() { this.callRequest.open(); }
 }

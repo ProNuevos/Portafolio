@@ -1,9 +1,9 @@
 
 .navbar-logo {
   display: block;
-  width: min(170px, 43vw);
+  width: min(205px, 48vw);
   height: auto;
-  max-height: 42px;
+  max-height: 50px;
   object-fit: contain;
   filter: drop-shadow(0 4px 10px rgba(0, 0, 0, .28));
   transform-origin: left center;
@@ -17,5 +17,5 @@
 }
 
 @media (max-width: 575px) {
-  .navbar-logo { width: min(145px, 45vw); }
+  .navbar-logo { width: min(170px, 52vw); max-height: 44px; }
 }

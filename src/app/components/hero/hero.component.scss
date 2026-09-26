@@ -1,4 +1,4 @@
-.orb-hero { padding-bottom: 4rem !important; }
+﻿.orb-hero { padding-bottom: 4rem !important; }
 
 .hero-cover {
   position: absolute;
@@ -6,7 +6,7 @@
   z-index: 0;
   pointer-events: none;
   opacity: 1;
-  background: linear-gradient(180deg, rgba(8, 48, 82, .6), rgba(12, 76, 121, .42)), url('/assets/portada/portada1.jpeg') center / cover no-repeat;
+  background: linear-gradient(180deg, rgba(8, 48, 82, .6), rgba(12, 76, 121, .42)), url('/assets/portada/portfolio_cover_light.webp') center / cover no-repeat;
 }
 
 .orb-hero .container { position: relative; z-index: 1; }
@@ -55,3 +55,4 @@
   box-shadow: 0 8px 20px rgba(3, 31, 56, .2);
   backdrop-filter: blur(4px);
 }
+

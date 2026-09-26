@@ -1,13 +1,11 @@
-import { Component, AfterViewInit, ElementRef, OnInit, QueryList, ViewChildren, ViewChild, DestroyRef, inject } from '@angular/core';
+﻿import { Component, AfterViewInit, ElementRef, OnInit, QueryList, ViewChildren, ViewChild, DestroyRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { EstimateDialogService } from '../../services/estimate-dialog.service';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
-import { LeadService } from '../../services/lead.service';
 import { WhatsAppService } from '../../services/whats-app.service';
 import { FormDataService } from '../../services/form-data.service';
-import { finalize, timeout } from 'rxjs';
-import { submissionError } from '../../services/form-utils';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-hero',
@@ -55,7 +53,6 @@ export class HeroComponent implements OnInit, AfterViewInit {
 
   constructor(
     private fb: FormBuilder,
-    private leadService: LeadService,
     private whatsAppService: WhatsAppService,
     private formDataService: FormDataService
   ) {}
@@ -125,7 +122,9 @@ export class HeroComponent implements OnInit, AfterViewInit {
   }
 
   continueWhatsApp() {
-    if (this.estimateWaLink) this.whatsAppService.open(this.estimateWaLink);
+    if (!this.estimateWaLink) return;
+    const url = new URL(this.estimateWaLink);
+    this.whatsAppService.openNative(url.searchParams.get('text') ?? 'Me interesan tus servicios para crear una solución digital.');
   }
 
   continueEmail() {
@@ -152,23 +151,17 @@ export class HeroComponent implements OnInit, AfterViewInit {
     const hits = Math.ceil((this.weights[tipo] ?? 1) * (this.alcanceMul[alcance] ?? 1.6));
     const estimado = this.baseUSD * hits;
 
-    this.estimateResult = 'Estamos enviando tu consulta…';
+    this.estimateResult = 'Preparando tu estimación…';
     this.estimateWaLink = '';
     this.estimateEmailLink = '';
     this.isSubmitting = true;
 
-    this.leadService.saveLead({ tipo, alcance, contacto: '', mensaje, hits, estimado }).pipe(timeout(20000), finalize(() => this.isSubmitting = false)).subscribe({
-      next: () => {
-        this.estimateResult = '✅ Recibimos los datos de tu proyecto.\nElegí WhatsApp o email a continuación para enviarnos tu consulta y coordinaremos una propuesta personalizada.';
-        const summary = `[Proyecto] Tipo: ${tipo} | Alcance: ${alcance}\n${mensaje}`;
-        this.estimateWaLink = this.whatsAppService.buildLink(`Hola Órbita, me interesan sus servicios.\n${summary}`);
-        this.whatsAppService.updateWaLink(this.estimateWaLink);
-        this.estimateEmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=Orbisoft.proyectos%40gmail.com&su=${encodeURIComponent('Consulta de proyecto desde el sitio web')}&body=${encodeURIComponent(`Hola Órbita, me interesan sus servicios.\n${summary}`)}`;
-      },
-      error: (error: unknown) => {
-        this.estimateResult = submissionError(error);
-      }
-    });
+    const summary = `Me interesan tus servicios para crear ${tipo.toLowerCase()} con un alcance ${alcance.toLowerCase()}.${mensaje ? `\nDescripción: ${mensaje}` : ''}`;
+    this.estimateWaLink = this.whatsAppService.buildLink(summary);
+    this.whatsAppService.updateWaLink(this.estimateWaLink);
+    this.estimateEmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(environment.contactEmail)}&su=${encodeURIComponent('Consulta de proyecto desde el sitio web')}&body=${encodeURIComponent(summary)}`;
+    this.estimateResult = 'Estimación preparada. Elegí WhatsApp o email para enviarnos tu consulta.';
+    this.isSubmitting = false;
 
   }
 
@@ -183,3 +176,5 @@ export class HeroComponent implements OnInit, AfterViewInit {
   }
 
 }
+
+

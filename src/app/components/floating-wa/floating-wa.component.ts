@@ -1,6 +1,6 @@
 ﻿import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { EstimateDialogService } from '../../services/estimate-dialog.service';
+import { WhatsAppService } from '../../services/whats-app.service';
 
 @Component({
   selector: 'app-floating-wa',
@@ -10,6 +10,9 @@ import { EstimateDialogService } from '../../services/estimate-dialog.service';
   styleUrl: './floating-wa.component.scss'
 })
 export class FloatingWaComponent {
-  constructor(private estimateDialog: EstimateDialogService) {}
-  openEstimate() { this.estimateDialog.open(); }
+  constructor(private whatsAppService: WhatsAppService) {}
+  openWhatsApp() {
+    this.whatsAppService.openNative();
+  }
 }
+

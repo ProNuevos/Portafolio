@@ -1,10 +1,7 @@
-import { Component, DestroyRef, ElementRef, ViewChild, inject } from '@angular/core';
+﻿import { Component, DestroyRef, ElementRef, ViewChild, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { WhatsAppService } from '../../services/whats-app.service';
-import { ContactService } from '../../services/contact.service';
-import { finalize, timeout } from 'rxjs';
-import { submissionError } from '../../services/form-utils';
 import { RevealOnScrollDirective } from '../../directives/reveal-on-scroll.directive';
 import { ContactDialogService } from '../../services/contact-dialog.service';
 import { EstimateDialogService } from '../../services/estimate-dialog.service';
@@ -22,7 +19,7 @@ export class ContactComponent {
   contactStatus = '';
   isSubmitting = false;
 
-  constructor(private fb: FormBuilder, private contactService: ContactService, private whatsAppService: WhatsAppService, private estimateDialog: EstimateDialogService) {
+  constructor(private fb: FormBuilder, private whatsAppService: WhatsAppService, private estimateDialog: EstimateDialogService) {
     this.dialogService.openRequests$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => this.openContact());
   }
   openEstimate() { this.estimateDialog.open(); }
@@ -34,14 +31,18 @@ export class ContactComponent {
     for (const [key, value] of Object.entries(this.contactForm.getRawValue())) { let normalized = (value ?? '').trim(); if (key === 'whatsapp' && normalized) normalized = normalizePhone(normalized); this.contactForm.get(key)?.setValue(normalized, { emitEvent: false }); }
     if (this.contactForm.invalid) { this.contactForm.markAllAsTouched(); this.contactStatus = 'Completá los campos obligatorios correctamente.'; return; }
     const payload = this.contactForm.value as { nombre: string; whatsapp: string; mensaje: string };
-    this.isSubmitting = true; this.contactStatus = 'Enviando tu mensaje…';
+    this.isSubmitting = true; this.contactStatus = 'Preparando tu consulta…';
     const whatsAppLink = this.buildWhatsMsg(payload);
     // Se ejecuta durante el clic del usuario para que el sistema permita abrir la app nativa.
     this.whatsAppService.open(whatsAppLink);
-    this.contactService.saveContact(payload).pipe(timeout(20000), finalize(() => this.isSubmitting = false)).subscribe({ next: () => { this.contactStatus = 'Mensaje enviado. Te escribimos pronto.'; this.whatsAppService.updateWaLink(this.buildWhatsMsg(payload)); }, error: error => this.contactStatus = submissionError(error) });
+    this.whatsAppService.updateWaLink(whatsAppLink);
+    this.contactStatus = 'Consulta preparada. Podés continuar por WhatsApp.';
+    this.isSubmitting = false;
   }
   buildWhatsMsg(data: { nombre?: string | null; whatsapp?: string | null; mensaje?: string | null }) { const lines = ['Hola Órbita, me interesan sus servicios.']; for (const [label, value] of [['Nombre', data.nombre], ['WhatsApp', data.whatsapp], ['Mensaje', data.mensaje]]) if (value?.trim()) lines.push(label + ': ' + value.trim()); return this.whatsAppService.buildLink(lines.join('\n')); }
   getNombreError() { const c = this.contactForm.get('nombre'); return c?.hasError('maxlength') ? 'Máximo 100 caracteres.' : c?.hasError('required') ? 'El nombre es obligatorio.' : ''; }
   getWhatsAppError() { const c = this.contactForm.get('whatsapp'); return c?.hasError('argentinaUruguayPhone') ? 'Ingresá un WhatsApp válido de Argentina o Uruguay.' : ''; }
   getMensajeError() { const c = this.contactForm.get('mensaje'); return c?.hasError('maxlength') ? 'Máximo 1000 caracteres.' : c?.hasError('required') ? 'El mensaje es obligatorio.' : ''; }
 }
+
+
