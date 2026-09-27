@@ -7,16 +7,20 @@ export class GsapAnimationsService {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     await new Promise<void>(resolve => setTimeout(resolve, 80));
-
-    const gsapModule = await import('gsap');
-    const { ScrollTrigger } = await import('gsap/ScrollTrigger');
-    const gsap = gsapModule.default;
-    gsap.registerPlugin(ScrollTrigger);
-
-    this.heroEntrance(gsap);
-    this.scrollReveals(gsap);
-    this.hoverEffects(gsap);
-    this.navbarScroll(ScrollTrigger);
+    try {
+      const gsapModule = await import('gsap');
+      const pluginModule = await import('gsap/ScrollTrigger');
+      const gsap = gsapModule.default ?? gsapModule.gsap;
+      const ScrollTrigger = pluginModule.ScrollTrigger ?? pluginModule.default;
+      if (!gsap || !ScrollTrigger) return;
+      gsap.registerPlugin(ScrollTrigger);
+      this.heroEntrance(gsap);
+      this.scrollReveals(gsap);
+      this.hoverEffects(gsap);
+      this.navbarScroll(ScrollTrigger);
+    } catch (error) {
+      console.warn('No se pudieron cargar las animaciones avanzadas; se mantiene la animación CSS.', error);
+    }
   }
 
   // ── Hero entrance ──────────────────────────────────────────────────────────

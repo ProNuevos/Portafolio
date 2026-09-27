@@ -13,7 +13,7 @@ export class HeroStackComponent implements AfterViewInit {
 
   banners = [
     {
-      bg: '/assets/portfolio/metro1.jpg',
+      bg: '/assets/portfolio/01-metro-portada.webp',
       title: 'METRO APP',
       sub: 'Plataforma digital para centralizar operaciones y facilitar la gestión diaria de proyectos.',
       siteUrl: 'https://metroapp-1c409.web.app/',
@@ -23,27 +23,27 @@ export class HeroStackComponent implements AfterViewInit {
       modalDesc: 'Una plataforma que organiza la operación de empresas constructoras, reúne información clave y facilita el seguimiento de cada proyecto.',
       gallery: [
         {
-          src: '/assets/portfolio/metro1.jpg',
+          src: '/assets/portfolio/01-metro-portada.webp',
           alt: 'Vista principal de Metro App',
           capTitle: 'Vista principal',
           capSub: 'Pantalla inicial del producto con acceso rapido a los modulos clave.'
         },
         {
-          src: '/assets/portfolio/metro2.jpg',
-          alt: 'Panel de gestion de Metro App',
-          capTitle: 'Panel de gestion',
+          src: '/assets/portfolio/02-metro-presupuestos.webp',
+          alt: 'Presupuestos de Metro App',
+          capTitle: 'Presupuestos',
           capSub: 'Operacion centralizada con informacion relevante para el seguimiento diario.'
         },
         {
-          src: '/assets/portfolio/metro3.jpg',
-          alt: 'Modulo operativo de Metro App',
-          capTitle: 'Modulo operativo',
+          src: '/assets/portfolio/03-metro-materiales.webp',
+          alt: 'Gestion de materiales de Metro App',
+          capTitle: 'Gestion de materiales',
           capSub: 'Flujos pensados para agilizar tareas y mejorar el control del negocio.'
         },
         {
-          src: '/assets/portfolio/metro4.jpg',
-          alt: 'Vista complementaria de Metro App',
-          capTitle: 'Vista complementaria',
+          src: '/assets/portfolio/04-metro-movil-archi.webp',
+          alt: 'Version movil de Metro App',
+          capTitle: 'Version movil',
           capSub: 'Experiencia visual consistente para consultar datos y ejecutar acciones rapidamente.'
         }
       ]
@@ -157,35 +157,71 @@ export class HeroStackComponent implements AfterViewInit {
       ]
     },
     {
-      bg: '/assets/portfolio/barberia-interior.png',
+      bg: '/assets/portfolio/01-portada.webp',
+      title: 'VIAJES APP',
+      sub: 'Plataforma de viajes para consultar destinos, visualizar asientos y gestionar reservas desde cualquier dispositivo.',
+      siteUrl: 'https://viajesapp-d0b15.web.app/',
+      siteLabel: 'Visitar sitio',
+      modalId: 'modal5',
+      modalTitle: 'VIAJES APP, reservas de viajes simples y conectadas',
+      modalDesc: 'Aplicación web para explorar viajes, consultar la disponibilidad de asientos y administrar las reservas desde una experiencia clara y adaptable a móviles.',
+      gallery: [
+        {
+          src: '/assets/portfolio/01-portada.webp',
+          alt: 'Página principal de Viajes App',
+          capTitle: 'Página principal',
+          capSub: 'Experiencia inicial para descubrir viajes y acceder rápidamente a las opciones disponibles.'
+        },
+        {
+          src: '/assets/portfolio/02-movil.webp',
+          alt: 'Versión móvil de Viajes App',
+          capTitle: 'Experiencia móvil',
+          capSub: 'Diseño adaptado a teléfonos para consultar y reservar viajes de forma cómoda.'
+        },
+        {
+          src: '/assets/portfolio/03-asientos.webp',
+          alt: 'Selección de asientos en Viajes App',
+          capTitle: 'Selección de asientos',
+          capSub: 'Flujo visual para consultar la disponibilidad y elegir el asiento antes de confirmar la reserva.'
+        },
+        {
+          src: '/assets/portfolio/04-admin.webp',
+          alt: 'Panel de administración de Viajes App',
+          capTitle: 'Panel de administración',
+          capSub: 'Herramientas para gestionar viajes, asientos y reservas desde un único lugar.'
+        }
+      ]
+    },
+    {
+      bg: '/assets/portfolio/barberia-interior-optimized.jpg',
       title: 'BARBERÍA EL CORTE',
       sub: 'Sistema de reservas para barberías con agente de IA y panel de administración.',
       siteUrl: 'https://agente-barberia-frontend.vercel.app',
       siteLabel: 'Visitar sitio',
-      modalId: 'modal5',
+      modalId: 'modal6',
       modalTitle: 'BARBERÍA EL CORTE - Reservas inteligentes',
       modalDesc: 'Una experiencia digital para que los clientes consulten servicios, elijan barbero y horario, y reserven su turno desde la web o mediante un agente de IA.',
       gallery: [
         {
-          src: '/assets/portfolio/barberia-interior.png',
+          src: '/assets/portfolio/barberia-interior-optimized.jpg',
           alt: 'Página principal de Barbería El Corte',
           capTitle: 'Experiencia de la barbería',
           capSub: 'Presentación visual del negocio con acceso directo a la reserva de turnos.'
         },
         {
-          src: '/assets/portfolio/reserva-movil.png',
+          src: '/assets/portfolio/reserva-movil-optimized.jpg',
           alt: 'Reserva de turnos desde móvil',
           capTitle: 'Reservas desde cualquier dispositivo',
           capSub: 'Flujo de reserva adaptado a móviles para elegir servicio, barbero, fecha y hora.'
         },
         {
-          src: '/assets/portfolio/asistente-ia-reservas.png',
+          src: '/assets/portfolio/asistente-ia-reservas-optimized.jpg',
           alt: 'Agente de IA para reservas',
           capTitle: 'Agente de IA',
           capSub: 'Asistente conversacional que orienta al cliente y recopila los datos necesarios para reservar.'
         },
         {
-          src: '/assets/portfolio/panel-administracion.png',
+          src: '/assets/portfolio/panel-administracion-optimized.jpg',
           alt: 'Panel de administración de reservas',
           capTitle: 'Panel de administración',
           capSub: 'Gestión centralizada de reservas, servicios, barberos y disponibilidad.'
@@ -223,3 +259,4 @@ export class HeroStackComponent implements AfterViewInit {
     });
   }
 }
+

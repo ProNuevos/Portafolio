@@ -46,7 +46,7 @@ export class AppComponent implements AfterViewInit {
   ) {}
 
   ngAfterViewInit(): void {
-    this.gsapAnimations.init();
+    requestAnimationFrame(() => this.gsapAnimations.init());
   }
 
   openEstimate(): void {
