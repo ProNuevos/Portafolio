@@ -8,14 +8,15 @@
     <article *ngFor="let b of banners" class="hero-banner">
       <div class="hero-bg" [style.background-image]="'url(' + b.bg + ')'"></div>
       <div class="hero-content mx-auto">
-        <span class="project-label">Caso de estudio</span>
+        <span class="project-label" [ngClass]="'project-label--' + b.statusTone"><i class="bi" [ngClass]="b.statusTone === 'implemented' ? 'bi-check-circle-fill' : b.statusTone === 'demo' ? 'bi-play-circle-fill' : 'bi-stars'" aria-hidden="true"></i>{{ b.status }}</span>
         <h3 class="hero-title">{{ b.title }}</h3>
         <p class="hero-sub mb-0">{{ b.sub }}</p>
-        <a class="banner-link" [href]="b.siteUrl" target="_blank" rel="noopener noreferrer" [attr.aria-label]="'Visitar ' + b.title + ' (abre en otra pestaña)'">
+        <p class="project-note" *ngIf="b.availabilityNote"><i class="bi bi-info-circle" aria-hidden="true"></i>{{ b.availabilityNote }}</p>
+        <a *ngIf="b.siteUrl" class="banner-link" [href]="b.siteUrl" target="_blank" rel="noopener noreferrer" [attr.aria-label]="b.siteLabel + ' de ' + b.title + ' (abre en otra pestaña)'">
           {{ b.siteLabel }}
         </a>
       </div>
-      <button type="button" class="banner-cta" data-bs-toggle="modal" [attr.data-bs-target]="'#' + b.modalId" [attr.aria-label]="'Ver detalles de ' + b.title">Ver proyecto <i class="bi bi-arrow-up-right" aria-hidden="true"></i></button>
+      <button type="button" class="banner-cta" data-bs-toggle="modal" [attr.data-bs-target]="'#' + b.modalId" [attr.aria-label]="(b.ctaLabel || 'Ver proyecto') + ' de ' + b.title">{{ b.ctaLabel || 'Ver proyecto' }} <i class="bi bi-arrow-up-right" aria-hidden="true"></i></button>
     </article>
   </section>
 </div></section>

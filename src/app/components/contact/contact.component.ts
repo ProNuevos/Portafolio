@@ -23,6 +23,7 @@ export class ContactComponent {
     this.dialogService.openRequests$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => this.openContact());
   }
   openEstimate() { this.estimateDialog.open(); }
+  openEmail(event: MouseEvent) { event.preventDefault(); window.location.href = 'mailto:leodanismiranda@gmail.com'; }
   openContact() { if (this.dialog.nativeElement.open) return; this.returnFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null; this.previousOverflow = document.body.style.overflow; this.dialog.nativeElement.showModal(); document.body.style.overflow = 'hidden'; }
   closeContact() { this.dialog.nativeElement.close(); this.contactForm.reset({ nombre: '', whatsapp: '', mensaje: '' }); this.contactStatus = ''; this.isSubmitting = false; document.body.style.overflow = this.previousOverflow; this.returnFocus?.focus(); }
   onBackdropClick(event: MouseEvent) { const dialog = this.dialog.nativeElement; const rect = dialog.getBoundingClientRect(); if (event.target === dialog && (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom)) this.closeContact(); }

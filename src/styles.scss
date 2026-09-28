@@ -242,7 +242,12 @@ section[id] { scroll-margin-top: 76px; }
 }
 .hero-banner:hover .hero-bg { transform: scale(1.06); }
 .hero-content { position: relative; z-index: 1; max-width: 700px; padding: clamp(1.5rem, 4vw, 3rem); text-align: left; }
-.project-label { display: inline-block; margin-bottom: .65rem; color: var(--orb-primary); font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.project-label { display: inline-flex; align-items: center; gap: .42rem; margin-bottom: .65rem; padding: .38rem .7rem; border: 1px solid currentColor; border-radius: 999px; font-size: .68rem; font-weight: 750; letter-spacing: .08em; text-transform: uppercase; backdrop-filter: blur(8px); }
+.project-label--demo { color: #8be9ff; background: rgba(24, 177, 214, .16); }
+.project-label--adaptable { color: #c9b5ff; background: rgba(126, 87, 194, .18); }
+.project-label--implemented { color: #9ff0c1; background: rgba(34, 154, 96, .18); }
+.project-note { display: flex; gap: .45rem; max-width: 34rem; margin: .85rem 0 0; color: rgba(255, 255, 255, .82); font-size: .82rem; line-height: 1.5; }
+.project-note i { flex: 0 0 auto; color: #9ff0c1; margin-top: .12rem; }
 .hero-title { margin: 0 0 .65rem; color: #fff; font-size: clamp(1.65rem, 3vw, 2.65rem); font-weight: 720; line-height: 1.08; letter-spacing: -.035em; }
 .hero-sub   { max-width: 620px; color: #c2ccd4; line-height: 1.55; }
 .banner-link { display: inline-flex; margin-top: 1.1rem; color: #fff; font-size: .9rem; font-weight: 650; text-decoration-color: var(--orb-primary); text-underline-offset: .35rem; }

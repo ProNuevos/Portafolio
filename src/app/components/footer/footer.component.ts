@@ -15,4 +15,5 @@ export class FooterComponent {
   constructor(private readonly callRequest: CallRequestService) {}
 
   openContactDialog() { this.callRequest.open(); }
+  openEmail(event: MouseEvent) { event.preventDefault(); window.location.href = 'mailto:leodanismiranda@gmail.com'; }
 }
