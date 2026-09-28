@@ -233,7 +233,7 @@ section[id] { scroll-margin-top: 76px; }
 }
 .hero-banner::before {
   content: ""; position: absolute; inset: 0; z-index: 0;
-  background: linear-gradient(180deg, rgba(4,8,14,.05) 10%, rgba(4,8,14,.93) 100%);
+  background: linear-gradient(180deg, rgba(4,8,14,.48) 0%, rgba(4,8,14,.7) 42%, rgba(4,8,14,.98) 100%);
 }
 .hero-bg {
   position: absolute; inset: 0; z-index: -1;
